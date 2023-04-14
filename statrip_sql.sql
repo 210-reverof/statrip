@@ -316,6 +316,27 @@ CREATE TABLE IF NOT EXISTS `statrip`.`place_comment` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `statrip`.`subscribe`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `statrip`.`subscribe` (
+  `follower_id` VARCHAR(20) NOT NULL,
+  `following_id` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`follower_id`, `following_id`),
+  INDEX `following_to_follower_fk_idx` (`following_id` ASC) VISIBLE,
+  CONSTRAINT `follower_to_following_fk`
+    FOREIGN KEY (`follower_id`)
+    REFERENCES `statrip`.`user` (`user_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `following_to_follower_fk`
+    FOREIGN KEY (`following_id`)
+    REFERENCES `statrip`.`user` (`user_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
