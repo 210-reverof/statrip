@@ -129,7 +129,7 @@ ENGINE = InnoDB;
 -- Table `statrip`.`route`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `statrip`.`route` (
-  `route_id` VARCHAR(20) NOT NULL,
+  `route_id` INT NOT NULL,
   `user_id` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`route_id`, `user_id`),
   INDEX `user_to_route_user_id_fk_idx` (`user_id` ASC) VISIBLE,
@@ -145,7 +145,7 @@ ENGINE = InnoDB;
 -- Table `statrip`.`route_relation`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `statrip`.`route_relation` (
-  `route_id` VARCHAR(20) NOT NULL,
+  `route_id` INT NOT NULL,
   `attraction_id` INT NOT NULL,
   `order` INT NOT NULL DEFAULT 0,
   `visited` TINYINT NOT NULL DEFAULT 0,
@@ -171,7 +171,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `statrip`.`share_article` (
   `share_article_id` INT NOT NULL,
   `user_id` VARCHAR(20) NOT NULL,
-  `route_id` VARCHAR(20) NOT NULL,
+  `route_id` INT NOT NULL,
   `title` VARCHAR(50) NOT NULL,
   `content` TEXT NOT NULL,
   `created_time` TIMESTAMP NOT NULL DEFAULT current_timestamp,
@@ -206,7 +206,7 @@ CREATE TABLE IF NOT EXISTS `statrip`.`question_article` (
   `hit` INT NOT NULL DEFAULT 0,
   PRIMARY KEY (`question_article_id`),
   INDEX `user_to_share_article_user_id_fk_idx` (`user_id` ASC) VISIBLE,
-  CONSTRAINT `user_to_share_article_user_id_fk`
+  CONSTRAINT `user_to_question_article_user_id_fk`
     FOREIGN KEY (`user_id`)
     REFERENCES `statrip`.`user` (`user_id`)
     ON DELETE NO ACTION
@@ -317,9 +317,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `statrip`.`subscribe`
+-- Table `statrip`.`follow`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `statrip`.`subscribe` (
+CREATE TABLE IF NOT EXISTS `statrip`.`follow` (
   `follower_id` VARCHAR(20) NOT NULL,
   `following_id` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`follower_id`, `following_id`),
