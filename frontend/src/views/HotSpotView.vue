@@ -1,11 +1,11 @@
 <template>
-  <div class="home">
-    <h1>홈페이지</h1>
+  <div class="hotspot">
+    <h1>핫스팟</h1>
   </div>
 </template>
 
 <script>
 export default {
-  name: "HomeView",
+  name: "HotSpotView",
 };
 </script>
