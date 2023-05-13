@@ -10,9 +10,7 @@
             <router-link to="/plan" style="color: Black">MY PLAN</router-link>
           </li>
           <li>
-            <router-link to="/hotspot" style="color: Black"
-              >HOT SPOT</router-link
-            >
+            <router-link to="/hotspot" style="color: Black">HOT SPOT</router-link>
           </li>
           <li>
             <router-link to="/share" style="color: Black">SHARE</router-link>
@@ -34,3 +32,5 @@ export default {
   name: "ConfirmHeader",
 };
 </script>
+
+<style></style>
