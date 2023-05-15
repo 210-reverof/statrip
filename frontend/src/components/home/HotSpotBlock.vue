@@ -2,7 +2,7 @@
   <div class="hot-spot-block" align="center">
     <div class="card-panel">
       <div>
-        <h3 style="color: white; font-size: 40px; margin: 30px">Hot Spot</h3>
+        <h3 style="color: white; font-size: 40px; padding: 30px">Hot Spot</h3>
         <div class="card-carousel-wrapper">
           <button class="card-carousel--nav__left" @click="moveCarousel(-1)" :disabled="atHeadOfList"></button>
           <div class="card-carousel">
@@ -63,9 +63,15 @@ export default {
 
 <style>
 .card-panel {
-  margin-top: -250px;
+  margin-top: -200px;
   width: 1500px;
   height: 700px;
+}
+
+.card-panel h3 {
+  color: #ffffff; 
+  font-size: 40px; 
+  font-weight: bold;
 }
 
 .card-carousel-wrapper {
@@ -117,7 +123,6 @@ export default {
   transition: transform 150ms ease-out;
   transform: translatex(0px);
 }
-
 
 .card-carousel--card {
   margin: 0 20px;

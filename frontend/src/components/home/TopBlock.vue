@@ -17,6 +17,6 @@ export default {};
   background-image: url("@/assets/home/home-bg-1.png");
   background-size: cover;
   background-repeat: no-repeat;
-  height: 900px;
+  height: 600px;
 }
 </style>
