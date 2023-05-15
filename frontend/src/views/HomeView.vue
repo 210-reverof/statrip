@@ -1,14 +1,20 @@
 <template>
     <div class="home">
-        <h1>홈페이지</h1>
-        <b-button variant="success">Click me!</b-button>
+        <top-block></top-block>
+        <hot-spot-block></hot-spot-block>
     </div>
 </template>
 
 <script>
+import TopBlock from '@/components/home/TopBlock.vue';
+import HotSpotBlock from '@/components/home/HotSpotBlock.vue';
 
 export default {
   name: "HomeView",
+  components: {
+    TopBlock,
+    HotSpotBlock
+  }
 };
 
 </script>
