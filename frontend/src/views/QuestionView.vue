@@ -1,6 +1,9 @@
 <template>
   <div class="question">
-    <h1>질문게시판</h1>
+    <h3>임시(QuestionView)</h3>
+    <hr>
+    
+    <router-view></router-view>
   </div>
 </template>
 

@@ -28,7 +28,15 @@ const routes = [
   {
     path: '/question',
     name: 'question',
-    component: () => import(/* webpackChunkName: "question" */ '@/views/QuestionView.vue')
+    component: () => import(/* webpackChunkName: "question" */ '@/views/QuestionView.vue'),
+    redirect: "/question/list",
+    children:[
+      {
+        path: 'list',
+        name: 'questionList',
+        component: () => import(/* webpackChunkName: "question" */ '@/components/question/QuestionList.vue'),
+      }
+    ]
   },
   {
     path: '/mypage',
