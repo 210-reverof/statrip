@@ -18,7 +18,15 @@ const routes = [
   {
     path: '/hotspot',
     name: 'hotspot',
-    component: () => import(/* webpackChunkName: "hotspot" */ '@/views/HotSpotView.vue')
+    component: () => import(/* webpackChunkName: "hotspot" */ '@/views/HotSpotView.vue'),
+    redirect: "/hotspot/list",
+    children:[
+      {
+        path: 'list',
+        name: 'questionList',
+        component: () => import(/* webpackChunkName: "question" */ '@/components/hotspot/HotspotList.vue'),
+      }
+    ]
   },
   {
     path: '/share',
