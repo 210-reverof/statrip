@@ -1,29 +1,17 @@
 <template>
-  <header>
-    <div class="container-fluid">
-      <div>
-        <ul>
-          <li>
-            <router-link to="/" style="color: Black">statrip</router-link>
-          </li>
-          <li>
-            <router-link to="/plan" style="color: Black">MY PLAN</router-link>
-          </li>
-          <li>
-            <router-link to="/hotspot" style="color: Black">HOT SPOT</router-link>
-          </li>
-          <li>
-            <router-link to="/share" style="color: Black">SHARE</router-link>
-          </li>
-          <li>
-            <router-link to="/question" style="color: Black">Q&A</router-link>
-          </li>
-          <li>
-            <router-link to="/mypage" style="color: Black">MY PAGE</router-link>
-          </li>
-        </ul>
-      </div>
-    </div>
+  <header class="custom-header">
+    <b-navbar type="dark">
+      <b-navbar-brand to="/">
+        <img src="@/assets/common/logo_white.png" style="max-width: 100px; max-height: 60px; padding-left: 20px;" class="mr-2" />
+      </b-navbar-brand>
+      <b-nav class="ml-auto">
+        <router-link to="/plan" class="nav-link">MY PLAN</router-link>
+        <router-link to="/hotspot" class="nav-link">HOT SPOT</router-link>
+        <router-link to="/share" class="nav-link">SHARE</router-link>
+        <router-link to="/question" class="nav-link">Q&A</router-link>
+        <router-link to="/mypage" class="nav-link">MY PAGE</router-link>
+      </b-nav>
+    </b-navbar>
   </header>
 </template>
 
@@ -33,4 +21,20 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.nav-link {
+  color: white;
+  text-decoration: none;
+}
+
+.router-link-active.nav-link {
+  color: grey;
+}
+
+.custom-header {
+  background-color: #323F30;
+  font-family: 'Hahmlet', sans-serif;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+</style>
