@@ -2,10 +2,17 @@
   <b-container class="mt-3" >
     <div>
       <b-row>
+      <b-col>
+        <h2>Hot Spots</h2>
+        <h5>나만의 핫스팟을 인증샷과 함께 자랑해주세요</h5>
+        <hr>
+      </b-col>
+    </b-row>
+      <b-row>
         <b-col cols="3" v-for="(article, index) in articles" :key="index">
           <div class="col-style">
             {{article.writer}}
-            <img :src=article.img alt=article.imgss><br>
+            <img class="img-style"  :src=article.img alt=article.imgss><br>
             {{article.likes}}
           </div>
         </b-col>
@@ -47,8 +54,8 @@ export default {
 .col-style {
   margin: 1%;
   margin-bottom: 20%;
-  padding-top: 10%;
-  padding-bottom: 10%;
+  padding-top: 5%;
+  padding-bottom: 5%;
   border-radius: 1%;
 	border-width: 1px;
 	border-color: #DDF9FF;
@@ -58,8 +65,10 @@ export default {
 }
 .img-style {
   text-align: center;
-  margin-top:20px;
-  margin-bottom:20px;
+  margin-top:10px;
+  margin-bottom:10px;
+  width: 90%;
+  height: auto;
   border-radius: 3%;
   border: 1;
 }
