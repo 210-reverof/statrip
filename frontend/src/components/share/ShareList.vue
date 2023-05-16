@@ -8,6 +8,7 @@
           <hr>
         </b-col>
       </b-row>
+      
       <b-row
         id="my-row"
         :items="items"
@@ -20,6 +21,11 @@
         </b-col>
       </b-row>
     </div>
+    
+    <b-row>
+        <b-col cols="10"></b-col>
+        <b-col cols="2"><b-button squared variant="outline-info">글쓰기</b-button></b-col>
+    </b-row>
     <b-pagination
       class="center"
       v-model="currentPage"

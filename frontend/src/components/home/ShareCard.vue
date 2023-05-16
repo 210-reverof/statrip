@@ -1,16 +1,16 @@
 <template>
     <div class="share-card">
         <div class="col-style">
-            <b-row class="row-style">
+            <b-row class="share-header">
               <b-col cols="8">
                 <user-tag class="user-tag"></user-tag>
               </b-col>
-              <b-col cols="4" class="like-button">
-                article.likes
+              <b-col cols="4" >
+                <like-tag class="user-tag" :is-liked="true" :number="5"></like-tag>
               </b-col>
             </b-row>
-            <img src="http://placehold.it/300x200?text=No-image"><br>
-            <b-row class="row-style">
+            <img src="http://placehold.it/300x200?text=No-image" class="img-style"><br>
+            <b-row>
               <b-col cols="8">
                 article.content
               </b-col>
@@ -24,10 +24,12 @@
 
 <script>
 import UserTag from '@/components/common/UserTag.vue';
+import LikeTag from "@/components/common/LikeTag.vue";
 
 export default {
     name: "ShareCard",
     components: {
+        LikeTag,
         UserTag
     },
     methods: {
@@ -43,10 +45,11 @@ export default {
 .share-card:hover {
   opacity: 0.8;
 }
-
+.share-header {
+  margin: auto;
+}
 .user-tag {
-    padding-top: 20px;
-    padding-left: 40px;
+  margin: auto;
 }
 .col-style {
   margin: 5%;
