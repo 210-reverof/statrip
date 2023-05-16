@@ -8,8 +8,8 @@
           <div class="card-carousel">
             <div class="card-carousel--overflow-container">
               <div class="card-carousel-cards" :style="{ transform: 'translateX(' + currentOffset + 'px)' }">
-                <div class="card-carousel--card" v-for="item in items" :key="item.name">
-                  <hot-spot-card></hot-spot-card>
+                <div class="card-carousel--card" v-for="item in items" :key="item">
+                  <hot-spot-card :imagePath="'https://via.placeholder.com/300x400'"></hot-spot-card>
                 </div>
               </div>
             </div>
