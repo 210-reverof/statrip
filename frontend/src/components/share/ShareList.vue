@@ -10,25 +10,7 @@
       </b-row>
       <b-row>
         <b-col cols="6" v-for="(article, index) in articles" :key="index">
-          <div class="col-style">
-            <b-row class="row-style">
-              <b-col cols="8">
-                <user-tag class="user-tag"></user-tag>
-              </b-col>
-              <b-col cols="4" class="like-button">
-                {{article.likes}}
-              </b-col>
-            </b-row>
-            <img class="img-style"  :src=article.img alt=article.imgss><br>
-            <b-row class="row-style">
-              <b-col cols="8">
-                {{article.content}}
-              </b-col>
-              <b-col cols="4">
-                {{article.regitdate}}
-              </b-col>
-            </b-row>
-          </div>
+          <share-card></share-card>
         </b-col>
       </b-row>
     </div>
@@ -36,24 +18,24 @@
 </template>
 
 <script>
-import UserTag from '@/components/common/UserTag.vue';
+import ShareCard from '@/components/home/ShareCard.vue';
 export default {
   name: "ShareList",
   components: {
-        UserTag
+    ShareCard
   },
   data: function () {
     return {
       articles: [
           {id:1, writer:'Jessica_jj', img:"http://placehold.it/300x200?text=No-image", likes:"12", content:"이 경로 진짜 짱짱 추천입니다", regitdate:"2023.03.03"},
-          {id:1, writer:'Jessica_jj', img:"http://placehold.it/300x200?text=No-image", likes:"12", content:"이 경로 진짜 짱짱 추천입니다", regitdate:"2023.03.03"},
-          {id:1, writer:'Jessica_jj', img:"http://placehold.it/300x200?text=No-image", likes:"12", content:"이 경로 진짜 짱짱 추천입니다", regitdate:"2023.03.03"},
-          {id:1, writer:'Jessica_jj', img:"http://placehold.it/300x200?text=No-image", likes:"12", content:"이 경로 진짜 짱짱 추천입니다", regitdate:"2023.03.03"},
-          {id:1, writer:'Jessica_jj', img:"http://placehold.it/300x200?text=No-image", likes:"12", content:"이 경로 진짜 짱짱 추천입니다", regitdate:"2023.03.03"},
-          {id:1, writer:'Jessica_jj', img:"http://placehold.it/300x200?text=No-image", likes:"12", content:"이 경로 진짜 짱짱 추천입니다", regitdate:"2023.03.03"},
-          {id:1, writer:'Jessica_jj', img:"http://placehold.it/300x200?text=No-image", likes:"12", content:"이 경로 진짜 짱짱 추천입니다", regitdate:"2023.03.03"},
-          {id:1, writer:'Jessica_jj', img:"http://placehold.it/300x200?text=No-image", likes:"12", content:"이 경로 진짜 짱짱 추천입니다", regitdate:"2023.03.03"},
-          {id:1, writer:'Jessica_jj', img:"http://placehold.it/300x200?text=No-image", likes:"12", content:"이 경로 진짜 짱짱 추천입니다", regitdate:"2023.03.03"},
+          {id:2, writer:'Jessica_jj', img:"http://placehold.it/300x200?text=No-image", likes:"12", content:"이 경로 진짜 짱짱 추천입니다", regitdate:"2023.03.03"},
+          {id:3, writer:'Jessica_jj', img:"http://placehold.it/300x200?text=No-image", likes:"12", content:"이 경로 진짜 짱짱 추천입니다", regitdate:"2023.03.03"},
+          {id:4, writer:'Jessica_jj', img:"http://placehold.it/300x200?text=No-image", likes:"12", content:"이 경로 진짜 짱짱 추천입니다", regitdate:"2023.03.03"},
+          {id:5, writer:'Jessica_jj', img:"http://placehold.it/300x200?text=No-image", likes:"12", content:"이 경로 진짜 짱짱 추천입니다", regitdate:"2023.03.03"},
+          {id:6, writer:'Jessica_jj', img:"http://placehold.it/300x200?text=No-image", likes:"12", content:"이 경로 진짜 짱짱 추천입니다", regitdate:"2023.03.03"},
+          {id:7, writer:'Jessica_jj', img:"http://placehold.it/300x200?text=No-image", likes:"12", content:"이 경로 진짜 짱짱 추천입니다", regitdate:"2023.03.03"},
+          {id:8, writer:'Jessica_jj', img:"http://placehold.it/300x200?text=No-image", likes:"12", content:"이 경로 진짜 짱짱 추천입니다", regitdate:"2023.03.03"},
+          {id:9, writer:'Jessica_jj', img:"http://placehold.it/300x200?text=No-image", likes:"12", content:"이 경로 진짜 짱짱 추천입니다", regitdate:"2023.03.03"},
       ]
     }
   },
@@ -63,9 +45,7 @@ export default {
 </script>
 
 <style scoped>
-.like-button{
-  margin: auto;
-}
+
 
 .col-style {
   margin: 5%;
