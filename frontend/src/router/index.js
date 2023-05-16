@@ -38,6 +38,11 @@ const routes = [
         path: 'list',
         name: 'shareList',
         component: () => import(/* webpackChunkName: "question" */ '@/components/share/ShareList.vue'),
+      },
+      {
+        path: 'detail',
+        name: 'shareDetail',
+        component: () => import(/* webpackChunkName: "question" */ '@/components/share/ShareDetail.vue'),
       }
     ]
   },
