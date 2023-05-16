@@ -8,12 +8,25 @@
           <hr>
         </b-col>
       </b-row>
-      <b-row>
-        <b-col cols="6" v-for="(article, index) in articles" :key="index">
+      <b-row
+        id="my-row"
+        :items="items"
+        :per-page="perPage"
+        :current-page="currentPage"
+      >
+        <b-col cols="6" v-for="item in lists" :key="item.name">
+            {{item.id}}
           <share-card></share-card>
         </b-col>
       </b-row>
     </div>
+    <b-pagination
+      class="center"
+      v-model="currentPage"
+      :total-rows="totalRows"
+      :per-page="perPage"
+      aria-controls="my-row"
+    ></b-pagination>
   </b-container>
 </template>
 
@@ -26,7 +39,9 @@ export default {
   },
   data: function () {
     return {
-      articles: [
+      perPage: 6,
+      currentPage: 1,
+      items: [
           {id:1, writer:'Jessica_jj', img:"http://placehold.it/300x200?text=No-image", likes:"12", content:"이 경로 진짜 짱짱 추천입니다", regitdate:"2023.03.03"},
           {id:2, writer:'Jessica_jj', img:"http://placehold.it/300x200?text=No-image", likes:"12", content:"이 경로 진짜 짱짱 추천입니다", regitdate:"2023.03.03"},
           {id:3, writer:'Jessica_jj', img:"http://placehold.it/300x200?text=No-image", likes:"12", content:"이 경로 진짜 짱짱 추천입니다", regitdate:"2023.03.03"},
@@ -40,6 +55,19 @@ export default {
     }
   },
   created() {},
+  computed: {
+    lists () {
+      const items = this.items;
+      // Return just page of items needed
+      return items.slice(
+        (this.currentPage - 1) * this.perPage,
+        this.currentPage * this.perPage
+      )
+    },
+    totalRows () {
+      return this.items.length
+    }
+  },
   methods: {},
 };
 </script>
@@ -47,23 +75,13 @@ export default {
 <style scoped>
 
 
+.center {
+  justify-content: center;
+}
+
 .col-style {
   margin: 5%;
-  margin-bottom: 10%;
-  padding-bottom: 5%;
-  border-radius: 1%;
-	border-width: 1px;
-	border-color: #b0b0b0;
-  border-style: solid;
-  box-shadow: 1px 1px 10px #b0b0b0;
-}
-.img-style {
-  text-align: center;
-  margin-top:10px;
-  margin-bottom:10px;
-  width: 90%;
-  height: auto;
-  border: 1;
+  padding: 5%;
 }
 
 </style>

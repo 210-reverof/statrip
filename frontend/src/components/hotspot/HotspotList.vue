@@ -10,16 +10,14 @@
       </b-row>
         {{currentPage}}
       <b-row
-        id="my-table"
+        id="my-row"
         :items="items"
         :per-page="perPage"
         :current-page="currentPage"
       >
         <b-col cols="3" v-for="item in lists" :key="item.name">
-          <div class="col-style">
             {{item.id}}
             <hot-spot-card></hot-spot-card>
-          </div>
         </b-col>
       </b-row>
     </div>
@@ -28,7 +26,7 @@
       v-model="currentPage"
       :total-rows="totalRows"
       :per-page="perPage"
-      aria-controls="my-table"
+      aria-controls="my-row"
     ></b-pagination>
   </b-container>
 </template>
