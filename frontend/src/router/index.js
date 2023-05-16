@@ -23,7 +23,7 @@ const routes = [
     children:[
       {
         path: 'list',
-        name: 'questionList',
+        name: 'hotspotList',
         component: () => import(/* webpackChunkName: "question" */ '@/components/hotspot/HotspotList.vue'),
       }
     ]
@@ -31,7 +31,15 @@ const routes = [
   {
     path: '/share',
     name: 'share',
-    component: () => import(/* webpackChunkName: "share" */ '@/views/ShareView.vue')
+    component: () => import(/* webpackChunkName: "share" */ '@/views/ShareView.vue'),
+    redirect: "/share/list",
+    children:[
+      {
+        path: 'list',
+        name: 'shareList',
+        component: () => import(/* webpackChunkName: "question" */ '@/components/share/ShareList.vue'),
+      }
+    ]
   },
   {
     path: '/mypage',
