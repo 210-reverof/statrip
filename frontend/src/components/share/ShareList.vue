@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-3" >
+  <div>
     <div class="contents-block">
       <b-row>
         <b-col>
@@ -15,9 +15,9 @@
         :per-page="perPage"
         :current-page="currentPage"
       >
-        <b-col cols="6" v-for="item in lists" :key="item.name">
+        <b-col cols="6" v-for="item in lists" :key="item.name" @click="moveDetail(item)">
             {{item.id}}
-          <share-card :detail="item"></share-card>
+          <share-card :detail="item" ></share-card>
         </b-col>
       </b-row>
     </div>
@@ -74,13 +74,19 @@ export default {
       return this.items.length
     }
   },
-  methods: {},
+  methods: {
+    moveDetail(item){
+      console.log(item.id);
+      this.$router.push({name:'shareDetail', params:{item: item}});
+
+    }
+  },
 };
 </script>
 
 <style scoped>
 .contents-block {
-  width: 1500px;
+  max-width: 1500px;
   justify-content: center;
   margin: 0 auto;
 }
