@@ -1,5 +1,8 @@
 <template>
-  <div class="hot-spot-card" :style="backgroundImage=imagePath">
+  <div
+    class="hot-spot-card"
+    :style="{ backgroundImage: 'url(' + this.imagePath + ')' }"
+  >
     <user-tag class="user-tag"></user-tag>
     <like-tag class="like-tag" :is-liked="true" :number="5"></like-tag>
   </div>
@@ -26,15 +29,7 @@ export default {
       this.$refs.card.style.opacity = 0.5;
     },
   },
-  computed: {
-    dynamicStyles() {
-      return {
-        backgroundColor: this.imagePath,
-      };
-    },
-  },
   created() {
-    console.log(this.imagePath);
   },
 };
 </script>
@@ -43,8 +38,6 @@ export default {
 .hot-spot-card {
   width: 300px;
   height: 400px;
-  /* background-color: yellowgreen; */
-  /* background-image: url(imagePath) */
 }
 
 .hot-spot-card:hover {
