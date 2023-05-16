@@ -1,14 +1,9 @@
 <template>
-  <b-container class="mt-3">
-    <div>
-      <b-row>
-        <b-col>
-          <h2>Hot Spots</h2>
-          <h5>나만의 핫스팟을 인증샷과 함께 자랑해주세요</h5>
-          <hr />
-        </b-col>
-      </b-row>
-        {{currentPage}}
+  <div class="hot-spot-card">
+    <div class="contents-block">
+      <h2>Hot Spots</h2>
+      <h5>나만의 핫스팟을 인증샷과 함께 자랑해주세요</h5>
+      {{ currentPage }}
       <b-row
         id="my-row"
         :items="items"
@@ -16,27 +11,48 @@
         :current-page="currentPage"
       >
         <b-col cols="3" v-for="item in lists" :key="item.name">
-            {{item.id}}
-            <hot-spot-card></hot-spot-card>
+          {{ item.id }}
+          <hot-spot-card
+            :imagePath="'https://via.placeholder.com/300x400'"
+          ></hot-spot-card>
         </b-col>
       </b-row>
+      <b-pagination
+        class="center"
+        v-model="currentPage"
+        :total-rows="totalRows"
+        :per-page="perPage"
+        aria-controls="my-row"
+      ></b-pagination>
     </div>
-    <b-pagination
-      class="center"
-      v-model="currentPage"
-      :total-rows="totalRows"
-      :per-page="perPage"
-      aria-controls="my-row"
-    ></b-pagination>
-  </b-container>
+  </div>
 </template>
+
+<style scoped>
+.hot-spot-card {
+  justify-content: center;
+  background-color: red;
+}
+.contents-block {
+  justify-content: center;
+  margin: 0 auto;
+  background-color: aqua;
+  width: 1500px;
+  height: 800px;
+}
+
+.col-style {
+  margin: 5%;
+  padding: 5%;
+}
+</style>
 
 <script>
 import HotSpotCard from "@/components/home/HotSpotCard.vue";
 export default {
   name: "HotspotList",
   components: {
-    HotSpotCard
+   HotSpotCard,
   },
   data: function () {
     return {
@@ -108,29 +124,17 @@ export default {
   },
   created() {},
   computed: {
-    lists () {
+    lists() {
       const items = this.items;
-      // Return just page of items needed
       return items.slice(
         (this.currentPage - 1) * this.perPage,
         this.currentPage * this.perPage
-      )
+      );
     },
-    totalRows () {
-      return this.items.length
-    }
+    totalRows() {
+      return this.items.length;
+    },
   },
   methods: {},
 };
 </script>
-
-<style scoped>
-.center {
-  justify-content: center;
-}
-
-.col-style {
-  margin: 5%;
-  padding: 5%;
-}
-</style>
