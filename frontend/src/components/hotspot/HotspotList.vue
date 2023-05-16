@@ -1,79 +1,136 @@
 <template>
-  <b-container class="mt-3" >
+  <b-container class="mt-3">
     <div>
       <b-row>
-      <b-col>
-        <h2>Hot Spots</h2>
-        <h5>나만의 핫스팟을 인증샷과 함께 자랑해주세요</h5>
-        <hr>
-      </b-col>
-    </b-row>
-      <b-row>
-        <b-col cols="3" v-for="(article, index) in articles" :key="index">
-          <div class="col-style">
-            <user-tag class="user-tag"></user-tag>
-            <img class="img-style"  :src=article.img alt=article.imgss><br>
-            {{article.likes}}
-          </div>
+        <b-col>
+          <h2>Hot Spots</h2>
+          <h5>나만의 핫스팟을 인증샷과 함께 자랑해주세요</h5>
+          <hr />
+        </b-col>
+      </b-row>
+        {{currentPage}}
+      <b-row
+        id="my-row"
+        :items="items"
+        :per-page="perPage"
+        :current-page="currentPage"
+      >
+        <b-col cols="3" v-for="item in lists" :key="item.name">
+            {{item.id}}
+            <hot-spot-card></hot-spot-card>
         </b-col>
       </b-row>
     </div>
+    <b-pagination
+      class="center"
+      v-model="currentPage"
+      :total-rows="totalRows"
+      :per-page="perPage"
+      aria-controls="my-row"
+    ></b-pagination>
   </b-container>
 </template>
 
 <script>
-import UserTag from '@/components/common/UserTag.vue';
+import HotSpotCard from "@/components/home/HotSpotCard.vue";
 export default {
   name: "HotspotList",
   components: {
-        UserTag
+    HotSpotCard
   },
   data: function () {
     return {
-      articles: [
-          {id:1, writer:'Jessica_jj', img:"http://placehold.it/200x300?text=No-image", likes:"12"},
-          {id:1, writer:'Jessica_jj', img:"http://placehold.it/200x300?text=No-image", likes:"12"},
-          {id:1, writer:'Jessica_jj', img:"http://placehold.it/200x300?text=No-image", likes:"12"},
-          {id:1, writer:'Jessica_jj', img:"http://placehold.it/200x300?text=No-image", likes:"12"},
-          {id:1, writer:'Jessica_jj', img:"http://placehold.it/200x300?text=No-image", likes:"12"},
-          {id:1, writer:'Jessica_jj', img:"http://placehold.it/200x300?text=No-image", likes:"12"},
-          {id:1, writer:'Jessica_jj', img:"http://placehold.it/200x300?text=No-image", likes:"12"},
-          {id:1, writer:'Jessica_jj', img:"http://placehold.it/200x300?text=No-image", likes:"12"},
-          {id:1, writer:'Jessica_jj', img:"http://placehold.it/200x300?text=No-image", likes:"12"},
-          {id:1, writer:'Jessica_jj', img:"http://placehold.it/200x300?text=No-image", likes:"12"},
-      ]
-    }
+      perPage: 8,
+      currentPage: 1,
+      items: [
+        {
+          id: 1,
+          writer: "Jessica_jj",
+          img: "http://placehold.it/200x300?text=No-image",
+          likes: "12",
+        },
+        {
+          id: 2,
+          writer: "Jessica_jj",
+          img: "http://placehold.it/200x300?text=No-image",
+          likes: "12",
+        },
+        {
+          id: 3,
+          writer: "Jessica_jj",
+          img: "http://placehold.it/200x300?text=No-image",
+          likes: "12",
+        },
+        {
+          id: 4,
+          writer: "Jessica_jj",
+          img: "http://placehold.it/200x300?text=No-image",
+          likes: "12",
+        },
+        {
+          id: 5,
+          writer: "Jessica_jj",
+          img: "http://placehold.it/200x300?text=No-image",
+          likes: "12",
+        },
+        {
+          id: 6,
+          writer: "Jessica_jj",
+          img: "http://placehold.it/200x300?text=No-image",
+          likes: "12",
+        },
+        {
+          id: 7,
+          writer: "Jessica_jj",
+          img: "http://placehold.it/200x300?text=No-image",
+          likes: "12",
+        },
+        {
+          id: 8,
+          writer: "Jessica_jj",
+          img: "http://placehold.it/200x300?text=No-image",
+          likes: "12",
+        },
+        {
+          id: 9,
+          writer: "Jessica_jj",
+          img: "http://placehold.it/200x300?text=No-image",
+          likes: "12",
+        },
+        {
+          id: 10,
+          writer: "Jessica_jj",
+          img: "http://placehold.it/200x300?text=No-image",
+          likes: "12",
+        },
+      ],
+    };
   },
   created() {},
+  computed: {
+    lists () {
+      const items = this.items;
+      // Return just page of items needed
+      return items.slice(
+        (this.currentPage - 1) * this.perPage,
+        this.currentPage * this.perPage
+      )
+    },
+    totalRows () {
+      return this.items.length
+    }
+  },
   methods: {},
 };
 </script>
 
 <style scoped>
-.row-style{
-  justify-content:center;
+.center {
+  justify-content: center;
 }
 
 .col-style {
-  margin: 1%;
-  margin-bottom: 20%;
-  padding-top: 5%;
-  padding-bottom: 5%;
-  border-radius: 1%;
-	border-width: 1px;
-	border-color: #DDF9FF;
-  border-style: solid;
-  box-shadow: 1px 1px 10px #b0b0b0;
-  background-color: #DDF9FF;
+  margin: 5%;
+  padding: 5%;
 }
-.img-style {
-  text-align: center;
-  margin-top:10px;
-  margin-bottom:10px;
-  width: 90%;
-  height: auto;
-  border-radius: 3%;
-  border: 1;
-}
-
 </style>
