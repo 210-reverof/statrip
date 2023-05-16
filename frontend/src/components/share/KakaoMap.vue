@@ -16,7 +16,7 @@ export default {
     },
     created() {},
     mounted(){
-        if(window.kakao && window.kakao.map){
+        if(window.kakao && window.kakao.maps){
             this.loadMap();
         }
         else{
@@ -25,18 +25,18 @@ export default {
     },
     methods: {
         loadScript(){
-            const script = document.getElement("script");
-            script.src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7f1d9c7263f294dd3411aab9d1530c4e"
-            script.onload = ()=> window.kakao.maps.load(this.loadMap);
+            const script = document.createElement("script");
+            script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey="+process.env.VUE_APP_KAKAO_KEY+"&autoload=false";
+            script.onload = () => window.kakao.maps.load(this.loadMap);
             document.head.appendChild(script);
         },
-        load(){
-            const container = document.getElementById("map");
+        loadMap(){
+            const container = document.getElementById('map');
             const options = {
-                center: new kakao.maps.LatLng(33.450701, 126.570667),
+                center: new window.kakao.maps.LatLng(33.450701, 126.570667),
                 level: 3
             };
-            this.map = new kakao.maps.Map(container, options);
+            this.map = new window.kakao.maps.Map(container, options);
         }
     },
 };
@@ -44,7 +44,8 @@ export default {
 
 <style scoped>
 #map{
-    width: 80%;
+    width: 800px;
     height: 400px;
+    margin: auto;
 }
 </style>
