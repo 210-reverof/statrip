@@ -8,15 +8,16 @@
           <hr />
         </b-col>
       </b-row>
+        {{currentPage}}
       <b-row
         id="my-table"
-        :articles="articles"
+        :items="items"
         :per-page="perPage"
         :current-page="currentPage"
       >
-      
-        <b-col cols="3" v-for="article in articles" :key="article.name">
+        <b-col cols="3" v-for="item in lists" :key="item.name">
           <div class="col-style">
+            {{item.id}}
             <hot-spot-card></hot-spot-card>
           </div>
         </b-col>
@@ -25,7 +26,7 @@
     <b-pagination
       class="center"
       v-model="currentPage"
-      :total-rows="rows"
+      :total-rows="totalRows"
       :per-page="perPage"
       aria-controls="my-table"
     ></b-pagination>
@@ -43,7 +44,7 @@ export default {
     return {
       perPage: 8,
       currentPage: 1,
-      articles: [
+      items: [
         {
           id: 1,
           writer: "Jessica_jj",
@@ -51,55 +52,55 @@ export default {
           likes: "12",
         },
         {
-          id: 1,
+          id: 2,
           writer: "Jessica_jj",
           img: "http://placehold.it/200x300?text=No-image",
           likes: "12",
         },
         {
-          id: 1,
+          id: 3,
           writer: "Jessica_jj",
           img: "http://placehold.it/200x300?text=No-image",
           likes: "12",
         },
         {
-          id: 1,
+          id: 4,
           writer: "Jessica_jj",
           img: "http://placehold.it/200x300?text=No-image",
           likes: "12",
         },
         {
-          id: 1,
+          id: 5,
           writer: "Jessica_jj",
           img: "http://placehold.it/200x300?text=No-image",
           likes: "12",
         },
         {
-          id: 1,
+          id: 6,
           writer: "Jessica_jj",
           img: "http://placehold.it/200x300?text=No-image",
           likes: "12",
         },
         {
-          id: 1,
+          id: 7,
           writer: "Jessica_jj",
           img: "http://placehold.it/200x300?text=No-image",
           likes: "12",
         },
         {
-          id: 1,
+          id: 8,
           writer: "Jessica_jj",
           img: "http://placehold.it/200x300?text=No-image",
           likes: "12",
         },
         {
-          id: 1,
+          id: 9,
           writer: "Jessica_jj",
           img: "http://placehold.it/200x300?text=No-image",
           likes: "12",
         },
         {
-          id: 1,
+          id: 10,
           writer: "Jessica_jj",
           img: "http://placehold.it/200x300?text=No-image",
           likes: "12",
@@ -109,9 +110,17 @@ export default {
   },
   created() {},
   computed: {
-    rows() {
-      return this.articles.length;
+    lists () {
+      const items = this.items;
+      // Return just page of items needed
+      return items.slice(
+        (this.currentPage - 1) * this.perPage,
+        this.currentPage * this.perPage
+      )
     },
+    totalRows () {
+      return this.items.length
+    }
   },
   methods: {},
 };
