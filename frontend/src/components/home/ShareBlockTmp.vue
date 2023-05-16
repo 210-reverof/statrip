@@ -1,22 +1,22 @@
+// 임시라 나중에 지우기
 <template>
   <div align="center">
     <b-row class="share-header">
       <b-col cols="8">
         <user-tag class="user-tag"></user-tag>
       </b-col>
-      <b-col cols="4">
-        -
-      </b-col>
+      <b-col cols="4"> - </b-col>
     </b-row>
-    <b-col cols="1" v-for="item in items" :key="item.id">
-      <img :src="item.img" />
-    </b-col>
-    <b-col cols="8">
-        여행지 개수
+    <b-row>
+      <b-col clos="1"></b-col>
+      <b-col cols="3" v-for="item in items" :key="item.name">
+        <img :src="item.img" />
       </b-col>
-      <b-col cols="4">
-        거리
-      </b-col>
+      
+      <b-col clos="1"></b-col>
+    </b-row>
+    <b-col cols="8"> 여행지 개수 </b-col>
+    <b-col cols="4"> 거리 </b-col>
   </div>
 </template>
 
@@ -63,4 +63,11 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+
+.center {
+  justify-content: center;
+  margin: 0 auto;
+}
+
+</style>
