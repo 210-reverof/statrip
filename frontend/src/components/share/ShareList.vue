@@ -17,7 +17,7 @@
       >
         <b-col cols="6" v-for="item in lists" :key="item.name">
             {{item.id}}
-          <share-card></share-card>
+          <share-card :detail="item"></share-card>
         </b-col>
       </b-row>
     </div>

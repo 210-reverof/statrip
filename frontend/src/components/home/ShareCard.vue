@@ -9,13 +9,13 @@
                 <like-tag class="user-tag" :is-liked="true" :number="5"></like-tag>
               </b-col>
             </b-row>
-            <img src="http://placehold.it/300x200?text=No-image" class="img-style"><br>
+            <img :src=detail.img alt=detail.img class="img-style"><br>
             <b-row>
               <b-col cols="8">
-                article.content
+                {{detail.content}}
               </b-col>
               <b-col cols="4">
-                article.regitdate
+                {{detail.regitdate}}
               </b-col>
             </b-row>
           </div>
@@ -31,6 +31,14 @@ export default {
     components: {
         LikeTag,
         UserTag
+    },
+    props:{
+      detail:{
+        img: {
+          type: String,
+          required: true,
+        },
+      }
     },
     methods: {
         hoverEffect() {
