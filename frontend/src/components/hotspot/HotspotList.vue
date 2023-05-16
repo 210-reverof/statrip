@@ -11,7 +11,7 @@
       <b-row>
         <b-col cols="3" v-for="(article, index) in articles" :key="index">
           <div class="col-style">
-            {{article.writer}}
+            <user-tag class="user-tag"></user-tag>
             <img class="img-style"  :src=article.img alt=article.imgss><br>
             {{article.likes}}
           </div>
@@ -22,9 +22,12 @@
 </template>
 
 <script>
+import UserTag from '@/components/common/UserTag.vue';
 export default {
   name: "HotspotList",
-  components: {},
+  components: {
+        UserTag
+  },
   data: function () {
     return {
       articles: [
