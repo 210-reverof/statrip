@@ -1,6 +1,6 @@
 <template>
-  <b-container class="mt-3" >
-    <div>
+  <div class="mt-3" >
+    <div class="contents-block">
       <b-row>
         <b-col>
           <h2>Share</h2>
@@ -33,7 +33,7 @@
       :per-page="perPage"
       aria-controls="my-row"
     ></b-pagination>
-  </b-container>
+  </div>
 </template>
 
 <script>
@@ -79,7 +79,11 @@ export default {
 </script>
 
 <style scoped>
-
+.contents-block {
+  width: 1500px;
+  justify-content: center;
+  margin: 0 auto;
+}
 
 .center {
   justify-content: center;
