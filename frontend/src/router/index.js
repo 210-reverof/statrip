@@ -56,6 +56,11 @@ const routes = [
         path: 'detail',
         name: 'shareDetail',
         component: () => import(/* webpackChunkName: "question" */ '@/components/share/ShareDetail.vue'),
+      },
+      {
+        path: 'plan',
+        name: 'viewPlan',
+        component: () => import(/* webpackChunkName: "question" */ '@/components/share/ViewPlan.vue'),
       }
     ]
   },

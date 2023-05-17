@@ -4,18 +4,13 @@
     <h5>자신이 자랑하고싶은 여행 경로를 공유해주세요</h5>
     <hr />
     <div class="block-tmp-size">
-        <share-block-tmp ></share-block-tmp>
-        {{item.id}}<br>
-        {{item.writer}}<br>
-        <img :src=item.img><br>
-        {{item.likes}}<br>
-        {{item.content}}<br>
-        {{item.regitdate}}<br>
-    <b-row>
-      <b-col> </b-col>
-    </b-row>
+        <div @click="moveViewPlan()"><plan-card></plan-card></div>
+        <b-row>
+          {{item.content}}<br>
+        </b-row>
+        <hr>
+        <share-comment-list></share-comment-list>
     </div>
-    <share-map></share-map>
     <b-row>
         <b-col cols="10"></b-col>
         <b-col cols="2">
@@ -29,14 +24,14 @@
 
 <script>
 
-import ShareBlockTmp from '@/components/home/ShareBlockTmp.vue';
-import ShareMap from './ShareMap.vue';
+import PlanCard from '@/components/home/PlanCard.vue'
+import ShareCommentList from './shareComment/ShareCommentList.vue';
 
 export default {
   name: "ShareDetail",
   components: {
-    ShareBlockTmp,
-    ShareMap
+    PlanCard,
+    ShareCommentList
   },
   data: function () {
     return {
@@ -47,13 +42,19 @@ export default {
     this.item = this.$route.params.item;
     // item.id로 경로 불러와서 경로 다 찍어주기
   },
-  methods: {},
+  methods: {
+    moveViewPlan(){
+      console.log("click");
+      this.$router.push({name:'viewPlan'});
+
+    }
+  },
 };
 </script>
 
 <style scoped>
 .contents-block {
-  max-width: 1500px;
+  max-width: 1800px;
   justify-content: center;
   margin: 0 auto;
 }
@@ -61,4 +62,5 @@ export default {
 .block-tmp-size{
     widows: 50%;
 }
+
 </style>

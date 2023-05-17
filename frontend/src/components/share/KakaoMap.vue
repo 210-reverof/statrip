@@ -15,7 +15,6 @@ export default {
         };
     },
     created() {
-        console.log(process.env.VUE_APP_KAKAO_KEY);
     },
     mounted(){
         if(window.kakao && window.kakao.maps){
@@ -28,8 +27,7 @@ export default {
     methods: {
         loadScript(){
             const script = document.createElement("script");
-            // script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey="+process.env.VUE_APP_KAKAO_KEY+"&autoload=false";
-            script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey=16f6cc9334d56036de512a858997f912&autoload=false";
+            script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey="+process.env.VUE_APP_KAKAO_KEY+"&autoload=false";
             script.onload = () => window.kakao.maps.load(this.loadMap);
             document.head.appendChild(script);
         },
@@ -40,7 +38,52 @@ export default {
                 level: 3
             };
             this.map = new window.kakao.maps.Map(container, options);
+            
+            this.drawLine1();
+            this.drawLine2();
+        },
+        drawLine1(){
+
+            console.log(1);
+            const linePath = [
+                new window.kakao.maps.LatLng(33.452344169439975, 126.56878163224233),
+                new window.kakao.maps.LatLng(33.452739313807456, 126.5709308145358),
+                new window.kakao.maps.LatLng(33.45178067090639, 126.5726886938753) 
+            ];
+            // 지도에 표시할 선을 생성합니다
+            const polyline = new window.kakao.maps.Polyline({
+                path: linePath, // 선을 구성하는 좌표배열 입니다
+                strokeWeight: 5, // 선의 두께 입니다
+                strokeColor: '#FFAE00', // 선의 색깔입니다
+                strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+                strokeStyle: 'solid' // 선의 스타일입니다
+            });
+
+            // 지도에 선을 표시합니다 
+            polyline.setMap(this.map);
+
+        },
+        drawLine2(){
+            console.log(2);
+            const linePath1 = [
+                new window.kakao.maps.LatLng(33.452544169439975, 126.56878163224233),
+                new window.kakao.maps.LatLng(33.452939313807456, 126.5709308145358),
+                new window.kakao.maps.LatLng(33.45198067090639, 126.5726886938753) 
+            ];
+            // 지도에 표시할 선을 생성합니다
+            const polyline1 = new window.kakao.maps.Polyline({
+                path: linePath1, // 선을 구성하는 좌표배열 입니다
+                strokeWeight: 5, // 선의 두께 입니다
+                strokeColor: '#AAAE00', // 선의 색깔입니다
+                strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+                strokeStyle: 'solid' // 선의 스타일입니다
+            });
+
+            // 지도에 선을 표시합니다 
+            polyline1.setMap(this.map);
+
         }
+
     },
 };
 </script>

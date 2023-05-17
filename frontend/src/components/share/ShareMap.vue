@@ -8,7 +8,7 @@
 import KakaoMap from './KakaoMap.vue';
 
 export default {
-    name: 'ShareMap',
+    name: 'ViewPlan',
     components: {
         KakaoMap
     },
