@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="share-list">
     <div class="contents-block">
       <b-row>
         <b-col>
@@ -16,7 +16,6 @@
         :current-page="currentPage"
       >
         <b-col cols="6" v-for="item in lists" :key="item.name" @click="moveDetail(item)">
-            {{item.id}}
           <share-card :detail="item" ></share-card>
         </b-col>
       </b-row>
@@ -85,6 +84,10 @@ export default {
 </script>
 
 <style scoped>
+.share-list {
+  justify-content: center;
+}
+
 .contents-block {
   max-width: 1500px;
   justify-content: center;
