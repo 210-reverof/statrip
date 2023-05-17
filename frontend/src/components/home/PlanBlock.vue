@@ -26,7 +26,7 @@ export default {
 .plan-block {
   background-color: #E8F1E0;
   width: 100%;
-  height: 500px;
+  margin: 40px;
 }
 
 .plan-block h3 {
@@ -34,6 +34,10 @@ export default {
   font-size: 40px; 
   font-weight: bold;
   padding-top: 100px;
+}
+
+.plan-card-container {
+  padding-bottom: 100px;
 }
 
 </style>
