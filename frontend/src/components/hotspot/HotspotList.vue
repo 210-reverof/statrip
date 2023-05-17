@@ -1,22 +1,27 @@
 <template>
-  <div class="hot-spot-card">
+  <div class="hot-spot-list">
     <div class="contents-block">
       <h2>Hot Spots</h2>
       <h5>나만의 핫스팟을 인증샷과 함께 자랑해주세요</h5>
-      {{ currentPage }}
-      <b-row
-        id="my-row"
-        :items="items"
-        :per-page="perPage"
-        :current-page="currentPage"
-      >
-        <b-col cols="3" v-for="item in lists" :key="item.name">
-          {{ item.id }}
-          <hot-spot-card
-            :imagePath="'https://via.placeholder.com/300x400'"
-          ></hot-spot-card>
-        </b-col>
-      </b-row>
+      <div class="card-holder">
+        <b-row
+          id="my-row"
+          :items="items"
+          :per-page="perPage"
+          :current-page="currentPage"
+        >
+          <b-col
+            class="card-col"
+            cols="3"
+            v-for="item in lists"
+            :key="item.name"
+          >
+            <hot-spot-card
+              :imagePath="'https://via.placeholder.com/300x400'"
+            ></hot-spot-card>
+          </b-col>
+        </b-row>
+      </div>
       <b-pagination
         class="center"
         v-model="currentPage"
@@ -29,21 +34,29 @@
 </template>
 
 <style scoped>
-.hot-spot-card {
+.hot-spot-list {
   justify-content: center;
-  background-color: red;
 }
 .contents-block {
   justify-content: center;
   margin: 0 auto;
-  background-color: aqua;
   width: 1500px;
-  height: 800px;
 }
 
-.col-style {
-  margin: 5%;
-  padding: 5%;
+.b-row {
+  display: flex;
+  justify-content: center;
+}
+
+.card-col {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 2%;
+}
+
+.b-pagination {
+  display: flex;
+  justify-content: center;
 }
 </style>
 
@@ -52,7 +65,7 @@ import HotSpotCard from "@/components/home/HotSpotCard.vue";
 export default {
   name: "HotspotList",
   components: {
-   HotSpotCard,
+    HotSpotCard,
   },
   data: function () {
     return {
