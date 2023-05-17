@@ -13,7 +13,20 @@ const routes = [
   {
     path: '/plan',
     name: 'plan',
-    component: () => import(/* webpackChunkName: "plan" */ '@/views/PlanView.vue')
+    component: () => import(/* webpackChunkName: "plan" */ '@/views/PlanView.vue'),
+    redirect: "/plan/list",
+    children: [
+      {
+        path: 'list',
+        name: 'planList',
+        component: () => import(/* webpackChunkName: "plan" */ '@/components/plan/PlanList.vue'),
+      },
+      {
+        path: 'add',
+        name: 'planAdd',
+        component: () => import(/* webpackChunkName: "plan" */ '@/components/plan/PlanAdd.vue'),
+      }
+    ]
   },
   {
     path: '/hotspot',
