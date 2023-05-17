@@ -14,7 +14,9 @@ export default {
             map:null
         };
     },
-    created() {},
+    created() {
+        console.log(process.env.VUE_APP_KAKAO_KEY);
+    },
     mounted(){
         if(window.kakao && window.kakao.maps){
             this.loadMap();
