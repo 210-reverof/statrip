@@ -27,7 +27,8 @@ export default {
     methods: {
         loadScript(){
             const script = document.createElement("script");
-            script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey="+process.env.VUE_APP_KAKAO_KEY+"&autoload=false";
+            script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey=16f6cc9334d56036de512a858997f912&autoload=false";
+            // script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey="+process.env.VUE_APP_KAKAO_KEY+"&autoload=false";
             script.onload = () => window.kakao.maps.load(this.loadMap);
             document.head.appendChild(script);
         },
@@ -66,9 +67,10 @@ export default {
         drawLine2(){
             console.log(2);
             const linePath1 = [
-                new window.kakao.maps.LatLng(33.452544169439975, 126.56878163224233),
-                new window.kakao.maps.LatLng(33.452939313807456, 126.5709308145358),
-                new window.kakao.maps.LatLng(33.45198067090639, 126.5726886938753) 
+                new window.kakao.maps.LatLng(33.45254416, 126.56),
+                new window.kakao.maps.LatLng(33.45293931, 126.57),
+                new window.kakao.maps.LatLng(33.45198067, 126.57),
+                new window.kakao.maps.LatLng(33.45178067090639, 126.5726886938753) 
             ];
             // 지도에 표시할 선을 생성합니다
             const polyline1 = new window.kakao.maps.Polyline({
@@ -90,8 +92,8 @@ export default {
 
 <style scoped>
 #map{
-    width: 800px;
-    height: 400px;
+    width: 100%;
+    height: 800px;
     margin: auto;
 }
 </style>
