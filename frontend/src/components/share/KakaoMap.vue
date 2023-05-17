@@ -28,7 +28,8 @@ export default {
     methods: {
         loadScript(){
             const script = document.createElement("script");
-            script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey="+process.env.VUE_APP_KAKAO_KEY+"&autoload=false";
+            // script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey="+process.env.VUE_APP_KAKAO_KEY+"&autoload=false";
+            script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey=16f6cc9334d56036de512a858997f912&autoload=false";
             script.onload = () => window.kakao.maps.load(this.loadMap);
             document.head.appendChild(script);
         },
