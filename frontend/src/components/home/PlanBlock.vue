@@ -10,7 +10,7 @@
 import PlanCard from './PlanCard.vue';
 
 export default {
-  name: "HotSpotBlock",
+  name: "PlanBlock",
   components: {
     PlanCard
   },
