@@ -30,7 +30,8 @@ export default {
 
 <style scoped>
 .plan-card {
-  margin: 60px;
+  width: 1800px;
+  margin-bottom: 40px;
 }
 
 .card-background {

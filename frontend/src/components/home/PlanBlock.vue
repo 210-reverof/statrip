@@ -34,6 +34,7 @@ export default {
   font-size: 40px; 
   font-weight: bold;
   padding-top: 100px;
+  padding-bottom: 60px;
 }
 
 .plan-card-container {

@@ -2,13 +2,19 @@
   <div class="top-block">
     <div>
       <h1>최고의 여행지</h1>
-      <b-button class="mx-3" variant="success">여행 경로 추가하기</b-button>
+      <b-button :click="moveToAddPlan" class="mx-3" variant="success">여행 경로 추가하기</b-button>
       <b-button class="mx-3" variant="dark">내 핫스팟 인증하기</b-button>
     </div>
   </div>
 </template>
 <script>
-export default {};
+export default {
+  methods: {
+    moveToAddPlan() {
+      this.$router.push('/plan/add');
+    }
+  }
+};
 </script>
 
 <style>
