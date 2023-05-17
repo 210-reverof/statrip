@@ -2,15 +2,18 @@
   <div id="app">
     <confirm-header></confirm-header>
     <router-view></router-view>
+    <common-footer></common-footer>
   </div>
 </template>
 
 <script>
+import CommonFooter from './components/common/CommonFooter.vue';
 import ConfirmHeader from './components/common/ConfirmHeader.vue';
 
 export default {
   components: {
-    ConfirmHeader
+    ConfirmHeader,
+    CommonFooter
   }
 }
 </script>
