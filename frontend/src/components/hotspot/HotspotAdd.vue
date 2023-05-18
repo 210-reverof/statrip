@@ -1,8 +1,34 @@
 <template>
-  <div>
+  <div class="contents-block">
     <h2>Hot Spots</h2>
     <h5>나만의 핫스팟을 인증샷과 함께 자랑해주세요</h5>
     <hr />
+    <div>
+      <div style="text-align:left">경로 입력</div>
+      <!-- <plan-card></plan-card> -->
+      <b-form-select
+        v-model="rootselected"
+        :options="rootoptions"
+      ></b-form-select>
+
+      <div class="mt-3">
+        <h4>선택됨: <strong>{{ rootselected }}</strong></h4>
+      </div>
+    </div>
+    <div>
+      <div style="text-align:left">관광지 선택</div>
+      <b-form-select
+        v-model="attrselected"
+        :options="attroptions"
+      ></b-form-select>
+
+      <div class="mt-3">
+        <h4>선택됨: <strong>{{ attrselected }}</strong></h4>
+      </div>
+    </div>
+
+    <hr />
+
     <div class="center">
       <div class="img-upload-form">
         <div v-if="images" class="w-full h-full flex items-center">
@@ -38,21 +64,43 @@
         </div>
       </div>
     </div>
-    <div>
-      사진 추가
-    </div>
+    <div>사진 추가</div>
+    <b-button class="btn-pos" squared variant="outline-danger" @click="$router.push({ name: 'hotspotList' })">뒤로가기</b-button>
+    <b-button class="btn-pos" squared variant="outline-info" @click="$router.push({name: 'hotspotList'})">글쓰기</b-button>
   </div>
 </template>
 
 <script>
 // https://arikong.tistory.com/22
+//해당 사용자의 모든 계획들 불러와서 rootption에 넣고
+//rootselect가 선택되면 해당 계획의 모든 관광지들을 attroption에 넣어야 함
+
+// import PlanCard from '@/components/home/PlanCard.vue'
 
 export default {
   name: "HotspotAdd",
-  components: {},
+  components: {
+    // PlanCard
+  },
   data() {
     return {
       images: "",
+      rootselected: null,
+      rootoptions: [
+        { value: null, text: "Please select an option" },
+        { value: "a", text: "This is First option" },
+        { value: "b", text: "Selected Option" },
+        { value: { C: "3PO" }, text: "This is an option with object value" },
+        { value: "d", text: "This one is disabled", disabled: true },
+      ],
+      attrselected: null,
+      attroptions: [
+        { value: null, text: "Please select an option" },
+        { value: "a", text: "This is First option" },
+        { value: "b", text: "Selected Option" },
+        { value: { C: "3PO" }, text: "This is an option with object value" },
+        { value: "d", text: "This one is disabled", disabled: true },
+      ],
     };
   },
   created() {},
@@ -83,6 +131,11 @@ export default {
 </script>
 
 <style scoped>
+.contents-block {
+  max-width: 1500px;
+  justify-content: center;
+  margin: 0 auto;
+}
 .center {
   display: flex;
   justify-content: center;

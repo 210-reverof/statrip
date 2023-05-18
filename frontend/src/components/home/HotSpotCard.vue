@@ -111,7 +111,6 @@ export default {
   position: absolute;
   top: -35%;
   right: 10%;
-  background-color: aqua;
   width: 30px;
   height: 30px;
 }
