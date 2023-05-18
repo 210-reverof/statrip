@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import KakaoMap from "@/components/share/KakaoMap.vue";
+import KakaoMap from "@/components/plan/KakaoMap.vue";
 import PlanDisplay from "@/components/plan/side/PlanDisplay.vue";
 import PlanSearch from "@/components/plan/side/PlanSearch.vue";
 
@@ -26,7 +26,7 @@ export default {
   methods: {
     addPointToMap(lat, lng) {
       console.log("in adding board");
-      this.$refs.kakaomap.addPoint(lat, lng); // lat과 lng은 실제 좌표값으로 대체해야 합니다.
+      this.$refs.kakaomap.addPoint(lat, lng);
     },
   },
 };
