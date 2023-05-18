@@ -25,6 +25,11 @@ const routes = [
         path: 'add',
         name: 'planAdd',
         component: () => import(/* webpackChunkName: "plan" */ '@/components/plan/PlanAdd.vue'),
+      },
+      {
+        path: 'plan',
+        name: 'viewPlan',
+        component: () => import(/* webpackChunkName: "plan" */ '@/components/plan/view/PlanView.vue'),
       }
     ]
   },
@@ -56,11 +61,6 @@ const routes = [
         path: 'detail',
         name: 'shareDetail',
         component: () => import(/* webpackChunkName: "question" */ '@/components/share/ShareDetail.vue'),
-      },
-      {
-        path: 'plan',
-        name: 'viewPlan',
-        component: () => import(/* webpackChunkName: "question" */ '@/components/share/ViewPlan.vue'),
       }
     ]
   },
