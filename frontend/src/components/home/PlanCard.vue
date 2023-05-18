@@ -2,10 +2,13 @@
   <div class="plan-card">
     <div class="card-background">
       <user-tag class="user-tag"></user-tag>
-      <b-row class="image-row">
-        <img class="thumbnail" src="https://via.placeholder.com/400x300" />
-        <img class="thumbnail" src="https://via.placeholder.com/400x300" />
-        <img class="thumbnail" src="https://via.placeholder.com/400x300" />
+      <b-row
+        class="image-row"
+        id="my-row"
+      >
+        <b-col class="card-col" cols="3" v-for="item in plan.route" :key="item.id">
+          <img class="thumbnail" :src="item.img" />
+        </b-col>
       </b-row>
       <b-row class="content-row">
         <div class="left-align">
@@ -25,6 +28,13 @@ export default {
   components: {
     UserTag,
   },
+  props: {
+    plan: {},
+  },
+  data() {
+    return {
+    };
+  },
 };
 </script>
 
@@ -32,6 +42,12 @@ export default {
 .plan-card {
   width: 1800px;
   margin-bottom: 40px;
+}
+
+.card-col {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 2%;
 }
 
 .card-background {
