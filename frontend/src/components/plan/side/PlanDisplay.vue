@@ -1,11 +1,18 @@
 <template>
   <div class="plan-display">
     <div class="exp-title">현재 여행 경로</div>
-    <div class="exp-desc">지도에서 바로 여행지를 추가하세요. 특정 여행지를 삭제하려면 하단에 추가된 칸을 더블 클릭하세요 </div>
-    <div class="plan-info">여행지 개수 : 1     최단 경로 : 1</div>
-    <plan-item></plan-item>
-    <plan-item></plan-item>
-    <plan-item></plan-item>
+    <div class="exp-desc">
+      지도에서 바로 여행지를 추가하세요. 특정 여행지를 삭제하려면 하단에 추가된
+      칸을 더블 클릭하세요
+    </div>
+    <div class="plan-info">여행지 개수 : 1 최단 경로 : 1</div>
+    <b-scroll class="scroll-container">
+      <plan-item></plan-item>
+      <plan-item></plan-item>
+      <plan-item></plan-item>
+      <plan-item></plan-item>
+      <plan-item></plan-item>
+    </b-scroll>
   </div>
 </template>
 
@@ -29,27 +36,36 @@ export default {
 }
 
 .exp-title {
-    width: 80%;
-    text-align: left;
-    padding-top: 20px;
-    font-size: 20px;
-    padding-bottom: 8px;
-    font-weight: bold;
+  width: 80%;
+  text-align: left;
+  padding-top: 20px;
+  font-size: 20px;
+  padding-bottom: 8px;
+  font-weight: bold;
 }
 
 .exp-desc {
-    width: 80%;
-    text-align: left;
-    font-size: 14px;
-    padding-bottom: 16px;
+  width: 80%;
+  text-align: left;
+  font-size: 14px;
+  padding-bottom: 16px;
 }
 
 .plan-info {
-    width: 80%;
-    text-align: left;
-    font-size: 14px;
-    padding-bottom: 8px;
-    color: darkgreen;
-    font-weight: 600;
+  width: 80%;
+  text-align: left;
+  font-size: 14px;
+  padding-bottom: 8px;
+  color: darkgreen;
+  font-weight: 600;
+}
+.plan-items {
+  height: 80px;
+}
+
+.scroll-container {
+  width: 90%;
+  max-height: 600px;
+  overflow-y: auto;
 }
 </style>
