@@ -30,11 +30,16 @@ export default {
 }
 
 .place-name {
+    text-align: start;
+    margin-top: 4px;
+    margin-left: 12px;
     font-size: 16px;
     padding-top: 4px;
 }
 
 .place-addr{
+    text-align: start;
+    margin-left: 12px;
     font-size: 12px;
 }
 </style>

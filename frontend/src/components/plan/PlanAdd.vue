@@ -2,7 +2,8 @@
     <div class="plan-add">
         <plan-display></plan-display>
         <div class="map-block">
-            <kakao-map></kakao-map>
+          <kakao-map></kakao-map>
+          <!-- <b-button v-b-toggle.sidebar-right class="">Toggle Sidebar</b-button> -->
         </div>
     </div>
 </template>
@@ -32,5 +33,12 @@ export default {
 
 .map-block {
   flex: 1;
+  position: relative;
+}
+
+.toggle-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 </style>
