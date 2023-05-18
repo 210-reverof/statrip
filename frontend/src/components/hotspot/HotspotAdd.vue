@@ -4,7 +4,7 @@
     <h5>나만의 핫스팟을 인증샷과 함께 자랑해주세요</h5>
     <hr />
     <div>
-      경로 입력
+      <div style="text-align:left">경로 입력</div>
       <!-- <plan-card></plan-card> -->
       <b-form-select
         v-model="rootselected"
@@ -12,18 +12,18 @@
       ></b-form-select>
 
       <div class="mt-3">
-        선택됨: <strong>{{ rootselected }}</strong>
+        <h4>선택됨: <strong>{{ rootselected }}</strong></h4>
       </div>
     </div>
     <div>
-      관광지 선택
+      <div style="text-align:left">관광지 선택</div>
       <b-form-select
         v-model="attrselected"
         :options="attroptions"
       ></b-form-select>
 
       <div class="mt-3">
-        선택됨: <strong>{{ attrselected }}</strong>
+        <h4>선택됨: <strong>{{ attrselected }}</strong></h4>
       </div>
     </div>
 
