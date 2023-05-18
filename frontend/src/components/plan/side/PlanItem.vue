@@ -15,10 +15,12 @@ export default {
 
 <style scoped>
 .plan-item {
-    width: 80%;
+    width: 90%;
     height: 200px;
     box-shadow: 0 0px 10px rgba(0, 0, 0, 0.4);
-    margin: 12px;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
 }
 
 .place-image {

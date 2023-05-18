@@ -6,13 +6,13 @@
       칸을 더블 클릭하세요
     </div>
     <div class="plan-info">여행지 개수 : 1 최단 경로 : 1</div>
-    <b-scroll class="scroll-container">
+    <div class="scroll-container">
       <plan-item></plan-item>
       <plan-item></plan-item>
       <plan-item></plan-item>
       <plan-item></plan-item>
       <plan-item></plan-item>
-    </b-scroll>
+    </div>
   </div>
 </template>
 
