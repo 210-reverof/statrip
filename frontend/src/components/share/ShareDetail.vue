@@ -6,9 +6,9 @@
     <div class="block-tmp-size">
         <div @click="moveViewPlan()"><plan-card></plan-card></div>
         <b-row>
-          {{item.content}}<br>
+          <div class="content-left">{{item.content}}</div>
+          <hr>
         </b-row>
-        <hr>
         <share-comment-list></share-comment-list>
     </div>
     <b-row>
@@ -63,4 +63,10 @@ export default {
     widows: 50%;
 }
 
+.content-left{
+  text-align :left;
+  padding-left: 5%;
+  padding-right: 5%;
+  margin-bottom: 5%;
+}
 </style>
