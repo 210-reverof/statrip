@@ -1,6 +1,5 @@
 <template>
     <div>
-        <h2>카카오맵 보기</h2>
         <div id="map"></div>
     </div>
 </template>
@@ -45,7 +44,7 @@ export default {
         },
         drawLine1(){
 
-            console.log(1);
+            // console.log(1);
             const linePath = [
                 new window.kakao.maps.LatLng(33.452344169439975, 126.56878163224233),
                 new window.kakao.maps.LatLng(33.452739313807456, 126.5709308145358),
@@ -65,7 +64,7 @@ export default {
 
         },
         drawLine2(){
-            console.log(2);
+            // console.log(2);
             const linePath1 = [
                 new window.kakao.maps.LatLng(33.45254416, 126.56),
                 new window.kakao.maps.LatLng(33.45293931, 126.57),
