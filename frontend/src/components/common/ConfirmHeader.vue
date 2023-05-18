@@ -9,6 +9,7 @@
         <router-link to="/hotspot" class="nav-link">HOT SPOT</router-link>
         <router-link to="/share" class="nav-link">SHARE</router-link>
         <router-link to="/mypage" class="nav-link">MY PAGE</router-link>
+        <router-link to="/auth" class="nav-link">LOGIN</router-link>
       </b-nav>
     </b-navbar>
   </header>

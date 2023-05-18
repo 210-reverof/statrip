@@ -74,6 +74,29 @@ const routes = [
     name: 'mypage',
     component: () => import(/* webpackChunkName: "mypage" */ '@/views/MyPageView.vue')
   },
+  {
+    path: '/auth',
+    name: 'auth',
+    component: () => import(/* webpackChunkName: "auth" */ '@/views/AuthView.vue'),
+    redirect: "/auth/login",
+    children:[
+      {
+        path: 'login',
+        name: 'login',
+        component: () => import(/* webpackChunkName: "auth" */ '@/components/auth/AuthLogin'),
+      },
+      {
+        path: 'joina',
+        name: 'joina',
+        component: () => import(/* webpackChunkName: "auth" */ '@/components/auth/AuthJoinA'),
+      },
+      {
+        path: 'joinb',
+        name: 'joinb',
+        component: () => import(/* webpackChunkName: "auth" */ '@/components/auth/AuthJoinB'),
+      }
+    ]
+  },
 ]
 
 const router = new VueRouter({
