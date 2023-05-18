@@ -16,13 +16,14 @@ export default {
 <style scoped>
 .plan-item {
     width: 80%;
-    height: 25%;
+    height: 200px;
     box-shadow: 0 0px 10px rgba(0, 0, 0, 0.4);
+    margin: 12px;
 }
 
 .place-image {
   width: 100%;
-  height: 75%;
+  height: 140px;
   object-fit: cover;
 }
 
