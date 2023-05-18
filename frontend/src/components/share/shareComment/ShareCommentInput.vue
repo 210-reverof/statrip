@@ -15,7 +15,7 @@
           squared
           variant="outline-info"
           @click="createComment"
-          >뒤로가기
+          >입력
         </b-button>
       </b-col>
     </b-row>
@@ -47,13 +47,13 @@ export default {
 <style scoped>
 .text-area {
   height: 80px;
-  margin-left: 2%;
-  margin-right: 2%;
+  margin-left: 1%;
+  margin-right: 1%;
 }
 
 .btn-pos {
   margin-top: 1%;
-  margin-left:70%;
+  margin-left:80%;
   margin-right: 2%;
   overflow:hidden;
 	text-overflow:ellipsis;

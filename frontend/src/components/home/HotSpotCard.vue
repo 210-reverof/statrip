@@ -1,10 +1,12 @@
 <template>
   <div
     class="hot-spot-card"
-    :style="{ backgroundImage: 'url(' + this.imagePath + ')' }"
+    :style="{ backgroundImage: 'url(' + this.item.img + ')' }"
+    @click="cardClick"
   >
     <user-tag class="user-tag"></user-tag>
     <like-tag class="like-tag" :is-liked="true" :number="5"></like-tag>
+
   </div>
 </template>
 
@@ -19,8 +21,8 @@ export default {
     LikeTag,
   },
   props: {
-    imagePath: {
-      type: String,
+    item: {
+      type: Object,
       required: true,
     },
   },
@@ -28,9 +30,11 @@ export default {
     hoverEffect() {
       this.$refs.card.style.opacity = 0.5;
     },
+    cardClick(){
+      console.log(this.item.id)
+    }
   },
-  created() {
-  },
+  created() {},
 };
 </script>
 

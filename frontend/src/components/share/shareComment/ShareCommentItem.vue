@@ -1,9 +1,9 @@
 <template>
   <div>
     <b-row>
-      <b-col cols="2"> <user-tag></user-tag></b-col>
+      <b-col> <user-tag></user-tag></b-col>
     </b-row>
-    <b-row>{{detail}}</b-row>
+    <b-row class="comment-content">{{detail}}</b-row>
   </div>
 </template>
 
@@ -23,4 +23,14 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.comment{
+  /* margin-left: 1%;
+  margin-right: 1%; */
+}
+
+.comment-content{
+  margin-left: 3%;
+  margin-right: 3%;
+}
+</style>

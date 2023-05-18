@@ -9,8 +9,8 @@
     </b-row>
     <b-row>
       <b-col>
-        <div v-for="item in comments" :key="item.id" class="comment-list-align">
-          <hr />
+        <div v-for="item in comments" :key="item.id">
+          <hr>
           <share-comment-item :detail="item"></share-comment-item>
         </div>
       </b-col>
@@ -62,13 +62,8 @@ export default {
 .backgorund-green{
   background-color: #EAF3E8;
   padding: 1%;
-  margin-left: 5%;
-  margin-right: 5%;
+  /* margin-left: 5%;
+  margin-right: 5%; */
 }
-.comment-list-align{
-  padding: 1%;
-  margin-left: 5%;
-  margin-right: 5%;
 
-}
 </style>

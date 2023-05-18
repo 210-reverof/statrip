@@ -37,7 +37,12 @@ const routes = [
       {
         path: 'list',
         name: 'hotspotList',
-        component: () => import(/* webpackChunkName: "question" */ '@/components/hotspot/HotspotList.vue'),
+        component: () => import(/* webpackChunkName: "hotspotList" */ '@/components/hotspot/HotspotList.vue'),
+      },
+      {
+        path: 'add',
+        name: 'hotspotAdd',
+        component: () => import(/* webpackChunkName: "hotspotAdd" */ '@/components/hotspot/HotspotAdd.vue'),
       }
     ]
   },

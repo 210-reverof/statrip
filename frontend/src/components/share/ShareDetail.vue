@@ -2,22 +2,20 @@
   <div class="contents-block">
     <h2>Share</h2>
     <h5>자신이 자랑하고싶은 여행 경로를 공유해주세요</h5>
-    <hr />
-    <div class="block-tmp-size">
+    <hr>
+    <div>
         <div @click="moveViewPlan()"><plan-card></plan-card></div>
         <b-row>
           <div class="content-left">{{item.content}}</div>
-          <hr>
+          
         </b-row>
+        <hr>
         <share-comment-list></share-comment-list>
     </div>
     <b-row>
-        <b-col cols="10"></b-col>
-        <b-col cols="2">
-            <b-button squared variant="outline-info" @click="$router.push({name: 'shareList'})"
+        <b-button  class="btn-pos" squared variant="outline-info" @click="$router.push({name: 'shareList'})"
             >뒤로가기
-            </b-button>
-            </b-col>
+        </b-button>
     </b-row>
   </div>
 </template>
@@ -59,9 +57,16 @@ export default {
   margin: 0 auto;
 }
 
-.block-tmp-size{
-    widows: 50%;
+.btn-pos{
+    margin-top: 1%;
+    margin-bottom: 5%;
+    margin-left: 92%;
+    margin-right: 1%;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
 }
+
 
 .content-left{
   text-align :left;

@@ -8,8 +8,8 @@
           <div class="card-carousel">
             <div class="card-carousel--overflow-container">
               <div class="card-carousel-cards" :style="{ transform: 'translateX(' + currentOffset + 'px)' }">
-                <div class="card-carousel--card" v-for="item in items" :key="item">
-                  <hot-spot-card :imagePath="'https://via.placeholder.com/300x400'"></hot-spot-card>
+                <div class="card-carousel--card" v-for="item in items" :key="item.id">
+                  <hot-spot-card :item="item"></hot-spot-card>
                 </div>
               </div>
             </div>
@@ -34,7 +34,42 @@ export default {
       windowSize: 4,
       paginationFactor: 340,
       items: [
-        1,2,3,4,5,6
+        {
+          id: 1,
+          writer: "Jessica_jj",
+          img: "http://placehold.it/300x400?text=No-image",
+          likes: "12",
+        },
+        {
+          id: 2,
+          writer: "Jessica_jj",
+          img: "http://placehold.it/300x400?text=No-image",
+          likes: "12",
+        },
+        {
+          id: 3,
+          writer: "Jessica_jj",
+          img: "http://placehold.it/300x400?text=No-image",
+          likes: "12",
+        },
+        {
+          id: 4,
+          writer: "Jessica_jj",
+          img: "http://placehold.it/300x400?text=No-image",
+          likes: "12",
+        },
+        {
+          id: 5,
+          writer: "Jessica_jj",
+          img: "http://placehold.it/300x400?text=No-image",
+          likes: "12",
+        },
+        {
+          id: 6,
+          writer: "Jessica_jj",
+          img: "http://placehold.it/300x400?text=No-image",
+          likes: "12",
+        },
       ],
     };
   },
