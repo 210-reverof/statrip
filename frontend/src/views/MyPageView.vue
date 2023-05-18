@@ -6,7 +6,7 @@
       <div><doughnut-chart-graph></doughnut-chart-graph></div>
       <div>
         <div class="card-holder">
-          <b-row id="my-row">
+          <b-row class="center" id="my-row">
             <b-col
               class="card-col"
               cols="3"
@@ -20,7 +20,7 @@
         <b-row class="center"> 더보기 버튼 </b-row>
         <hr />
         <div class="card-holder">
-          <b-row id="my-row">
+          <b-row class="center" id="my-row">
             <div @click="moveViewPlan()">
               <plan-card v-for="plan in planlists" :key="plan.id" :plan="plan"></plan-card>
             </div>
