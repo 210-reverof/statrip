@@ -15,12 +15,15 @@
         :per-page="perPage"
         :current-page="currentPage"
       >
+      <!-- 카드 하나씩을 출력하며 각 카드에 클릭 이벤트를 달아줌.
+       id값만 넘어가기 때문에 moveDetail로 넘어간 shareDetail에서는 별도의 get을 통해 게시글에 들어갈 plan을 받아줘야 함 -->
         <b-col
           cols="6"
           v-for="item in lists"
           :key="item.name"
-          @click="moveDetail(item)"
+          @click="moveDetail(item.id)"
         >
+        <!-- sharelist에 띄울 card의 모양에 들어가는 데이터의 리스트를 받아 출력 -->
           <share-card :detail="item"></share-card>
         </b-col>
       </b-row>
@@ -140,9 +143,9 @@ export default {
     },
   },
   methods: {
-    moveDetail(item) {
-      console.log(item.id);
-      this.$router.push({ name: "shareDetail", params: { item: item } });
+    moveDetail(id) {
+      console.log(id);
+      this.$router.push({ name: "shareDetail", params: { id: id } });
     },
   },
 };

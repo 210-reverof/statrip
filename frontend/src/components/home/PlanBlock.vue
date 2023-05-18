@@ -1,8 +1,9 @@
+
 <template>
   <div class="plan-block" align="center">
     <h3>New Plans</h3>
     <div class="plan-card-container">
-      <plan-card v-for="plan in plans" :key="plan" :plan="plan" />
+      <plan-card v-for="plan in plans" :key="plan.id" :plan="plan" />
     </div>
   </div>
 </template>
@@ -16,7 +17,51 @@ export default {
   },
   data() {
     return {
-      plans: [1,2,3,4]
+      plans:[
+        {
+          id: 1,
+          route:[{id:3, img: "http://placehold.it/300x200?text=No-image",},
+           {id:1, img: "http://placehold.it/300x200?text=No-image",},
+            {id:2, img: "http://placehold.it/300x200?text=No-image",},],
+          writer: "Jessica_jj",
+          likes: "12",
+          content: "이 경로 진짜 짱짱 추천입니다",
+          regitdate: "2023.03.03",
+        },
+        {
+          id: 2,
+          route:[{id:3, img: "http://placehold.it/300x200?text=No-image",},
+           {id:1, img: "http://placehold.it/300x200?text=No-image",},
+            {id:2, img: "http://placehold.it/300x200?text=No-image",},],
+          writer: "Jessica_jj",
+          img: "http://placehold.it/300x200?text=No-image",
+          likes: "12",
+          content: "이 경로 진짜 짱짱 추천입니다",
+          regitdate: "2023.03.03",
+        },
+        {
+          id: 3,
+          route:[{id:3, img: "http://placehold.it/300x200?text=No-image",},
+           {id:1, img: "http://placehold.it/300x200?text=No-image",},
+            {id:2, img: "http://placehold.it/300x200?text=No-image",},],
+          writer: "Jessica_jj",
+          img: "http://placehold.it/300x200?text=No-image",
+          likes: "12",
+          content: "이 경로 진짜 짱짱 추천입니다",
+          regitdate: "2023.03.03",
+        },
+        {
+          id: 4,
+          route:[{id:3, img: "http://placehold.it/300x200?text=No-image",},
+           {id:1, img: "http://placehold.it/300x200?text=No-image",},
+            {id:2, img: "http://placehold.it/300x200?text=No-image",},],
+          writer: "Jessica_jj",
+          img: "http://placehold.it/300x200?text=No-image",
+          likes: "12",
+          content: "이 경로 진짜 짱짱 추천입니다",
+          regitdate: "2023.03.03",
+        },
+      ],
     }
   }
 };

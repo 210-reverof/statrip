@@ -6,17 +6,12 @@
       <div><doughnut-chart-graph></doughnut-chart-graph></div>
       <div>
         <div class="card-holder">
-          <b-row
-            id="my-row"
-            :hotspotitems="hotspotitems"
-            :per-page="perPage"
-            :current-page="currentPage"
-          >
+          <b-row id="my-row">
             <b-col
               class="card-col"
               cols="3"
-              v-for="item in lists"
-              :key="item.name"
+              v-for="item in hotspotlists"
+              :key="item.id"
             >
               <hot-spot-card :item="item"></hot-spot-card>
             </b-col>
@@ -24,10 +19,31 @@
         </div>
         <b-row class="center"> 더보기 버튼 </b-row>
         <hr />
-        <b-row class="center"> planblock 1줄 </b-row>
+        <div class="card-holder">
+          <b-row id="my-row">
+            <div @click="moveViewPlan()">
+              <plan-card v-for="plan in planlists" :key="plan.id" :plan="plan"></plan-card>
+            </div>
+              
+          </b-row>
+        </div>
+
+
         <b-row class="center"> 더보기 버튼 </b-row>
         <hr />
-        <b-row class="center"> sharecard 1줄 </b-row>
+        <b-row class="center">
+      <!-- 카드 하나씩을 출력하며 각 카드에 클릭 이벤트를 달아줌.
+       id값만 넘어가기 때문에 moveDetail로 넘어간 shareDetail에서는 별도의 get을 통해 게시글에 들어갈 plan을 받아줘야 함 -->
+            <b-col
+              cols="6"
+              v-for="item in sharelists"
+              :key="item.name"
+              @click="moveDetail(item.id)"
+            >
+        <!-- sharelist에 띄울 card의 모양에 들어가는 데이터의 리스트를 받아 출력 -->
+            <share-card :detail="item"></share-card>
+          </b-col>
+        </b-row>
         <b-row class="center"> 더보기 버튼 </b-row>
         <hr />
       </div>
@@ -38,16 +54,21 @@
 <script>
 import DoughnutChartGraph from "../components/mypage/DoughnutChartGraph.vue";
 import HotSpotCard from "@/components/home/HotSpotCard.vue";
+import PlanCard from "@/components/home/PlanCard.vue";
+import ShareCard from "@/components/home/ShareCard.vue";
 
 export default {
   name: "MyPageView",
   components: {
     DoughnutChartGraph,
     HotSpotCard,
+    PlanCard,
+    ShareCard
   },
   data() {
     return {
       perPage: 4,
+      twoPage: 2,
       currentPage: 1,
       hotspotitems: [
         {
@@ -114,27 +135,29 @@ export default {
       planitems:[
         {
           id: 1,
-          route:[{id:3}, {id:1}, {id:2},],
+          route:[{id:3, img: "http://placehold.it/300x200?text=No-image",},
+           {id:1, img: "http://placehold.it/300x200?text=No-image",},
+            {id:2, img: "http://placehold.it/300x200?text=No-image",},],
           writer: "Jessica_jj",
-          img: "http://placehold.it/300x200?text=No-image",
           likes: "12",
           content: "이 경로 진짜 짱짱 추천입니다",
           regitdate: "2023.03.03",
         },
         {
           id: 2,
-          route:[{id:5}, {id:7}, {id:8},],
+          route:[{id:3, img: "http://placehold.it/300x200?text=No-image",},
+           {id:1, img: "http://placehold.it/300x200?text=No-image",},
+            {id:2, img: "http://placehold.it/300x200?text=No-image",},],
           writer: "Jessica_jj",
-          img: "http://placehold.it/300x200?text=No-image",
           likes: "12",
           content: "이 경로 진짜 짱짱 추천입니다",
           regitdate: "2023.03.03",
         },
         {
-          id: 3,
-          route:[{id:1}, {id:9}, {id:11}, {id:3},],
+          id: 3,route:[{id:3, img: "http://placehold.it/300x200?text=No-image",},
+           {id:1, img: "http://placehold.it/300x200?text=No-image",},
+            {id:2, img: "http://placehold.it/300x200?text=No-image",},],
           writer: "Jessica_jj",
-          img: "http://placehold.it/300x200?text=No-image",
           likes: "12",
           content: "이 경로 진짜 짱짱 추천입니다",
           regitdate: "2023.03.03",
@@ -171,18 +194,41 @@ export default {
   },
   created() {},
   computed: {
-    lists() {
+    hotspotlists() {
       const items = this.hotspotitems;
       return items.slice(
         (this.currentPage - 1) * this.perPage,
         this.currentPage * this.perPage
       );
     },
-    totalRows() {
+    planlists() {
+      const items = this.planitems;
+      return items.slice(
+        (this.currentPage - 1) * this.twoPage,
+        this.currentPage * this.twoPage
+      );
+    },
+    sharelists() {
+      const items = this.shareitems;
+      return items.slice(
+        (this.currentPage - 1) * this.twoPage,
+        this.currentPage * this.twoPage
+      );
+    },
+    hotspottotalRows() {
       return this.hotspotitems.length;
     },
   },
-  methods: {},
+  methods: {
+    moveViewPlan(){
+      console.log("click");
+      this.$router.push({name:'viewPlan'});
+    },
+    moveDetail(id) {
+      console.log(id);
+      this.$router.push({ name: "shareDetail", params: { id: id } });
+    },
+  },
 };
 </script>
 
