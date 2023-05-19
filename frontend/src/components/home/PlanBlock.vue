@@ -17,12 +17,16 @@ export default {
   },
   data() {
     return {
+      // 계획 불러오는데 일부만 뜨도록 페이징이나 select로 골라서 plans에 넣기
+      // 3개씩만 표시되도록 수정하기
       plans:[
         {
           id: 1,
           route:[{id:3, img: "http://placehold.it/300x200?text=No-image",},
            {id:1, img: "http://placehold.it/300x200?text=No-image",},
-            {id:2, img: "http://placehold.it/300x200?text=No-image",},],
+            {id:2, img: "http://placehold.it/300x200?text=No-image",},
+            {id:5, img: "http://placehold.it/300x200?text=No-image",},
+            {id:7, img: "http://placehold.it/300x200?text=No-image",},],
           writer: "Jessica_jj",
           likes: "12",
           content: "이 경로 진짜 짱짱 추천입니다",
