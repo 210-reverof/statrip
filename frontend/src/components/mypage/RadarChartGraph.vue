@@ -1,6 +1,6 @@
 <template>
   <div class="analysis-chart-box">
-    <canvas id="chart" width="500px" height="500px"></canvas> 
+    <canvas id="chart2" width="500px" height="500px"></canvas> 
   </div>
 </template>
 
@@ -9,22 +9,22 @@ import {Chart, registerables} from 'chart.js';
 Chart.register(...registerables);
 
 export default {
-  name: 'DoughnutChart',
+  name: 'RadarChartGraph',
   components: { 
   },
   methods: {
-    fillData(chartId, label1, label2, data_true, data_false){
+    fillData(chartId, labels, dataset){
       const ctx = document.getElementById(chartId).getContext('2d');
       this.myChart = new Chart(ctx, {
         type:'doughnut',
         data:{
-          labels:[label1, label2],
+          labels:labels,
           datasets:[
             {
               backgroundColor:[
-                "#DD7445", "#DE9D11"
+                "#DD7445", "#DE9D11" , "#E0B8FF"
               ],
-              data: [data_true, data_false]               
+              data: dataset              
             }             
           ]
           
@@ -72,7 +72,7 @@ export default {
     }
   },
   mounted() {  
-    this.fillData('chart','중립','중립 아님', 80, 20);
+    this.fillData('chart2',['중립','중립 아님','모름'], [50, 20, 30]);
 
   },
   data(){
