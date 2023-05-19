@@ -7,27 +7,27 @@
       <b-row >
         <b-col cols="9">
           <div class="form-group">
-            <label for="username">ID</label>
+            <label for="아이디">ID</label>
             <input
               type="text"
               class="form-control"
               id="username"
-              v-model="username"
+              v-model="user.userId"
             />
           </div>
           <div class="form-group">
-            <label for="password">Password</label>
+            <label for="비밀번호">Password</label>
             <input
               type="password"
               class="form-control"
               id="password"
-              v-model="password"
+              v-model="user.password"
             />
           </div>
         </b-col>
         <b-col cols="3" >
             <div class="btn-pos">
-          <div class="login-btn" @click="submit()">Login</div>
+          <div class="login-btn" @click="confirm()">Login</div>
             </div>
         </b-col>
       </b-row>
@@ -51,23 +51,34 @@
 
 
 <script>
+import { mapState, mapActions } from "vuex";
+const userStore = "userStore";
+
 export default {
   name: "AuthLogin",
   data() {
     return {
-      id: "",
-      password: "",
-      username: "",
+      user: {
+        userId: null,
+        password: null,
+      }
     };
   },
+  computed: {
+    ...mapState(userStore, ["isLogin", "isLoginError", "userInfo"]),
+  },
   methods: {
-    submitForm() {
-      this.id = "";
-      this.password = "";
-    },
-    submit() {
-        console.log("llllllllll")
-    },
+    ...mapActions(userStore, ["userConfirm", "getUserInfo"]),
+
+    async confirm() {
+      await this.userConfirm(this.user);
+      let token = sessionStorage.getItem("access-token");
+
+      if (this.isLogin) {
+        await this.getUserInfo(token);
+        this.$router.push({name: "home"});
+      }
+    }
   },
 };
 </script>
