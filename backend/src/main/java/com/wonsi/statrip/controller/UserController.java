@@ -34,11 +34,6 @@ public class UserController {
 	}
 	
 	@GetMapping("/info")
-<<<<<<< HEAD
-	public ResponseEntity<UserDto> info(@RequestAttribute("userId") String userId) throws Exception {
-		System.out.println(userId + "======" + userService.findUserByUserId(userId));
-		return ResponseEntity.ok(userService.findUserByUserId(userId));	
-=======
 	public ResponseEntity<UserDto> info(HttpServletRequest request) throws Exception {
 		String userId = jwtService.getUserId();
 		return ResponseEntity.ok(userService.findUserByUserId(userId));
@@ -48,7 +43,6 @@ public class UserController {
 	public ResponseEntity<Void> logout(@PathVariable("userId") String userId) {
 		userService.logout(userId);
 		return ResponseEntity.ok(null);
->>>>>>> feature13-authfront
 	}
 	
 	@PostMapping("/refresh")
