@@ -34,12 +34,13 @@ export default {
   data: function () {
     return {
       id:"",
-      // plan은 id로 불러서 호출한 데이터
+      // plan은 id로 불러서 호출한 데이터, 여기서도 3개씩만 뜨도록 수정
       plan: {
           id: 1,
           route:[{id:3, img: "http://placehold.it/300x200?text=No-image",},
            {id:1, img: "http://placehold.it/300x200?text=No-image",},
-            {id:2, img: "http://placehold.it/300x200?text=No-image",},],
+            {id:2, img: "http://placehold.it/300x200?text=No-image",},
+            {id:4, img: "http://placehold.it/300x200?text=No-image",},],
           writer: "Jessica_jj",
           likes: "12",
           content: "이 경로 진짜 짱짱 추천입니다",
