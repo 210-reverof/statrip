@@ -10,4 +10,6 @@ public interface UserRepository {
 	UserDto login(UserDto userDto);
 	void setToken(String userId, String refreshToken);
 	void join(UserDto userDto);
+
+    void logout(String userId);
 }

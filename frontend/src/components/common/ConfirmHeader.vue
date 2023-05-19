@@ -9,15 +9,30 @@
         <router-link to="/hotspot" class="nav-link">HOT SPOT</router-link>
         <router-link to="/share" class="nav-link">SHARE</router-link>
         <router-link to="/mypage" class="nav-link">MY PAGE</router-link>
-        <router-link to="/auth" class="nav-link">LOGIN</router-link>
+        <button v-if="userInfo" class="nav-link logout-button" @click="doLogout">LOGOUT</button>
+        <router-link v-else to="/auth" class="nav-link">LOGIN</router-link>
       </b-nav>
     </b-navbar>
   </header>
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
+const userStore = "userStore";
+
 export default {
   name: "ConfirmHeader",
+  computed: {
+    ...mapState(userStore, ["userInfo"]),
+  },
+  methods: {
+    ...mapActions(userStore, ["userLogout"]),
+    
+    doLogout() {
+      this.userLogout(this.userInfo.userId);
+      alert("로그아웃 되었습니다");
+    }
+  },
 };
 </script>
 
@@ -25,6 +40,13 @@ export default {
 .nav-link {
   color: white;
   text-decoration: none;
+}
+
+.logout-button {
+  background-color: transparent;
+  text-decoration: none;
+  font-weight: 600;
+  border: none;
 }
 
 .router-link-active.nav-link {

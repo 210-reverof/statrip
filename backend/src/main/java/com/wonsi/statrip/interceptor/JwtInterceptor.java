@@ -37,13 +37,13 @@ public class JwtInterceptor implements HandlerInterceptor {
 		
 		if (token == null) {
 			logger.info("토큰 사용 불가능 : {}", token);
-			throw new UnAuthorizedException();
+			throw new UnAuthorizedException("사용 불가 토큰");
 		}
 		
 		String userId = jwtService.getUserId();
 		if (userId == null) {
 			logger.info("토큰 사용 불가능 : {}", token);
-			throw new UnAuthorizedException();
+			throw new UnAuthorizedException("사용 불가능 토큰");
 		}
 		
 		logger.info("토큰 사용 가능 : {}", token);
