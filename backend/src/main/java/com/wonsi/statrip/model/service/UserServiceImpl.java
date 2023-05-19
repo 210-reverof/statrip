@@ -30,7 +30,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public LoginResDto login(UserDto userDto) throws Exception {
-		System.out.println(userDto);
 		UserDto user = sqlSession.getMapper(UserRepository.class).login(userDto);
 		if (user == null) throw new UnAuthorizedException();
 		String accessToken = jwtService.createAccessToken("userId", userDto.getUserId());
