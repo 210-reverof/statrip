@@ -34,3 +34,6 @@ backend/spring-boot-starter-data-rest/
 # Operating System files
 .DS_Store
 Thumbs.db
+
+
+backend/external
