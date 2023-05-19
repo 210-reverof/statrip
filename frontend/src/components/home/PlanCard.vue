@@ -1,5 +1,5 @@
 <template>
-  <div class="plan-card">
+  <div class="plan-card" @click="moveViewPlan()">
     <div class="card-background">
       <user-tag class="user-tag"></user-tag>
       <b-row class="my-row">
@@ -37,6 +37,12 @@ export default {
       const route = this.plan.route;
       return route.slice(0,3);
     },
+  },
+  methods: {
+    moveViewPlan(){
+      console.log("click");
+      this.$router.push({name:'viewPlan'});
+    }
   },
 };
 </script>
