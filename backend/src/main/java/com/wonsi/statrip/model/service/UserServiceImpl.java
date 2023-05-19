@@ -26,9 +26,15 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public LoginResDto login(UserDto userDto) throws Exception {
 		UserDto user = sqlSession.getMapper(UserRepository.class).login(userDto);
+<<<<<<< HEAD
 		if (user == null) throw new UnAuthorizedException();
 		String accessToken = jwtService.createAccessToken("userId", userDto.getUserId());
 		String refreshToken = jwtService.createRefreshToken("userId", userDto.getUserId());
+=======
+		if (user == null) throw new UnAuthorizedException("존재하지 않는 사용자입니다.");
+		String accessToken = jwtService.createAccessToken("userid", userDto.getUserId());
+		String refreshToken = jwtService.createRefreshToken("userid", userDto.getUserId());
+>>>>>>> feature13-authfront
 
 		sqlSession.getMapper(UserRepository.class).setToken(userDto.getUserId(), refreshToken);
 		return new LoginResDto(accessToken, refreshToken);
@@ -38,6 +44,11 @@ public class UserServiceImpl implements UserService {
 	public void join(UserDto userDto) {
 		sqlSession.getMapper(UserRepository.class).join(userDto);
 		
+	}
+
+	@Override
+	public void logout(String userId) {
+		sqlSession.getMapper(UserRepository.class).logout(userId);
 	}
 
 }

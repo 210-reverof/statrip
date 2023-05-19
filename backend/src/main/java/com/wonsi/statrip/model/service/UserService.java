@@ -7,5 +7,5 @@ public interface UserService {
 	UserDto findUserByUserId(String userId) throws Exception;
 	LoginResDto login(UserDto userDto) throws Exception;
 	void join(UserDto userDto);
-
+    void logout(String userId);
 }

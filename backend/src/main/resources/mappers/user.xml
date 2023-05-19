@@ -26,5 +26,11 @@
 	    SET refresh_token = #{refreshToken}
 	    WHERE user_id = #{userId}
   	</update>
+
+	<update id="logout" parameterType="map">
+		UPDATE user
+		SET refresh_token = ''
+		WHERE user_id = #{userId}
+	</update>
 	
 </mapper>

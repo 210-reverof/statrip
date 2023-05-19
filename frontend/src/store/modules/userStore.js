@@ -1,5 +1,5 @@
 import jwtDecode from "jwt-decode";
-import { login, info } from "@/api/user";
+import { login, info, logout } from "@/api/user";
 
 const userStore = {
   namespaced: true,
@@ -58,19 +58,30 @@ const userStore = {
 
     async getUserInfo({ commit }, token) {
       let decodeToken = jwtDecode(token);
+      console.log(decodeToken.userid);
 
       await info(
-        decodeToken.userId,
         ({ data }) => {
-            console.log(data);
-            commit("SET_USER_INFO", data);
+          commit("SET_USER_INFO", data);
         },
         async (error) => {
-          console.log(
-            "getUserInfo() error code [토큰 만료되어 사용 불가능.] ::: ",
-            error.response.status
-          );
+          console.log("getUserInfo() error code [토큰 만료되어 사용 불가능.] ::: ", error.response.status);
           commit("SET_IS_VALID_TOKEN", false);
+         // await dispatch("tokenRegeneration");
+        }
+      );
+    },
+    
+    async userLogout({ commit }, userid) {
+      await logout(
+        userid,
+        () => {
+            commit("SET_IS_LOGIN", false);
+            commit("SET_USER_INFO", null);
+            commit("SET_IS_VALID_TOKEN", false);
+        },
+        (error) => {
+          console.log(error);
         }
       );
     },

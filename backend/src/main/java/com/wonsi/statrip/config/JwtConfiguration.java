@@ -7,16 +7,5 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.wonsi.statrip.interceptor.JwtInterceptor;
 
-@Configuration
 public class JwtConfiguration implements WebMvcConfigurer {
-	
-    @Autowired
-    private JwtInterceptor jwtInterceptor;
-
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(jwtInterceptor)
-        .excludePathPatterns("/user/login", "/user/join"); // 제외할 경로 패턴 지정
-//                .addPathPatterns("/vue/**") // 적용할 경로 패턴 지정
-    }
 }
