@@ -16,7 +16,7 @@ public class JwtConfiguration implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(jwtInterceptor)
-        .excludePathPatterns("/user/login"); // 제외할 경로 패턴 지정
+        .excludePathPatterns("/user/login", "/user/join"); // 제외할 경로 패턴 지정
 //                .addPathPatterns("/vue/**") // 적용할 경로 패턴 지정
     }
 }

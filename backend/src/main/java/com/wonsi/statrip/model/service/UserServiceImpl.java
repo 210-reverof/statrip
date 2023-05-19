@@ -19,11 +19,6 @@ public class UserServiceImpl implements UserService {
 	private SqlSession sqlSession;
 
 	@Override
-	public String findUserByRefreshToken(String refreshToken) throws Exception {
-		return sqlSession.getMapper(UserRepository.class).findUserByRefreshToken(refreshToken);
-	}
-
-	@Override
 	public UserDto findUserByUserId(String userId) throws Exception {
 		return sqlSession.getMapper(UserRepository.class).findUserByUserId(userId);
 	}
@@ -37,6 +32,12 @@ public class UserServiceImpl implements UserService {
 		
 		sqlSession.getMapper(UserRepository.class).setToken(userDto.getUserId(), refreshToken);
 		return new LoginResDto(accessToken, refreshToken);
+	}
+
+	@Override
+	public void join(UserDto userDto) {
+		sqlSession.getMapper(UserRepository.class).join(userDto);
+		
 	}
 
 }

@@ -21,6 +21,12 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	@PostMapping("/join")
+	public ResponseEntity<Void> join(@RequestBody UserDto userDto) throws Exception {
+		userService.join(userDto);
+		return ResponseEntity.ok(null);	
+	}
+	
 	@PostMapping("/login")
 	public ResponseEntity<LoginResDto> login(@RequestBody UserDto userDto) throws Exception {		
 		return ResponseEntity.ok(userService.login(userDto));	

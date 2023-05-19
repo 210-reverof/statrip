@@ -4,16 +4,15 @@
 
 <mapper namespace="com.wonsi.statrip.model.repository.UserRepository">
 
-	<select id="findUserByUserId" parameterType="String" resultType="com.wonsi.statrip.model.dto.UserDto">
+	 <insert id="join" parameterType="UserDto">
+    	INSERT INTO user (`user_id`, `password`, `name`, `email`, `gender`, `age_group`, `addr_group`) 
+    	VALUES (#{userId}, #{password}, #{name}, #{email}, #{gender}, #{ageGroup}, #{addrGroup})
+  	</insert>
+
+	<select id="findUserByUserId" parameterType="String" resultType="UserDto">
 	    select user_id AS userId, password, name, email, gender, age_group AS ageGroup, addr_group AS addrGroup
 	    from user
 	    where user_id = #{userId}
-	</select>
-	
-	<select id="findUserByRefreshToken" parameterType="String" resultType="String">
-		select user_id AS userId
-		from token
-		where refresh_token = #{refreshToken}
 	</select>
 	
 	<select id="login" parameterType="UserDto" resultType="UserDto">
