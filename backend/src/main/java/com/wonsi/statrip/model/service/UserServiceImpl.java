@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
 		if (user == null) throw new UnAuthorizedException();
 		String accessToken = jwtService.createAccessToken("userId", userDto.getUserId());
 		String refreshToken = jwtService.createRefreshToken("userId", userDto.getUserId());
-		
+
 		sqlSession.getMapper(UserRepository.class).setToken(userDto.getUserId(), refreshToken);
 		return new LoginResDto(accessToken, refreshToken);
 	}
