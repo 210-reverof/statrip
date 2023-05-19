@@ -3,7 +3,29 @@
     <div class="contents-block">
       <h1>마이 페이지</h1>
       <hr />
-      <div><doughnut-chart-graph></doughnut-chart-graph></div>
+      <div>
+        <b-row>
+          <b-col cols=6>
+            <h3>사용자의 취향 분석 - 초기 설문 & 팔로우 목록 & 계획에 포함된 태그 합 </h3>
+            <doughnut-chart-graph></doughnut-chart-graph>
+          </b-col>
+          <b-col cols=6>
+            <h3>사용자의 경험 분석 - 인증한 경로에 한해서 태그 합</h3>
+          </b-col>
+        </b-row>
+        <h2>달력 - 달력에 여행 인증 기록 표시, 다른 색으로 계획 달성 체크 표시<br>
+            계획 달성률, 자주 방문하는 지역, 태그 표시
+
+        </h2>
+        
+
+        <h3>팔로잉 수 (전체 팔로잉 보기 할까?)</h3>
+        <h3>팔로워 수 (전체 팔로워 보기 할까?)</h3>
+        <h3>전체 게시글 수</h3>
+        <h3>전체 받은 하트</h3>
+        
+
+      </div>
       <hr />
       <div>
         <div>

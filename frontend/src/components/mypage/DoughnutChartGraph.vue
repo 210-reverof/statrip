@@ -1,7 +1,7 @@
 <template>
   <div id="doughnut-chart">
     <div class="box">
-      <div class="title">과일 선호도 조사</div>
+      <div class="title">도넛 그래프 샘플</div>
       <div class="chart">
         <doughnut-chart></doughnut-chart>
       </div>
