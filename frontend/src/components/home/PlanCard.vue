@@ -57,11 +57,12 @@ export default {
   background-color: white;
   border-radius: 10px;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+  padding: 20px 10px;
 }
 
 .user-tag {
-  padding: 30px;
-  padding-top: 40px;
+  position: absolute;
+  margin-left: 20px;
 }
 
 .my-row{
@@ -77,11 +78,10 @@ export default {
 
 .thumbnail {
   width: 100%;
-  margin: 30px auto;
+  margin: 60px auto;
 }
 
 .content-row {
-  display: flex;
   justify-content: space-between;
   align-items: center;
 }
@@ -89,12 +89,12 @@ export default {
 .left-align {
   text-align: left;
   margin-left: 60px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .right-align {
   text-align: right;
   margin-right: 60px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 </style>

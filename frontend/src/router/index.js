@@ -95,10 +95,35 @@ const routes = [
         name: 'myShareList',
         component: () => import(/* webpackChunkName: "auth" */ '@/components/mypage/MyShareList.vue'),
       }
+    ],
+  },
+  {
+    path: '/userpage',
+    name: 'userpage',
+    component: () => import(/* webpackChunkName: "auth" */ '@/views/UserPageView.vue'),
+    redirect: '/userpage/main',
+    children:[
+      {
+        path: 'main',
+        name: 'userPageMain',
+        component: () => import(/* webpackChunkName: "auth" */ '@/components/userpage/UserPageMain.vue'),
+      },
+      {
+        path: 'userhot',
+        name: 'userHotspotList',
+        component: () => import(/* webpackChunkName: "auth" */ '@/components/userpage/UserHotspotList.vue'),
+      },
+      {
+        path: 'userplan',
+        name: 'userPlanList',
+        component: () => import(/* webpackChunkName: "auth" */ '@/components/userpage/UserPlanList.vue'),
+      },
+      {
+        path: 'usershare',
+        name: 'userShareList',
+        component: () => import(/* webpackChunkName: "auth" */ '@/components/userpage/UserShareList.vue'),
+      }
     ]
-    
-
-
   },
   {
     path: '/auth',

@@ -1,7 +1,7 @@
 <template>
-  <div class="mypage">
+  <div class="userpage">
     <div class="contents-block">
-      <h1>마이 페이지</h1>
+      <h1>{{usernickn}}</h1>
       <hr />
       <div>
         <div>
@@ -54,8 +54,8 @@
           <h5
             @click="
               $router.push({
-                name: 'myHotspotList',
-                params: { items: hotspotitems },
+                name: 'userHotspotList',
+                params: { items: hotspotitems, usernickn:usernickn },
               })
             "
           >
@@ -77,7 +77,7 @@
         <b-row class="center">
           <h5
             @click="
-              $router.push({ name: 'myPlanList', params: { items: planitems } })
+              $router.push({ name: 'userPlanList', params: { items: planitems, usernickn:usernickn } })
             "
           >
             더보기
@@ -101,8 +101,8 @@
           <h5
             @click="
               $router.push({
-                name: 'myShareList',
-                params: { items: shareitems },
+                name: 'userShareList',
+                params: { items: shareitems, usernickn:usernickn },
               })
             "
           >
@@ -124,7 +124,7 @@ import PlanCard from "@/components/home/PlanCard.vue";
 import ShareCard from "@/components/home/ShareCard.vue";
 
 export default {
-  name: "MyPageMain",
+  name: "UserPageMain",
   components: {
     DoughnutChartGraph,
     RadarChartGraph,
@@ -135,6 +135,7 @@ export default {
   },
   data() {
     return {
+      usernickn:"",
       perPage: 4,
       twoPage: 2,
       currentPage: 1,
@@ -266,7 +267,9 @@ export default {
       ],
     };
   },
-  created() {},
+  created() {
+    this.usernickn = this.$route.params.usernickn
+  },
   computed: {
     hotspotlists() {
       const items = this.hotspotitems;

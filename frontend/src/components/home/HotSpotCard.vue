@@ -4,9 +4,9 @@
     :style="{ backgroundImage: 'url(' + this.item.img + ')' }"
     @click="cardClick"
   >
-    <user-tag class="user-tag"></user-tag>
+    <user-tag class="hot-spot-user-tag"></user-tag>
     <like-tag
-      class="like-tag"
+      class="hot-spot-like-tag"
       :is-liked="true"
       :number="this.item.likes"
     ></like-tag>
@@ -63,7 +63,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 .hot-spot-card {
   width: 300px;
   height: 400px;
@@ -73,14 +73,16 @@ export default {
   opacity: 0.8;
 }
 
-.user-tag {
-  padding-top: 20px;
-  padding-left: 40px;
-}
+.hot-spot-user-tag {
+  position: relative;
+  margin-top: 0;
+  margin-left: 5%;
+  }
 
-.like-tag {
-  margin-left: 220px;
-  margin-top: 300px;
+.hot-spot-like-tag {
+  position: relative;
+  margin-left: 90%;
+  margin-top: -11%;
 }
 
 .modal-content {
@@ -99,18 +101,19 @@ export default {
   width: 600px;
   height: 800px;
   border-radius: 20px;
+  margin-left: -50%;
 }
 
 .modal-user{
   position: absolute;
   top: -40%;
-  left: 5%;
+  left: -40%;
 }
 
 .close{
   position: absolute;
-  top: -35%;
-  right: 10%;
+  top: -36%;
+  right: -45%;
   width: 30px;
   height: 30px;
 }

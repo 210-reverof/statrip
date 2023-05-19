@@ -96,7 +96,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .card-panel {
   margin-top: -200px;
   width: 1500px;

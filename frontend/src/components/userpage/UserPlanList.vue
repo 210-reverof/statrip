@@ -1,8 +1,7 @@
 <template>
-  <div class="myplan-list">
+  <div class="userplan-list">
     <div class="contents-block">
-      <h1>Plan</h1>
-      <h5>나의 경로 목록</h5>
+      <h3>{{usernickn}}의 계획</h3>
       <hr />
       <div class="card-holder">
         <b-row
@@ -19,8 +18,8 @@
         class="btn-pos"
         squared
         variant="outline-info"
-        @click="$router.push({ name: 'hotspotAdd' })"
-        >글쓰기</b-button
+        @click="$router.push({ name: 'home' })"
+        >초기화면</b-button
       >
       <b-pagination
         class="center"
@@ -36,55 +35,21 @@
 <script>
 import PlanCard from "@/components/home/PlanCard.vue";
 export default {
-  name: "PlanList",
+  name: "UserPlanList",
   components: {
     PlanCard,
   },
   data: function () {
     return {
+      usernickn:"",
       perPage: 2,
       currentPage: 1,
-      plans: [
-        {
-          id: 1,
-          route: [
-            { id: 3, img: "http://placehold.it/300x200?text=No-image" },
-            { id: 1, img: "http://placehold.it/300x200?text=No-image" },
-            { id: 2, img: "http://placehold.it/300x200?text=No-image" },
-          ],
-          writer: "Jessica_jj",
-          likes: "12",
-          content: "이 경로 진짜 짱짱 추천입니다",
-          regitdate: "2023.03.03",
-        },
-        {
-          id: 2,
-          route: [
-            { id: 3, img: "http://placehold.it/300x200?text=No-image" },
-            { id: 1, img: "http://placehold.it/300x200?text=No-image" },
-            { id: 2, img: "http://placehold.it/300x200?text=No-image" },
-          ],
-          writer: "Jessica_jj",
-          likes: "12",
-          content: "이 경로 진짜 짱짱 추천입니다",
-          regitdate: "2023.03.03",
-        },
-        {
-          id: 3,
-          route: [
-            { id: 3, img: "http://placehold.it/300x200?text=No-image" },
-            { id: 1, img: "http://placehold.it/300x200?text=No-image" },
-            { id: 2, img: "http://placehold.it/300x200?text=No-image" },
-          ],
-          writer: "Jessica_jj",
-          likes: "12",
-          content: "이 경로 진짜 짱짱 추천입니다",
-          regitdate: "2023.03.03",
-        },
-      ]
+      plans: [],
     };
   },
   created() {
+    this.plans = this.$route.params.items;
+    this.usernickn = this.$route.params.usernickn
   },
   computed: {
     lists() {
@@ -103,7 +68,7 @@ export default {
 </script>
 
 <style scoped>
-.myplan-list {
+.userplan-list {
   justify-content: center;
 }
 .contents-block {

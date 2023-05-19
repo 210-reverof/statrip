@@ -1,13 +1,8 @@
 <template>
   <div class="share-list">
     <div class="contents-block">
-      <b-row>
-        <b-col>
-          <h2>Share</h2>
-          <h5>자신이 자랑하고싶은 여행 경로를 공유해주세요</h5>
-          <hr />
-        </b-col>
-      </b-row>
+      <h2>Share</h2>
+      <h5>자신이 자랑하고싶은 여행 경로를 공유해주세요</h5>
 
       <b-row
         id="my-row"
@@ -51,6 +46,7 @@ export default {
   },
   data: function () {
     return {
+      usernickn:"",
       perPage: 6,
       currentPage: 1,
       items: [
