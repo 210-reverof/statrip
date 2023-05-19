@@ -6,6 +6,8 @@ import com.wonsi.statrip.model.dto.UserDto;
 
 @Mapper
 public interface UserRepository {
-	String findUserByRefreshToken(String refreshtoken) throws Exception;
 	UserDto findUserByUserId(String userId) throws Exception;
+	UserDto login(UserDto userDto);
+	void setToken(String userId, String refreshToken);
+	void join(UserDto userDto);
 }
