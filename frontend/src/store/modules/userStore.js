@@ -1,5 +1,5 @@
 import jwtDecode from "jwt-decode";
-import { login, info } from "@/api/member";
+import { login, info } from "@/api/user";
 
 const userStore = {
   namespaced: true,
@@ -41,15 +41,14 @@ const userStore = {
       await login(
         user,
         ({ data }) => {
-            console.log("1111111" + data);
-            let accessToken = data["access-token"];
-            let refreshToken = data["refresh-token"];
+            let accessToken = data["accessToken"];
+            let refreshToken = data["refreshToken"];
            
             commit("SET_IS_LOGIN", true);
             commit("SET_IS_LOGIN_ERROR", false);
             commit("SET_IS_VALID_TOKEN", true);
             sessionStorage.setItem("access-token", accessToken);
-            sessionStorage.setItem("refresh-token", refreshToken); 
+            sessionStorage.setItem("refresh-token", refreshToken);
         },
         (error) => {
           console.log(error);
@@ -63,7 +62,8 @@ const userStore = {
       await info(
         decodeToken.userId,
         ({ data }) => {
-            commit("SET_USER_INFO", data.userInfo);
+            console.log(data);
+            commit("SET_USER_INFO", data);
         },
         async (error) => {
           console.log(
@@ -76,3 +76,5 @@ const userStore = {
     },
   },
 };
+
+export default userStore;

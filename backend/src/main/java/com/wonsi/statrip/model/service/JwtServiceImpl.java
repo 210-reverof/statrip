@@ -62,7 +62,7 @@ public class JwtServiceImpl implements JwtService {
 		
 		String jwt = Jwts.builder()
 				// Header 설정 : 토큰의 타입, 해쉬 알고리즘 정보 세팅.
-				.setHeaderParam("typ", "JWT")
+				.setHeaderParam("type", "JWT")
 				.setClaims(claims)
 				// Signature 설정 : secret key를 활용한 암호화.
 				.signWith(SignatureAlgorithm.HS256, this.generateKey())

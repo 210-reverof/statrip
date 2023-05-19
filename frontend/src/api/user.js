@@ -7,8 +7,27 @@ async function login(user, success, fail) {
 }
 
 async function info(success, fail) {
-    api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
-    await api.get(`/user/info`).then(success).catch(fail);
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json;charset=utf-8");
+  myHeaders.append("auth-token", "tttttttttt");
+
+  console.log("pllllllllllllz");
+
+  var requestOptions = {
+    method: 'GET',
+    headers: myHeaders,
+  };
+
+  fetch("http://localhost:80/statrip/user/info", requestOptions)
+    .then(success)
+    .catch(fail);
+  // const config = {
+  //   headers: {
+  //     "auth-token": sessionStorage.getItem("access-token"),
+  //     "Content-Type": "application/json;charset=utf-8",
+  //   },
+  // };
+  //   await api.get(`/user/info`, config).then(success).catch(fail);
 }
 
 export { login, info };

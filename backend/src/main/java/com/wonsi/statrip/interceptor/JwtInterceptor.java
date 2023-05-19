@@ -12,6 +12,8 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import com.wonsi.statrip.exception.UnAuthorizedException;
 import com.wonsi.statrip.model.service.JwtService;
 
+import java.util.Enumeration;
+
 @Component
 public class JwtInterceptor implements HandlerInterceptor {
 
@@ -26,6 +28,12 @@ public class JwtInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		final String token = request.getHeader(HEADER_AUTH);
+		System.out.println("hellllo" + request.getHeader(HEADER_AUTH));
+		Enumeration<String> headerNames = request.getHeaderNames();
+		while (headerNames.hasMoreElements()) {
+			String headerName = headerNames.nextElement();
+			System.out.println("=====" + headerName + " : " + request.getHeader(headerName));
+		}
 		
 		if (token == null) {
 			logger.info("토큰 사용 불가능 : {}", token);
