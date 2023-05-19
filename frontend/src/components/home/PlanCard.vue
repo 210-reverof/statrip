@@ -2,11 +2,8 @@
   <div class="plan-card">
     <div class="card-background">
       <user-tag class="user-tag"></user-tag>
-      <b-row
-        class="image-row"
-        id="my-row"
-      >
-        <b-col class="card-col" cols="3" v-for="item in plan.route" :key="item.id">
+      <b-row class="my-row">
+        <b-col class="card-col" cols="3" v-for="item in lists" :key="item.id">
           <img class="thumbnail" :src="item.img" />
         </b-col>
       </b-row>
@@ -35,19 +32,19 @@ export default {
     return {
     };
   },
+  computed: {
+    lists() {
+      const route = this.plan.route;
+      return route.slice(0,3);
+    },
+  },
 };
 </script>
 
 <style scoped>
 .plan-card {
-  width: 1800px;
-  margin-bottom: 40px;
-}
-
-.card-col {
-  display: flex;
-  justify-content: center;
-  padding-bottom: 2%;
+  width: 1500px;
+  margin: 40px auto;
 }
 
 .card-background {
@@ -57,18 +54,24 @@ export default {
 }
 
 .user-tag {
-  padding-left: 60px;
+  padding: 30px;
   padding-top: 40px;
 }
 
-.image-row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.my-row{
+  margin: 0 auto;
+
+}
+
+.card-col {
+  width: 450px;
+  height: 300;
+  margin: 0 auto;
 }
 
 .thumbnail {
-  padding: 60px;
+  width: 100%;
+  margin: 30px auto;
 }
 
 .content-row {

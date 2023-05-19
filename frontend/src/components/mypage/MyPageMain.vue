@@ -4,6 +4,7 @@
       <h1>마이 페이지</h1>
       <hr />
       <div><doughnut-chart-graph></doughnut-chart-graph></div>
+      <hr />
       <div>
         <div>
           <b-row class="center" id="my-row">
@@ -46,10 +47,14 @@
               @click="moveDetail(item.id)"
             >
         <!-- sharelist에 띄울 card의 모양에 들어가는 데이터의 리스트를 받아 출력 -->
-            <share-card :detail="item"></share-card>
+            <share-card class="card-size" :detail="item"></share-card>
           </b-col>
         </b-row>
-        <b-row class="center"> 더보기 버튼 </b-row>
+        <b-row class="center">
+          <h5 @click="$router.push({name: 'myShareList', params:{items:shareitems}})">
+            더보기
+          </h5>
+        </b-row>
         <hr />
       </div>
     </div>
@@ -244,6 +249,10 @@ export default {
   margin: 0 auto;
 }
 
+hr{
+  margin-bottom: 50px;
+}
+
 .center {
   justify-content: center;
 }
@@ -253,5 +262,11 @@ export default {
   display: flex;
   justify-content: center;
   padding-bottom: 2%;
+}
+
+/* share-card */
+.card-size{
+  width: 85%;
+  margin: 60px auto;
 }
 </style>

@@ -89,6 +89,11 @@ const routes = [
         path: 'myplan',
         name: 'myPlanList',
         component: () => import(/* webpackChunkName: "auth" */ '@/components/mypage/MyPlanList.vue'),
+      },
+      {
+        path: 'myshare',
+        name: 'myShareList',
+        component: () => import(/* webpackChunkName: "auth" */ '@/components/mypage/MyShareList.vue'),
       }
     ]
     

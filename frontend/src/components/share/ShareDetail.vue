@@ -63,7 +63,7 @@ export default {
 
 <style scoped>
 .contents-block {
-  max-width: 1800px;
+  max-width: 1500px;
   justify-content: center;
   margin: 0 auto;
 }
