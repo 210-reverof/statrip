@@ -60,8 +60,7 @@ export default {
   margin: auto;
 }
 .col-style {
-  margin: 5%;
-  margin-bottom: 10%;
+  margin: 0;
   padding-bottom: 5%;
   border-radius: 1%;
 	border-width: 1px;

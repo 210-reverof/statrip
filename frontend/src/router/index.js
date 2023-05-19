@@ -72,7 +72,28 @@ const routes = [
   {
     path: '/mypage',
     name: 'mypage',
-    component: () => import(/* webpackChunkName: "mypage" */ '@/views/MyPageView.vue')
+    component: () => import(/* webpackChunkName: "mypage" */ '@/views/MyPageView.vue'),
+    redirect: '/mypage/main',
+    children:[
+      {
+        path: 'main',
+        name: 'myPageMain',
+        component: () => import(/* webpackChunkName: "auth" */ '@/components/mypage/MyPageMain.vue'),
+      },
+      {
+        path: 'myhot',
+        name: 'myHotspotList',
+        component: () => import(/* webpackChunkName: "auth" */ '@/components/mypage/MyHotspotList.vue'),
+      },
+      {
+        path: 'myplan',
+        name: 'myPlanList',
+        component: () => import(/* webpackChunkName: "auth" */ '@/components/mypage/MyPlanList.vue'),
+      }
+    ]
+    
+
+
   },
   {
     path: '/auth',
