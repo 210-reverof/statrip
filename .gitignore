@@ -1,0 +1,39 @@
+# Eclipse
+.metadata/
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
+
+# IntelliJ IDEA
+.idea/
+
+# Maven
+backend/target/
+
+# Spring Boot
+backend/*.log
+backend/logs/
+backend/spring-boot-starter-data-rest/
+
+# Vue
+/dist/
+/node_modules/
+
+# Compiled files
+*.class
+*.war
+*.jar
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+
+backend/external
