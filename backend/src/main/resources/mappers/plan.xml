@@ -9,10 +9,31 @@
   		VALUES (#{userId}, #{title}, NOW())
 	</insert>
 	
+	<insert id="insertPlanPresent1">
+	    UPDATE plan present1 set #{param2, jdbcType=INTEGER}
+	    WHERE plan_id = #{param1, jdbcType=INTEGER}
+  	</insert>
+  	
+  	<insert id="insertPlanPresent2">
+	    UPDATE plan present2 set #{param2, jdbcType=INTEGER}
+	    WHERE plan_id = #{param1, jdbcType=INTEGER}
+  	</insert>
+  	
+  	<insert id="insertPlanPresent3">
+	    UPDATE plan present3 set #{param2, jdbcType=INTEGER}
+	    WHERE plan_id = #{param1, jdbcType=INTEGER}
+  	</insert>
+	
 	<insert id="insertPlanAttrs">
 	    INSERT INTO plan_relation (plan_id, attraction_id, ord) 
 	    VALUES(#{param1}, #{param2}, #{param3})
   	</insert>
+  	
+  	<select id="selectMyList" parameterType="String" resultType="PlanDto">
+		SELECT route_id AS routeId, user_id AS userId, title, created_at AS createdAt
+		FROM route
+		WHERE user_id = #{userId}
+	</select>
 	
 	
 

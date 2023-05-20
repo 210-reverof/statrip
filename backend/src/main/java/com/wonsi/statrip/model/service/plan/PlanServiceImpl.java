@@ -25,6 +25,11 @@ public class PlanServiceImpl implements PlanService {
     @Override
     public void insertPlan(PlanDto planDto) throws Exception {
     	int cnt = sqlSession.getMapper(PlanRepository.class).insertPlan(planDto);
+    	
+    	if (planDto.getAttractions().size() >= 1) sqlSession.getMapper(PlanRepository.class).insertPlanPresent1(planDto.getPlanId(), planDto.getAttractions().get(0));
+    	if (planDto.getAttractions().size() >= 2) sqlSession.getMapper(PlanRepository.class).insertPlanPresent2(planDto.getPlanId(), planDto.getAttractions().get(1));
+    	if (planDto.getAttractions().size() >= 3) sqlSession.getMapper(PlanRepository.class).insertPlanPresent3(planDto.getPlanId(), planDto.getAttractions().get(2));
+    	
     	for (int i = 0; i < planDto.getAttractions().size(); i++) {
     		sqlSession.getMapper(PlanRepository.class).insertPlanAttrs(planDto.getPlanId(), planDto.getAttractions().get(i), (i+1));
 		}
