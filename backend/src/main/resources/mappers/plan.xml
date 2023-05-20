@@ -10,18 +10,21 @@
 	</insert>
 	
 	<insert id="insertPlanPresent1">
-	    UPDATE plan present1 set #{param2, jdbcType=INTEGER}
-	    WHERE plan_id = #{param1, jdbcType=INTEGER}
-  	</insert>
+  		UPDATE plan 
+  		SET present1 = #{attractionId}
+	    WHERE plan_id = #{planId}
+	</insert>
   	
   	<insert id="insertPlanPresent2">
-	    UPDATE plan present2 set #{param2, jdbcType=INTEGER}
-	    WHERE plan_id = #{param1, jdbcType=INTEGER}
+	    UPDATE plan 
+  		SET present2 = #{attractionId}
+	    WHERE plan_id = #{planId}
   	</insert>
   	
   	<insert id="insertPlanPresent3">
-	    UPDATE plan present3 set #{param2, jdbcType=INTEGER}
-	    WHERE plan_id = #{param1, jdbcType=INTEGER}
+	    UPDATE plan 
+  		SET present3 = #{attractionId}
+	    WHERE plan_id = #{planId}
   	</insert>
 	
 	<insert id="insertPlanAttrs">
