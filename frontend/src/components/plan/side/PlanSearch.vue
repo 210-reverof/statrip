@@ -15,14 +15,16 @@
         </div>
         <div class="plan-info">시도</div>
         <b-form-select
-          v-model="selectedSido"
+          v-model="sidoCode"
           :options="sidos"
+          @change="gugunList"
           class="search-sel"
         ></b-form-select>
         <div class="plan-info">구군</div>
         <b-form-select
-          v-model="selectedGugun"
+          v-model="gugunCode"
           :options="guguns"
+          @change="searchAttraction"
           class="search-sel"
         ></b-form-select>
         <div class="plan-info">유형</div>
@@ -38,21 +40,17 @@
 </template>
 
 <script>
+import { mapState, mapActions, mapMutations } from "vuex";
+const attractionStore = "attractionStore";
 export default {
   name: "PlanSearch",
   data() {
     return {
       sidebarVisible: false,
-      selectedSido: 0,
-      sidos: [
-        { value: 0, text: "서울" },
-        { value: 1, text: "부산" },
-      ],
-      selectedGugun: 0,
-      guguns: [
-        { value: 0, text: "강남" },
-        { value: 1, text: "강동" },
-      ],
+      // selectedSido: 0,
+      // selectedGugun: 0,
+      sidoCode: null,
+      gugunCode: null,
       selectedType: 0,
       types: [
         { value: 0, text: "레포츠" },
@@ -60,11 +58,35 @@ export default {
       ],
     };
   },
+  computed:{
+    ...mapState(attractionStore, ["sidos", "guguns", "attractions"]),
+  },
+  created(){
+    this.CLEAR_SIDO_LIST();
+    this.CLEAR_ATTRACTION_LIST();
+    this.getSido();
+    console.log("crestdsfag")
+  },
   methods: {
     searchBtn() {
       console.log("here");
       this.$emit("search-click", 127.5, 36.2);
       this.sidebarVisible = false;
+    },
+    
+    ...mapActions(attractionStore, ["getSido", "getGugun", "getAttractionList"]),
+    ...mapMutations(attractionStore, ["CLEAR_SIDO_LIST", "CLEAR_GUGUN_LIST", "CLEAR_ATTRACTION_LIST"]),
+    // sidoList() {
+    //   this.getSido();
+    // },
+    gugunList() {
+      console.log("gugunList : "+this.sidoCode);
+      this.CLEAR_GUGUN_LIST();
+      this.gugunCode = null;
+      if (this.sidoCode) this.getGugun(this.sidoCode);
+    },
+    searchAttraction() {
+      if (this.gugunCode) this.getAttractionList(this.gugunCode);
     },
   },
 };

@@ -27,6 +27,7 @@ public class AttractionController {
 
     @GetMapping("/list")
     public List<AttractionDto> list(int sido, int gugun, @RequestParam("types") int[] types) throws Exception {
+    	System.out.println("list - Controller");
         return attractionService.selectList(sido, gugun, types);
     }
 
@@ -38,11 +39,13 @@ public class AttractionController {
 
     @GetMapping("/sido")
     public List<SidoDto> sido() throws Exception {
+    	System.out.println("sido - Controller");
         return attractionService.selectSidoList();
     }
 
     @GetMapping("/gugun/{sidoCode}")
     public List<GugunDto> gugun(@PathVariable("sidoCode") int sidoCode) throws Exception {
-        return attractionService.selectGugunList(sidoCode);
+    	System.out.println("gugun - Controller");
+    	return attractionService.selectGugunList(sidoCode);
     }
 }
