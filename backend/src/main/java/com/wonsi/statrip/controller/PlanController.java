@@ -1,6 +1,7 @@
 package com.wonsi.statrip.controller;
 
 import com.wonsi.statrip.model.dto.plan.PlanDto;
+import com.wonsi.statrip.model.dto.plan.PlanListResDto;
 import com.wonsi.statrip.model.dto.plan.PlanResDto;
 import com.wonsi.statrip.model.service.JwtService;
 import com.wonsi.statrip.model.service.plan.PlanService;
@@ -31,9 +32,9 @@ public class PlanController {
     PlanService planService;
 
     @GetMapping
-    public List<PlanResDto> list(HttpServletRequest request) throws Exception {
+    public List<PlanListResDto> list(HttpServletRequest request) throws Exception {
     	String userId = jwtService.getUserId();
-        List<PlanResDto> list = planService.selectMyList(userId);
+        List<PlanListResDto> list = planService.selectMyList(userId);
         return list;
     }
     
@@ -47,7 +48,7 @@ public class PlanController {
     	return ResponseEntity.ok("success");
     }
 
-    @PutMapping("/")
+    @PutMapping
     public void update(@RequestBody PlanDto planDto) throws Exception {
         planService.updatePlan(planDto);
     }
@@ -59,7 +60,7 @@ public class PlanController {
 
     @GetMapping("/{planId}")
     public PlanResDto view(@PathVariable("planId") int planId) throws Exception {
-        PlanResDto routeDto = planService.selectPlan(planId);
-        return routeDto;
+        PlanResDto PlanResDto = planService.selectPlan(planId);
+        return PlanResDto;
     }
 }

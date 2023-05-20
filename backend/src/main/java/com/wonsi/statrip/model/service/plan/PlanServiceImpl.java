@@ -1,6 +1,7 @@
 package com.wonsi.statrip.model.service.plan;
 
 import com.wonsi.statrip.model.dto.plan.PlanDto;
+import com.wonsi.statrip.model.dto.plan.PlanListResDto;
 import com.wonsi.statrip.model.dto.plan.PlanResDto;
 import com.wonsi.statrip.model.repository.UserRepository;
 import com.wonsi.statrip.model.repository.plan.PlanRepository;
@@ -18,7 +19,7 @@ public class PlanServiceImpl implements PlanService {
 	private SqlSession sqlSession;
 
     @Override
-    public List<PlanResDto> selectMyList(String userId) throws Exception {
+    public List<PlanListResDto> selectMyList(String userId) throws Exception {
         return sqlSession.getMapper(PlanRepository.class).selectMyList(userId);
     }
 
@@ -48,7 +49,9 @@ public class PlanServiceImpl implements PlanService {
     }
 
     @Override
-    public PlanResDto selectPlan(int palnId) throws Exception {
-        return null;
+    public PlanResDto selectPlan(int planId) throws Exception {
+        PlanResDto dto = sqlSession.getMapper(PlanRepository.class).selectPlan(planId);
+        dto.setAttractions(sqlSession.getMapper(PlanRepository.class).selectPlanAttrs(planId));
+        return dto;
     }
 }
