@@ -13,6 +13,8 @@ public class PlanDto {
     String title;
     List<Integer> attractions;
     String createdAt;
+    
+    
 
     public PlanDto(int planId, String userId, String title, String createdAt) {
         this.planId = planId;
@@ -34,4 +36,8 @@ public class PlanDto {
         this.attractions = attractions;
         this.createdAt = createdAt;
     }
+
+	public PlanDto() {
+		super();
+	}
 }

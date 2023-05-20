@@ -7,7 +7,8 @@ import java.util.List;
 
 public interface PlanRepository {
     List<PlanResDto> selectMyList(String userId) throws Exception;
-    void insertPlan(PlanDto planDto) throws Exception;
+    int insertPlan(PlanDto planDto) throws Exception;
+    void insertPlanAttrs(Integer planId, Integer attractionId, Integer ord) throws Exception;
     void updatePlan(PlanDto planDto) throws Exception;
     void deletePlan(int planId) throws Exception;
     PlanResDto selectPlan(int palnId) throws Exception;

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wonsi.statrip.model.repository.plan.PlanRepository">
+
+	<insert id="insertPlan" useGeneratedKeys="true" keyProperty="planId" keyColumn="plan_id">
+		INSERT INTO plan (user_id, title, created_at)
+  		VALUES (#{userId}, #{title}, NOW())
+	</insert>
+	
+	<insert id="insertPlanAttrs">
+	    INSERT INTO plan_relation (plan_id, attraction_id, ord) 
+	    VALUES(#{param1}, #{param2}, #{param3})
+  	</insert>
+	
+	
+
+</mapper>
