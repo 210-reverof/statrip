@@ -33,7 +33,7 @@
   	</insert>
   	
   	<select id="selectMyList" parameterType="String" resultType="PlanDto">
-		SELECT plan_id AS planId, user_id AS userId, title, created_at AS createdAt, preset1, present2, present3
+		SELECT plan_id AS planId, user_id AS userId, title, created_at AS createdAt, present1, present2, present3
 		FROM plan
 		WHERE user_id = #{userId}
 	</select>
