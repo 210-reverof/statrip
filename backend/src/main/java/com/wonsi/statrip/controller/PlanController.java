@@ -30,25 +30,19 @@ public class PlanController {
     @Autowired
     PlanService planService;
 
-    @GetMapping("/")
+    @GetMapping
     public List<PlanResDto> list(HttpServletRequest request) throws Exception {
     	String userId = jwtService.getUserId();
         List<PlanResDto> list = planService.selectMyList(userId);
         return list;
     }
-
-//    @PostMapping("/")
-//    public void insert(@RequestBody Map<String, Object> requestBody) throws Exception {
-//        String userId = (String) requestBody.get("userId");
-//        List<Integer> attrids = (List<Integer>) requestBody.get("attractions");
-//        String title = (String) requestBody.get("title");
-//
-//        planService.insertPlan(new PlanDto(userId, title, attrids));
-//    }
     
     @PostMapping
-	public ResponseEntity<String> insert(@RequestBody PlanDto planDto) throws Exception {
-    	planService.insertPlan(planDto);
+	public ResponseEntity<String> insert(@RequestBody PlanDto planDto, HttpServletRequest request) throws Exception {
+        String userId = jwtService.getUserId();
+        planDto.setUserId(userId);
+        System.out.println(planDto);
+        planService.insertPlan(planDto);
     	
     	return ResponseEntity.ok("success");
     }
