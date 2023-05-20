@@ -32,10 +32,12 @@ public class PlanController {
     PlanService planService;
 
     @GetMapping
-    public List<PlanListResDto> list(HttpServletRequest request) throws Exception {
+    public ResponseEntity<List<PlanListResDto>> list(HttpServletRequest request) throws Exception {
+        String jwt = request.getHeader("access-token");
+        if (!jwtService.checkToken(jwt)) return ResponseEntity.ok(planService.selectMyList("ssafy"));
     	String userId = jwtService.getUserId();
         List<PlanListResDto> list = planService.selectMyList(userId);
-        return list;
+        return ResponseEntity.ok(list);
     }
     
     @PostMapping
