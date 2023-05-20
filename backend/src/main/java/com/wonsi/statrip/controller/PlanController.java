@@ -4,6 +4,7 @@ import com.wonsi.statrip.model.dto.plan.PlanDto;
 import com.wonsi.statrip.model.dto.plan.PlanResDto;
 import com.wonsi.statrip.model.service.plan.PlanService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,13 +30,20 @@ public class PlanController {
         return list;
     }
 
-    @PostMapping("/")
-    public void insert(@RequestBody Map<String, Object> requestBody) throws Exception {
-        String userId = (String) requestBody.get("userId");
-        List<Integer> attrids = (List<Integer>) requestBody.get("attractions");
-        String title = (String) requestBody.get("title");
-
-        planService.insertPlan(new PlanDto(userId, title, attrids));
+//    @PostMapping("/")
+//    public void insert(@RequestBody Map<String, Object> requestBody) throws Exception {
+//        String userId = (String) requestBody.get("userId");
+//        List<Integer> attrids = (List<Integer>) requestBody.get("attractions");
+//        String title = (String) requestBody.get("title");
+//
+//        planService.insertPlan(new PlanDto(userId, title, attrids));
+//    }
+    
+    @PostMapping
+	public ResponseEntity<String> insert(@RequestBody PlanDto planDto) throws Exception {
+    	planService.insertPlan(planDto);
+    	
+    	return ResponseEntity.ok("success");
     }
 
     @PutMapping("/")
