@@ -1,5 +1,6 @@
 <template>
   <div class="plan-display">
+    <button class="share-button">공유</button>
     <div class="exp-title">{{ plan.title }}</div>
     <div class="exp-desc">
       {{ plan.createdAt }}, {{ plan.userId }}
@@ -34,6 +35,25 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.share-button {
+  width: 80%;
+  text-align: center;
+  margin-top: 20px;
+  font-size: 20px;
+  padding: 8px;
+  font-weight: bold;
+  color: rgb(240, 255, 248);
+  background-color: rgb(84, 198, 166);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.share-button:hover {
+  background-color: skyblue;
 }
 
 .exp-title {
