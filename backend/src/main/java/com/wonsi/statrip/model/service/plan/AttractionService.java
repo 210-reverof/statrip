@@ -2,6 +2,7 @@ package com.wonsi.statrip.model.service.plan;
 
 import com.wonsi.statrip.model.dto.plan.AttractionDto;
 import com.wonsi.statrip.model.dto.plan.GugunDto;
+import com.wonsi.statrip.model.dto.plan.PlanAttrDto;
 import com.wonsi.statrip.model.dto.plan.SidoDto;
 
 import java.util.List;

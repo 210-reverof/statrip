@@ -1,5 +1,6 @@
 package com.wonsi.statrip.controller;
 
+import com.wonsi.statrip.model.dto.plan.PlanAttrDto;
 import com.wonsi.statrip.model.dto.plan.PlanDto;
 import com.wonsi.statrip.model.dto.plan.PlanListResDto;
 import com.wonsi.statrip.model.dto.plan.PlanResDto;
@@ -7,14 +8,7 @@ import com.wonsi.statrip.model.service.JwtService;
 import com.wonsi.statrip.model.service.plan.PlanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -61,8 +55,16 @@ public class PlanController {
     }
 
     @GetMapping("/{planId}")
-    public PlanResDto view(@PathVariable("planId") int planId) throws Exception {
+    public ResponseEntity<PlanResDto> view(@PathVariable("planId") int planId) throws Exception {
         PlanResDto PlanResDto = planService.selectPlan(planId);
-        return PlanResDto;
+        return ResponseEntity.ok(PlanResDto);
+    }
+
+    @GetMapping("/overlay")
+    public ResponseEntity<List<PlanResDto>> getOverlay(@RequestParam("sel") List<Integer> selectedAttrs) throws Exception {
+        String userId = jwtService.getUserId();
+        List<PlanResDto> plans = planService.getOverlayList(selectedAttrs, userId);
+
+        return ResponseEntity.ok(plans);
     }
 }

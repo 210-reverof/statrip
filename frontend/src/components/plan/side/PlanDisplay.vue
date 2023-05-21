@@ -8,16 +8,18 @@
       지도에서 바로 여행지를 추가하세요. 특정 여행지를 삭제하려면 하단에 추가된
       칸을 더블 클릭하세요
     </div>
-    <div class="plan-info">여행지 개수 : 1 최단 경로 : 1</div>
+    <div class="plan-info">여행지 개수 : {{attractionList.length}} 최단 경로 : 1</div>
     <div class="scroll-container">
       <plan-item v-for="(plan, index) in attractionList" :key="index" :plan="plan" :index="index"></plan-item>
     </div>
-    <b-button v-show="attractionList & planname!=''" class="submit-btn">등록</b-button>
+    <b-button class="submit-btn" @click="addPlanItemList">등록</b-button>
   </div>
 </template>
 
 <script>
 import PlanItem from "@/components/plan/side/PlanItem.vue";
+import { addPlan } from "@/api/plan";
+
 
 export default {
   name: "PlanDisplay",
@@ -34,6 +36,25 @@ export default {
     };
   },
   methods: {
+    addPlanItemList(){
+      let attractionsIdList = []
+      this.attractionList.forEach(element => {
+        attractionsIdList.push(element.contentId);
+      });
+
+      const params = {
+        title : this.planname,
+        attractions: attractionsIdList
+      };
+      console.log(params);
+      addPlan(params, ({ data }) => {
+          console.log(data);
+        },
+        (error) => {
+          console.log(error);
+        });
+
+    }
   },
   watch:{
     planItemList(newValue, oldValue) {

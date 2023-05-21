@@ -1,8 +1,6 @@
 package com.wonsi.statrip.model.service.plan;
 
-import com.wonsi.statrip.model.dto.plan.PlanDto;
-import com.wonsi.statrip.model.dto.plan.PlanListResDto;
-import com.wonsi.statrip.model.dto.plan.PlanResDto;
+import com.wonsi.statrip.model.dto.plan.*;
 
 import java.util.List;
 
@@ -14,6 +12,9 @@ public interface PlanService {
     void updatePlan(PlanDto planDto) throws Exception;
     void deletePlan(int planId) throws Exception;
 
-    PlanResDto selectPlan(int palnId) throws Exception;
+    PlanResDto selectPlan(int planId) throws Exception;
+
+    List<PlanResDto> getOverlayList(List<Integer> selectedAttrs, String userId) throws Exception;
+
 
 }

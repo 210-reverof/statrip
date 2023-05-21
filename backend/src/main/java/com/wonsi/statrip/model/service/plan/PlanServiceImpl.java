@@ -1,11 +1,14 @@
 package com.wonsi.statrip.model.service.plan;
 
+import com.wonsi.statrip.model.dto.plan.PlanAttrDto;
 import com.wonsi.statrip.model.dto.plan.PlanDto;
 import com.wonsi.statrip.model.dto.plan.PlanListResDto;
 import com.wonsi.statrip.model.dto.plan.PlanResDto;
 import com.wonsi.statrip.model.repository.UserRepository;
+import com.wonsi.statrip.model.repository.plan.AttractionRepository;
 import com.wonsi.statrip.model.repository.plan.PlanRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -53,5 +56,18 @@ public class PlanServiceImpl implements PlanService {
         PlanResDto dto = sqlSession.getMapper(PlanRepository.class).selectPlan(planId);
         dto.setAttractions(sqlSession.getMapper(PlanRepository.class).selectPlanAttrs(planId));
         return dto;
+    }
+
+    @Override
+    public List<PlanResDto> getOverlayList(List<Integer> selectedAttrs, String userId) throws Exception {
+        List<Integer> ids = sqlSession.getMapper(PlanRepository.class).getRelatedPlanIds(selectedAttrs, selectedAttrs.size(), userId);
+        List<PlanResDto> res = new ArrayList<>();
+        for (Integer id : ids) {
+            PlanResDto dto = new PlanResDto(id);
+            dto.setAttractions(sqlSession.getMapper(PlanRepository.class).selectPlanAttrs(dto.getPlanId()));
+            res.add(dto);
+        }
+
+        return res;
     }
 }

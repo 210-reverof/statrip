@@ -62,4 +62,23 @@
 		WHERE r.plan_id = #{planId}
 	</select>
 
+	<select id="getRelatedPlanIds" resultType="Integer">
+		SELECT plan_id AS planId
+		FROM plan
+		WHERE user_id IN (
+		SELECT following_id
+		FROM follow
+		WHERE follower_id = #{userId}
+		) AND plan_id IN (
+		SELECT plan_id
+		FROM plan_relation
+		WHERE attraction_id IN
+		<foreach item="attrId" collection="selectedAttrs" open="(" separator="," close=")">
+			#{attrId}
+		</foreach>
+		GROUP BY plan_id
+		HAVING COUNT(DISTINCT attraction_id) = #{size}
+		)
+	</select>
+
 </mapper>
