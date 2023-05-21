@@ -1,5 +1,5 @@
 <template>
-  <div class="plan-card" @click="moveViewPlan()">
+  <div class="plan-card" @click="moveViewPlan(plan.planId)">
     <div class="card-background">
       <user-tag class="user-tag"></user-tag>
       <div class="title">{{plan.title}}</div>
@@ -38,9 +38,8 @@ export default {
   created() {
   },
   methods: {
-    moveViewPlan(){
-      console.log("click");
-      this.$router.push({name:'viewPlan'});
+    moveViewPlan(planId){
+      this.$router.push({name:'viewPlan', params: {planId}});
     },
     getValidImageUrl(imageUrl) {
       if (!imageUrl || imageUrl.trim() === "") {

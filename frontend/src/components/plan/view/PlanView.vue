@@ -1,6 +1,6 @@
 <template>
   <div class="plan-view">
-    <plan-display></plan-display>
+    <plan-display :plan="plan"></plan-display>
     <div class="map-block">
       <kakao-map ref="kakaomap"></kakao-map>
     </div>
@@ -11,6 +11,8 @@
 import KakaoMap from "@/components/plan/KakaoMap.vue";
 import PlanDisplay from "@/components/plan/view/PlanDisplay.vue";
 
+import { getPlan } from "@/api/plan"
+
 export default {
   name: "PlanView",
   components: {
@@ -20,9 +22,22 @@ export default {
   data() {
     return {
       message: "",
+      plan: {
+        planId: 0,
+        userId: "",
+        title: "",
+        attractions: [],
+        createdAt: "" 
+      }
     };
   },
-  created() {},
+  created() {
+    const planId = this.$route.params.planId;
+
+    getPlan(planId,
+    ({data}) => this.plan = data,
+    (error) => console.log(error));
+  },
   methods: {},
 };
 </script>
