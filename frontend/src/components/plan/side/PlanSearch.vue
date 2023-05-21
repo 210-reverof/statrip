@@ -36,7 +36,8 @@
       <b-button @click="searchBtn" class="search-bar-button">검색</b-button>
 
         <div class="scroll-container">
-          <div v-for="(plan, index) in attractionList" :key="index" class="plan-item-hover" @dblclick="planItmeDbClick(index, plan)">
+          <div v-for="(plan, index) in attractionList" :key="index" class="plan-item-hover" 
+          @dblclick="planItmeDbClick(index, plan)">
             <plan-item :plan="plan" :index="index" ></plan-item>
           </div>
         </div>
@@ -90,10 +91,10 @@ export default {
     searchBtn() {
       console.log("searchBtn");
       this.CLEAR_ATTRACTION_LIST();
-      if(this.attractions) this.selectedCount = true;
-      else this.selectedCount = false;
-      if (this.gugunCode & this.selectedType!=0) this.getAttractionList({sidoCode:this.sidoCode, gugunCode:this.gugunCode, types:this.selectedType});
+      console.log(this.sidoCode + " " + this.gugunCode +" "+this.selectedType);
+      if (this.gugunCode != null & this.selectedType!=0) this.getAttractionList({sidoCode:this.sidoCode, gugunCode:this.gugunCode, types:this.selectedType});
       this.attractionList = this.attractions;
+      console.log(this.attractionList)
     },
     
     ...mapActions(attractionStore, ["getSido", "getGugun", "getAttractionList"]),
