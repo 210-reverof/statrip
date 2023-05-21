@@ -1,5 +1,6 @@
 package com.wonsi.statrip.controller;
 
+import com.wonsi.statrip.model.dto.response.FollowCntDto;
 import com.wonsi.statrip.model.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -74,5 +75,17 @@ public class UserController {
 
 		return ResponseEntity.ok(followers);
 	}
+
+	@GetMapping("/follow-cnt")
+	public ResponseEntity<FollowCntDto> followCnt(HttpServletRequest request) {
+		String userId = jwtService.getUserId();
+		FollowCntDto dto = new FollowCntDto();
+		dto.setFollowerCnt(userService.followerList(userId).size());
+		dto.setFollowingCnt(userService.followingList(userId).size());
+
+		return ResponseEntity.ok(dto);
+	}
+
+
 
 }
