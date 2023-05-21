@@ -29,8 +29,8 @@
             </b-tabs>
           </div>
           <div class="data-block">
-            <h3>팔로잉 수 (전체 팔로잉 보기 할까?)</h3>
-            <h3>팔로워 수 (전체 팔로워 보기 할까?)</h3>
+            <h3>팔로잉 수 {{followCnt.followingCnt}}</h3>
+            <h3>팔로워 수 {{followCnt.followerCnt}}</h3>
             <h3>전체 게시글 수</h3>
             <h3>전체 받은 하트</h3>
           </div>
@@ -123,6 +123,8 @@ import HotSpotCard from "@/components/home/HotSpotCard.vue";
 import PlanCard from "@/components/home/PlanCard.vue";
 import ShareCard from "@/components/home/ShareCard.vue";
 
+import { followCnt } from "@/api/user";
+
 export default {
   name: "MyPageMain",
   components: {
@@ -135,6 +137,10 @@ export default {
   },
   data() {
     return {
+      followCnt: {
+        followingCnt: 0,
+        followerCnt: 0,
+      },
       perPage: 4,
       twoPage: 2,
       currentPage: 1,
@@ -266,7 +272,9 @@ export default {
       ],
     };
   },
-  created() {},
+  created() {
+    this.getFollowCnt();
+  },
   computed: {
     hotspotlists() {
       const items = this.hotspotitems;
@@ -294,6 +302,9 @@ export default {
     },
   },
   methods: {
+    async getFollowCnt() {
+      followCnt(({data}) => this.followCnt = data, (error) => console.log(error));
+    },
     moveViewPlan() {
       console.log("click");
       this.$router.push({ name: "viewPlan" });
