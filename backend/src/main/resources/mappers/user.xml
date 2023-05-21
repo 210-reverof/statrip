@@ -32,5 +32,24 @@
 		SET refresh_token = ''
 		WHERE user_id = #{userId}
 	</update>
+
+	<insert id="follow">
+		INSERT INTO follow (`follower_id`, `following_id`)
+		VALUES (#{followerId}, #{followingId})
+	</insert>
+
+	<select id="followingList" parameterType="String" resultType="UserDto">
+		select user_id AS userId, password, name, email, gender, age_group AS ageGroup, addr_group AS addrGroup
+		from follow f
+		join user u on f.following_id = u.user_id
+		where follower_id = #{userId}
+	</select>
+
+	<select id="followerList" parameterType="String" resultType="UserDto">
+		select user_id AS userId, password, name, email, gender, age_group AS ageGroup, addr_group AS addrGroup
+		from follow f
+		join user u on f.follower_id = u.user_id
+		where following_id = #{userId}
+	</select>
 	
 </mapper>
