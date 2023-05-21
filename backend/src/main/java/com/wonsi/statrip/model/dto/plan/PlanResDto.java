@@ -28,4 +28,8 @@ public class PlanResDto {
         this.attractions = attractions;
         this.createdAt = createdAt;
     }
+
+    public PlanResDto(int planId) {
+        this.planId = planId;
+    }
 }
