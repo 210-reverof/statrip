@@ -11,7 +11,6 @@ function gugunList(no, success, fail) {
 }
 
 function attractionList(params, success, fail) {
-    console.log("api - attractionList");
     api.get(`/attraction/list`, { params: params }).then(success).catch(fail);
 }
 
