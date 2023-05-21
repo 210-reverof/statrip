@@ -20,4 +20,9 @@ async function logout(userid, success, fail) {
   await api.get(`/user/logout/${userid}`).then(success).catch(fail);
 }
 
-export { login, info, logout };
+async function followCnt(success, fail) {
+  api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
+  await api.get(`/user/follow-cnt`).then(success).catch(fail);
+}
+
+export { login, info, logout, followCnt };

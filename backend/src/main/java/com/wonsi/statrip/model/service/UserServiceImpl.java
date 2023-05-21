@@ -9,6 +9,8 @@ import com.wonsi.statrip.model.dto.UserDto;
 import com.wonsi.statrip.model.dto.response.LoginResDto;
 import com.wonsi.statrip.model.repository.UserRepository;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
 	
@@ -43,6 +45,21 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void logout(String userId) {
 		sqlSession.getMapper(UserRepository.class).logout(userId);
+	}
+
+	@Override
+	public void follow(String followerId, String followingId) {
+		sqlSession.getMapper(UserRepository.class).follow(followerId, followingId);
+	}
+
+	@Override
+	public List<UserDto> followingList(String userId) {
+		return sqlSession.getMapper(UserRepository.class).followingList(userId);
+	}
+
+	@Override
+	public List<UserDto> followerList(String userId) {
+		return sqlSession.getMapper(UserRepository.class).followerList(userId);
 	}
 
 }
