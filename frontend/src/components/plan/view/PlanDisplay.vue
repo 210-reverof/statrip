@@ -1,6 +1,6 @@
 <template>
   <div class="plan-display">
-    <button class="share-button">공유</button>
+    <button class="share-button" @click="sharePlan">공유</button>
     <div class="exp-title">{{ plan.title }}</div>
     <div class="exp-desc">
       {{ plan.createdAt }}, {{ plan.userId }}
@@ -26,6 +26,11 @@ export default {
   components: {
     PlanItem,
   },
+  methods: {
+    sharePlan() {
+      this.$router.push({ name: "shareWrite", params: { plan: this.plan } });
+    },
+  }
 };
 </script>
   
