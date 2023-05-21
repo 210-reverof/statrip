@@ -5,6 +5,7 @@ const attractionStore = {
   state: {
     sidos: [{ value: null, text: "선택하세요" }],
     guguns: [{ value: null, text: "선택하세요" }],
+    
     attractions: [],
     attraction: null,
   },
@@ -31,7 +32,9 @@ const attractionStore = {
       });
     },
     SET_ATTRACTION_LIST(state, attractions) {
-      state.attractions = attractions;
+      attractions.forEach((attraction) => {
+        state.attractions.push(attraction);
+      });
     },
     SET_DETAIL_ATTRACTION(state, attraction) {
       state.attraction = attraction;
@@ -60,15 +63,18 @@ const attractionStore = {
         }
       );
     },
-    getAttractionList: ({ commit }, gugunCode, sidoCode) => {
+    getAttractionList: ({ commit }, {sidoCode, gugunCode, types}) => {
       const params = {
+        sido : sidoCode,
         gugun: gugunCode,
-        sido : sidoCode
+        types: types
       };
+      
+      console.log(params);
       attractionList(
         params,
         ({ data }) => {
-          commit("SET_ATTRACTION_LIST", data.response.body.items.item);
+          commit("SET_ATTRACTION_LIST", data);
         },
         (error) => {
           console.log(error);

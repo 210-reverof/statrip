@@ -24,13 +24,13 @@
         <b-form-select
           v-model="gugunCode"
           :options="guguns"
-          @change="searchAttraction"
           class="search-sel"
         ></b-form-select>
         <div class="plan-info">유형</div>
         <b-form-select
           v-model="selectedType"
           :options="types"
+          @change="searchAttraction"
           class="search-sel"
         ></b-form-select>
       </div>
@@ -53,8 +53,8 @@ export default {
       gugunCode: null,
       selectedType: 0,
       types: [
-        { value: 0, text: "레포츠" },
-        { value: 1, text: "식당" },
+        { value: 12, text: "관광지" },
+        { value: 14, text: "문화시설" },
       ],
     };
   },
@@ -65,7 +65,6 @@ export default {
     this.CLEAR_SIDO_LIST();
     this.CLEAR_ATTRACTION_LIST();
     this.getSido();
-    console.log("crestdsfag")
   },
   methods: {
     searchBtn() {
@@ -86,7 +85,8 @@ export default {
       if (this.sidoCode) this.getGugun(this.sidoCode);
     },
     searchAttraction() {
-      if (this.gugunCode) this.getAttractionList(this.gugunCode);
+      console.log(this.sidoCode +" " + this.gugunCode + " " + this.selectedType);
+      if (this.gugunCode & this.selectedType!=0) this.getAttractionList((this.sidoCode, this.gugunCode, this.selectedType));
     },
   },
 };
