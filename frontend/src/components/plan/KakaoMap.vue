@@ -1,17 +1,26 @@
 <template>
   <div>
+    <!-- <div>{{ attractionList }}</div> -->
     <div id="map"></div>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
+const attractionStore = "attractionStore";
+
 export default {
   name: "KakaoMap",
   components: {},
+  props: {
+    planItemList: [],
+  },
   data() {
     return {
       map: null,
       linePath: [],
+      attractionList: [],
+      markers: [],
     };
   },
   created() {},
@@ -32,10 +41,133 @@ export default {
       this.loadScript();
     }
   },
+  computed: {
+    ...mapState(attractionStore, ["sidos", "attractions"]),
+  },
+  watch: {
+    planItemList(newValue, oldValue) {
+      console.log(newValue, oldValue);
+      this.attractionList = newValue;
+
+      // 지도 중심을 부드럽게 이동시킵니다
+      // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+      var moveLatLon = new window.kakao.maps.LatLng(
+        this.attractionList.at(-1).latitude,
+        this.attractionList.at(-1).longitude
+      );
+      this.map.panTo(moveLatLon);
+    },
+    //작동 안함
+    sidos() {
+      this.markers.forEach((marker) => {
+        marker.setMap(null);
+      });
+    },
+    attractions() {
+      console.log("map att " + this.attractions);
+
+      this.markers = [];
+      this.attractions.forEach((element) => {
+        this.markers.push(this.makeMark(element));
+      });
+      this.showMark(this.markers);
+      // for(var i = 0; i < this.attractions.length; i++){
+      //   const eventItem = this.attractions[i].contentId;
+      //   window.kakao.maps.event.addListener(this.markers[i], "click", function () {
+      //     console.log("in "+ eventItem)
+      //     // this.$emit("marker-click", i, this.attractions[i]);
+      //   });
+      // }
+    },
+  },
   methods: {
+    makeMark(element) {
+      var imageSrc =
+          "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png", // 마커이미지의 주소입니다
+        imageSize = new window.kakao.maps.Size(25, 25), // 마커이미지의 크기입니다
+        imageOption = {}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+
+      if (element.contentTypeId == 12) {
+        imageSrc = require(`@/assets/marker/marker_photo.png`);
+      } else if (element.contentTypeId == 14) {
+        imageSrc = require(`@/assets/marker/marker_his.png`);
+      } else if (element.contentTypeId == 15) {
+        imageSrc = require(`@/assets/marker/marker_party.png`);
+      } else if (element.contentTypeId == 25) {
+        imageSrc = require(`@/assets/marker/marker_trip.png`);
+      } else if (element.contentTypeId == 28) {
+        imageSrc = require(`@/assets/marker/marker_sports.png`);
+      } else if (element.contentTypeId == 32) {
+        imageSrc = require(`@/assets/marker/marker_bed.png`);
+      } else if (element.contentTypeId == 38) {
+        imageSrc = require(`@/assets/marker/marker_shop.png`);
+      } else if (element.contentTypeId == 39) {
+        imageSrc = require(`@/assets/marker/marker_food.png`);
+      }
+      const coordX = element.latitude;
+      const coordY = element.longitude;
+      // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+      var markerImage = new window.kakao.maps.MarkerImage(
+          imageSrc,
+          imageSize,
+          imageOption
+        ),
+        markerPosition = new window.kakao.maps.LatLng(coordX, coordY), // 마커가 표시될 위치입니다
+        content = `<div style="height: 100px;width: 350px ">
+                    <div style="background-color: #EAF3E8">${element.title}</div>
+                        <div style="display: flex; flex-direction: row">
+                            <img style="width: 115px; height: 75px" src=${element.firstImage}></img>
+                            <div>
+                                <span>${element.addr1}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+      return { markerPosition, markerImage, content };
+    },
+    showMark(positions) {
+      for (var i = 0; i < positions.length; i++) {
+        // 마커를 생성합니다
+        var marker = new window.kakao.maps.Marker({
+          map: this.map, // 마커를 표시할 지도
+          position: positions[i].markerPosition, // 마커의 위치
+          image: positions[i].markerImage,
+        });
+
+        // 마커에 표시할 인포윈도우를 생성합니다
+        var infowindow = new window.kakao.maps.InfoWindow({
+          content: positions[i].content, // 인포윈도우에 표시할 내용
+        });
+
+        // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+        // 이벤트 리스너로는 클로저를 만들어 등록합니다
+        // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+        window.kakao.maps.event.addListener(
+          marker,
+          "mouseover",
+          this.makeOverListener(this.map, marker, infowindow)
+        );
+        window.kakao.maps.event.addListener(
+          marker,
+          "mouseout",
+          this.makeOutListener(infowindow)
+        );
+        
+      }
+    },
+    makeOverListener(map, marker, infowindow) {
+      return function () {
+        infowindow.open(map, marker);
+      };
+    },
+    makeOutListener(infowindow) {
+      return function () {
+        infowindow.close();
+      };
+    },
     addPoint(lat, lng) {
-        console.log(this.linePath);
-        this.linePath.push(
+      console.log(this.linePath);
+      this.linePath.push(
         new window.kakao.maps.LatLng(33.45178067090639, 126.5)
       );
       console.log(lat, lng);

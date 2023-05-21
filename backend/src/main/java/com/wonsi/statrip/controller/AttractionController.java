@@ -27,7 +27,7 @@ public class AttractionController {
 
     @GetMapping("/list")
     public List<AttractionDto> list(int sido, int gugun, @RequestParam("types") int[] types) throws Exception {
-    	System.out.println("list - Controller");
+    	System.out.println("list - Controller " + sido + ", " + gugun +", " + types.toString());
         return attractionService.selectList(sido, gugun, types);
     }
 
