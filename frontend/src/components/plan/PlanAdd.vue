@@ -1,6 +1,6 @@
 <template>
   <div class="plan-add">
-    <plan-display></plan-display>
+    <plan-display :planItemList="planItemList"></plan-display>
     <div class="map-block">
       <kakao-map ref="kakaomap"></kakao-map>
       <b-button v-b-toggle.sidebar-right class="search-bar-button"
@@ -23,10 +23,19 @@ export default {
     PlanDisplay,
     PlanSearch
   },
+  data() {
+    return {
+      planItemList:[]
+    };
+  },
   methods: {
-    addPointToMap(lat, lng) {
-      console.log("in adding board");
-      this.$refs.kakaomap.addPoint(lat, lng);
+    addPointToMap(index, plan) {
+      console.log("addPointToMap");
+      console.log(index+" "+ plan);
+      this.planItemList.push(plan);
+      console.log(this.planItemList);
+
+      // this.$refs.kakaomap.addPoint(plan);
     },
   },
 };

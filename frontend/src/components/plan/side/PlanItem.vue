@@ -1,15 +1,20 @@
 <template>
     <div class="plan-item">
-        <div class="place-idx">1</div>
-        <img class="place-image" src="https://via.placeholder.com/300x200">
-        <div class="place-name">장소이름</div>
-        <div class="place-addr">주소</div>
+        <div class="place-idx">{{index}}</div>
+        <img class="place-image" :src="plan.firstImage">
+        <div class="place-name">{{plan.title}}</div>
+        <div class="place-addr">{{plan.addr1}}</div>
     </div>
 </template>
 
 <script>
 export default {
     name: "PlanItem",
+    props:{
+        index:{},
+        plan: {
+        },
+    }
 
 }
 </script>

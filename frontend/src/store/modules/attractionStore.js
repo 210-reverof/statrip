@@ -35,6 +35,7 @@ const attractionStore = {
       attractions.forEach((attraction) => {
         state.attractions.push(attraction);
       });
+      console.log(attractions);
     },
     SET_DETAIL_ATTRACTION(state, attraction) {
       state.attraction = attraction;
@@ -70,7 +71,6 @@ const attractionStore = {
         types: types
       };
       
-      console.log(params);
       attractionList(
         params,
         ({ data }) => {

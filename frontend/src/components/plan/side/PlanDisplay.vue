@@ -1,18 +1,18 @@
 <template>
   <div class="plan-display">
-    <div class="exp-title">현재 여행 경로</div>
+    <div class="exp-title">
+      <input type="text" class="form-control"
+       id="planname" v-model="planname" placeholder="경로 이름을 입력하세요"/>
+    </div>
     <div class="exp-desc">
       지도에서 바로 여행지를 추가하세요. 특정 여행지를 삭제하려면 하단에 추가된
       칸을 더블 클릭하세요
     </div>
     <div class="plan-info">여행지 개수 : 1 최단 경로 : 1</div>
     <div class="scroll-container">
-      <plan-item></plan-item>
-      <plan-item></plan-item>
-      <plan-item></plan-item>
-      <plan-item></plan-item>
-      <plan-item></plan-item>
+      <plan-item v-for="(plan, index) in attractionList" :key="index" :plan="plan" :index="index"></plan-item>
     </div>
+    <b-button v-show="attractionList & planname!=''" class="submit-btn">등록</b-button>
   </div>
 </template>
 
@@ -24,6 +24,23 @@ export default {
   components: {
     PlanItem,
   },
+  props:{
+    planItemList:[]
+  },
+  data() {
+    return {
+      planname:"",
+      attractionList:[]
+    };
+  },
+  methods: {
+  },
+  watch:{
+    planItemList(newValue, oldValue) {
+      console.log(newValue, oldValue);
+      this.attractionList = newValue;
+    }
+  }
 };
 </script>
 
@@ -67,5 +84,10 @@ export default {
   width: 90%;
   max-height: 600px;
   overflow-y: auto;
+}
+
+.submit-btn{
+  margin-right: 30px;
+  margin-left: auto;
 }
 </style>
