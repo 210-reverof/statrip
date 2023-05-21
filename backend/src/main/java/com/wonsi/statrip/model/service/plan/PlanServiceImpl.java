@@ -1,6 +1,7 @@
 package com.wonsi.statrip.model.service.plan;
 
 import com.wonsi.statrip.model.dto.plan.PlanDto;
+import com.wonsi.statrip.model.dto.plan.PlanListResDto;
 import com.wonsi.statrip.model.dto.plan.PlanResDto;
 import com.wonsi.statrip.model.repository.UserRepository;
 import com.wonsi.statrip.model.repository.plan.PlanRepository;
@@ -18,18 +19,20 @@ public class PlanServiceImpl implements PlanService {
 	private SqlSession sqlSession;
 
     @Override
-    public List<PlanResDto> selectMyList(String userId) throws Exception {
-        return null;
+    public List<PlanListResDto> selectMyList(String userId) throws Exception {
+        return sqlSession.getMapper(PlanRepository.class).selectMyList(userId);
     }
 
     @Override
     public void insertPlan(PlanDto planDto) throws Exception {
     	int cnt = sqlSession.getMapper(PlanRepository.class).insertPlan(planDto);
-    	
+
+
     	if (planDto.getAttractions().size() >= 1) sqlSession.getMapper(PlanRepository.class).insertPlanPresent1(planDto.getPlanId(), planDto.getAttractions().get(0));
     	if (planDto.getAttractions().size() >= 2) sqlSession.getMapper(PlanRepository.class).insertPlanPresent2(planDto.getPlanId(), planDto.getAttractions().get(1));
     	if (planDto.getAttractions().size() >= 3) sqlSession.getMapper(PlanRepository.class).insertPlanPresent3(planDto.getPlanId(), planDto.getAttractions().get(2));
-    	
+
+
     	for (int i = 0; i < planDto.getAttractions().size(); i++) {
     		sqlSession.getMapper(PlanRepository.class).insertPlanAttrs(planDto.getPlanId(), planDto.getAttractions().get(i), (i+1));
 		}
@@ -46,7 +49,9 @@ public class PlanServiceImpl implements PlanService {
     }
 
     @Override
-    public PlanResDto selectPlan(int palnId) throws Exception {
-        return null;
+    public PlanResDto selectPlan(int planId) throws Exception {
+        PlanResDto dto = sqlSession.getMapper(PlanRepository.class).selectPlan(planId);
+        dto.setAttractions(sqlSession.getMapper(PlanRepository.class).selectPlanAttrs(planId));
+        return dto;
     }
 }

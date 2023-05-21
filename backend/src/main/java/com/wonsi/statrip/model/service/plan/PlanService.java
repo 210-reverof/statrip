@@ -1,12 +1,13 @@
 package com.wonsi.statrip.model.service.plan;
 
 import com.wonsi.statrip.model.dto.plan.PlanDto;
+import com.wonsi.statrip.model.dto.plan.PlanListResDto;
 import com.wonsi.statrip.model.dto.plan.PlanResDto;
 
 import java.util.List;
 
 public interface PlanService {
-    List<PlanResDto> selectMyList(String userId) throws Exception;
+    List<PlanListResDto> selectMyList(String userId) throws Exception;
 
     void insertPlan(PlanDto planDto) throws Exception;
 

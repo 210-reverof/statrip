@@ -2,17 +2,20 @@
   <div class="plan-card" @click="moveViewPlan()">
     <div class="card-background">
       <user-tag class="user-tag"></user-tag>
+      <div class="title">{{plan.title}}</div>
       <b-row class="my-row">
-        <b-col class="card-col" cols="3" v-for="item in lists" :key="item.id">
-          <img class="thumbnail" :src="item.img" />
+        <b-col class="card-col" cols="3">
+          <img class="thumbnail" :src="getValidImageUrl(plan.img1)" />
+          <img class="thumbnail" :src="getValidImageUrl(plan.img2)" />
+          <img class="thumbnail" :src="getValidImageUrl(plan.img3)" />
         </b-col>
       </b-row>
       <b-row class="content-row">
         <div class="left-align">
-          <p>여행지 개수: 3 최소 이동 거리: 1234km</p>
+          <p>여행지 개수: {{plan.attractions}} 최소 이동 거리: 1234km</p>
         </div>
         <div class="right-align">
-          <p>2021.03.17</p>
+          <p>{{plan.createdAt}}</p>
         </div>
       </b-row>
     </div>
@@ -32,17 +35,20 @@ export default {
     return {
     };
   },
-  computed: {
-    lists() {
-      const route = this.plan.route;
-      return route.slice(0,3);
-    },
+  created() {
   },
   methods: {
     moveViewPlan(){
       console.log("click");
       this.$router.push({name:'viewPlan'});
+    },
+    getValidImageUrl(imageUrl) {
+      if (!imageUrl || imageUrl.trim() === "") {
+        return "https://via.placeholder.com/400x300"; 
+      }
+      return imageUrl;
     }
+
   },
 };
 </script>
@@ -71,14 +77,18 @@ export default {
 }
 
 .card-col {
-  width: 450px;
-  height: 300;
+  display: flex;
+  justify-content: center; /* Center align the images horizontally */
+  align-items: center; /* Center align the images vertically */
+  width: 100%;
   margin: 0 auto;
 }
 
 .thumbnail {
-  width: 100%;
-  margin: 60px auto;
+  width: 400px;
+  height: 300px;
+  margin: 4px auto;
+  padding: 20px;
 }
 
 .content-row {
@@ -96,5 +106,13 @@ export default {
   text-align: right;
   margin-right: 60px;
   margin-bottom: 10px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 50px;
+  padding-bottom: 5px;
 }
 </style>

@@ -1,6 +1,7 @@
 package com.wonsi.statrip.controller;
 
 import com.wonsi.statrip.model.dto.plan.PlanDto;
+import com.wonsi.statrip.model.dto.plan.PlanListResDto;
 import com.wonsi.statrip.model.dto.plan.PlanResDto;
 import com.wonsi.statrip.model.service.JwtService;
 import com.wonsi.statrip.model.service.plan.PlanService;
@@ -30,30 +31,26 @@ public class PlanController {
     @Autowired
     PlanService planService;
 
-    @GetMapping("/")
-    public List<PlanResDto> list(HttpServletRequest request) throws Exception {
+    @GetMapping
+    public ResponseEntity<List<PlanListResDto>> list(HttpServletRequest request) throws Exception {
+        String jwt = request.getHeader("access-token");
+        if (!jwtService.checkToken(jwt)) return ResponseEntity.ok(planService.selectMyList("ssafy"));
     	String userId = jwtService.getUserId();
-        List<PlanResDto> list = planService.selectMyList(userId);
-        return list;
+        List<PlanListResDto> list = planService.selectMyList(userId);
+        return ResponseEntity.ok(list);
     }
-
-//    @PostMapping("/")
-//    public void insert(@RequestBody Map<String, Object> requestBody) throws Exception {
-//        String userId = (String) requestBody.get("userId");
-//        List<Integer> attrids = (List<Integer>) requestBody.get("attractions");
-//        String title = (String) requestBody.get("title");
-//
-//        planService.insertPlan(new PlanDto(userId, title, attrids));
-//    }
     
     @PostMapping
-	public ResponseEntity<String> insert(@RequestBody PlanDto planDto) throws Exception {
-    	planService.insertPlan(planDto);
+	public ResponseEntity<String> insert(@RequestBody PlanDto planDto, HttpServletRequest request) throws Exception {
+        String userId = jwtService.getUserId();
+        planDto.setUserId(userId);
+        System.out.println(planDto);
+        planService.insertPlan(planDto);
     	
     	return ResponseEntity.ok("success");
     }
 
-    @PutMapping("/")
+    @PutMapping
     public void update(@RequestBody PlanDto planDto) throws Exception {
         planService.updatePlan(planDto);
     }
@@ -65,7 +62,7 @@ public class PlanController {
 
     @GetMapping("/{planId}")
     public PlanResDto view(@PathVariable("planId") int planId) throws Exception {
-        PlanResDto routeDto = planService.selectPlan(planId);
-        return routeDto;
+        PlanResDto PlanResDto = planService.selectPlan(planId);
+        return PlanResDto;
     }
 }
