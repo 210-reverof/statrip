@@ -7,7 +7,7 @@
     </div>
     <div class="plan-info">여행지 개수 : 이동거리 : 1</div>
     <div class="scroll-container">
-      <plan-item v-for="attraction in plan.attractions" :key="attraction.id" :attraction="attraction"></plan-item>
+      <plan-item v-for="attraction in plan.attractions" :key="attraction.id" :plan="attraction"></plan-item>
     </div>
   </div>
 </template>

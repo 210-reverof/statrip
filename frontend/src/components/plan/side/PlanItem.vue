@@ -1,7 +1,7 @@
 <template>
     <div class="plan-item">
-        <div class="place-idx">{{index}}</div>
-        <img class="place-image" :src="plan.firstImage">
+        <div class="place-idx">{{plan.number}}</div>
+        <img class="place-image" :src="getValidImageUrl(plan.firstImage)">
         <div class="place-name">{{plan.title}}</div>
         <div class="place-addr">{{plan.addr1}}</div>
     </div>
@@ -14,7 +14,19 @@ export default {
         index:{},
         plan: {
         },
+    },
+    methods: {
+    moveViewPlan(planId){
+      this.$router.push({name:'viewPlan', params: {planId}});
+    },
+    getValidImageUrl(imageUrl) {
+      if (!imageUrl || imageUrl.trim() === "") {
+        return "https://via.placeholder.com/400x300"; 
+      }
+      return imageUrl;
     }
+
+  },
 
 }
 </script>
