@@ -85,6 +85,15 @@ public class UserController {
 
 		return ResponseEntity.ok(dto);
 	}
+	
+	@GetMapping("/follow-user-cnt/{userId}")
+	public ResponseEntity<FollowCntDto> followUserCnt(@PathVariable("userId") String userId) {
+		FollowCntDto dto = new FollowCntDto();
+		dto.setFollowerCnt(userService.followerList(userId).size());
+		dto.setFollowingCnt(userService.followingList(userId).size());
+
+		return ResponseEntity.ok(dto);
+	}
 
 
 

@@ -8,10 +8,7 @@
           <div>
             <b-tabs content-class="mt-3" align="center" class="chart-block">
               <b-tab title="취향">
-                <h3>
-                  사용자의 취향 분석 - 초기 설문 & 팔로우 목록 & 계획에 포함된
-                  태그 합
-                </h3>
+                <h3>사용자의 취향 분석 - 초기 설문 & 팔로우 목록 & 계획에 포함된 태그 합</h3>
                 <doughnut-chart-graph class="chart-size"></doughnut-chart-graph>
               </b-tab>
               <b-tab title="경험">
@@ -20,8 +17,7 @@
               </b-tab>
               <b-tab title="달력" active>
                 <h2>
-                  달력 - 달력에 여행 인증 기록 표시, 다른 색으로 계획 달성 체크
-                  표시<br />
+                  달력 - 달력에 여행 인증 기록 표시, 다른 색으로 계획 달성 체크 표시<br />
                   계획 달성률, 자주 방문하는 지역, 태그 표시
                 </h2>
                 <calender-graph></calender-graph>
@@ -29,8 +25,8 @@
             </b-tabs>
           </div>
           <div class="data-block">
-            <h3>팔로잉 수 {{followCnt.followingCnt}}</h3>
-            <h3>팔로워 수 {{followCnt.followerCnt}}</h3>
+            <h3>팔로잉 수 {{ followCnt.followingCnt }}</h3>
+            <h3>팔로워 수 {{ followCnt.followerCnt }}</h3>
             <h3>전체 게시글 수</h3>
             <h3>전체 받은 하트</h3>
           </div>
@@ -40,12 +36,7 @@
       <div>
         <div>
           <b-row class="center" id="my-row">
-            <b-col
-              class="card-col"
-              cols="3"
-              v-for="item in hotspotlists"
-              :key="item.id"
-            >
+            <b-col class="card-col" cols="3" v-for="item in hotspotlists" :key="item.id">
               <hot-spot-card :item="item"></hot-spot-card>
             </b-col>
           </b-row>
@@ -66,44 +57,23 @@
         <div>
           <b-row class="center" id="my-row">
             <div @click="moveViewPlan()">
-              <plan-card
-                v-for="plan in planlists"
-                :key="plan.id"
-                :plan="plan"
-              ></plan-card>
+              <plan-card v-for="plan in planlists" :key="plan.id" :plan="plan"></plan-card>
             </div>
           </b-row>
         </div>
         <b-row class="center">
-          <h5
-            @click="
-              $router.push({ name: 'myPlanList', params: { items: planitems } })
-            "
-          >
-            더보기
-          </h5>
+          <h5 @click="$router.push({ name: 'myPlanList', params: { items: planitems } })">더보기</h5>
         </b-row>
         <hr />
         <b-row class="center">
-          <!-- 카드 하나씩을 출력하며 각 카드에 클릭 이벤트를 달아줌.
-       id값만 넘어가기 때문에 moveDetail로 넘어간 shareDetail에서는 별도의 get을 통해 게시글에 들어갈 plan을 받아줘야 함 -->
-          <b-col
-            cols="6"
-            v-for="item in sharelists"
-            :key="item.name"
-            @click="moveDetail(item.id)"
-          >
-            <!-- sharelist에 띄울 card의 모양에 들어가는 데이터의 리스트를 받아 출력 -->
+          <b-col cols="6" v-for="item in sharelists" :key="item.name" @click="moveDetail(item.id)">
             <share-card class="card-size" :detail="item"></share-card>
           </b-col>
         </b-row>
         <b-row class="center">
           <h5
             @click="
-              $router.push({
-                name: 'myShareList',
-                params: { items: shareitems },
-              })
+              $router.push({ name: 'myShareList', params: { items: shareitems }})
             "
           >
             더보기
@@ -278,24 +248,15 @@ export default {
   computed: {
     hotspotlists() {
       const items = this.hotspotitems;
-      return items.slice(
-        (this.currentPage - 1) * this.perPage,
-        this.currentPage * this.perPage
-      );
+      return items.slice((this.currentPage - 1) * this.perPage, this.currentPage * this.perPage);
     },
     planlists() {
       const items = this.planitems;
-      return items.slice(
-        (this.currentPage - 1) * this.twoPage,
-        this.currentPage * this.twoPage
-      );
+      return items.slice((this.currentPage - 1) * this.twoPage, this.currentPage * this.twoPage);
     },
     sharelists() {
       const items = this.shareitems;
-      return items.slice(
-        (this.currentPage - 1) * this.twoPage,
-        this.currentPage * this.twoPage
-      );
+      return items.slice((this.currentPage - 1) * this.twoPage, this.currentPage * this.twoPage);
     },
     hotspottotalRows() {
       return this.hotspotitems.length;
@@ -303,7 +264,10 @@ export default {
   },
   methods: {
     async getFollowCnt() {
-      followCnt(({data}) => this.followCnt = data, (error) => console.log(error));
+      followCnt(
+        ({ data }) => (this.followCnt = data),
+        (error) => console.log(error)
+      );
     },
     moveViewPlan() {
       console.log("click");

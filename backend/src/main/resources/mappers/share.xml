@@ -30,33 +30,20 @@
     <select id="listArticle" resultType="ShareArticleDto">
         SELECT sa.article_no AS articleNo, sa.user_id AS userId, sa.plan_id AS planId, sa.title AS title, sa.content AS content, sa.hit AS hit, sa.thumbnail AS thumbnail, sa.created_at AS createdAt,
         COUNT(sl.article_no) AS likeCnt
-        FROM
-        share_article sa
-        LEFT JOIN
-        share_like sl ON sa.article_no = sl.article_no
-        GROUP BY
-        sa.article_no, sa.user_id, sa.plan_id, sa.title, sa.content, sa.hit, sa.created_at;
+        FROM share_article sa
+        LEFT JOIN share_like sl ON sa.article_no = sl.article_no
+        GROUP BY sa.article_no, sa.user_id, sa.plan_id, sa.title, sa.content, sa.hit, sa.created_at;
     </select>
 
     <select id="getArticle" resultType="ShareArticleDto">
         SELECT *
         FROM
-        (SELECT
-        sa.article_no AS articleNo,
-        sa.user_id AS userId,
-        sa.plan_id AS planId,
-        sa.title,
-        sa.content,
-        sa.hit,
-        sa.created_at AS createdAt,
-        COUNT(sl.article_no) AS likeCnt
-        FROM
-        share_article sa
-        LEFT JOIN
-        share_like sl ON sa.article_no = sl.article_no
-        GROUP BY
-        sa.article_no, sa.user_id, sa.plan_id, sa.title, sa.content, sa.hit, sa.created_at) a
-        where a.articleNo = #{articleNo}
+        	(SELECT sa.article_no AS articleNo, sa.user_id AS userId, sa.plan_id AS planId, sa.title, sa.content, sa.hit, sa.created_at AS createdAt, COUNT(sl.article_no) AS likeCnt
+       		FROM share_article sa
+        	LEFT JOIN share_like sl ON sa.article_no = sl.article_no
+        	GROUP BY
+       		 sa.article_no, sa.user_id, sa.plan_id, sa.title, sa.content, sa.hit, sa.created_at) a
+        WHERE a.articleNo = #{articleNo}
     </select>
 
     <insert id="likeArticle">

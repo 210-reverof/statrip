@@ -4,7 +4,7 @@
     :style="{ backgroundImage: 'url(' + this.item.img + ')' }"
     @click="cardClick"
   >
-    <user-tag :userId="item.userId" class="hot-spot-user-tag"></user-tag>
+    <user-tag :userId="tmp" class="hot-spot-user-tag"></user-tag>
     <like-tag
       class="hot-spot-like-tag"
       :is-liked="true"
@@ -14,7 +14,7 @@
     <b-modal v-model="show" class="custom-modal" size="sm" centered hide-header hide-footer>
       <b-row class="modal-content" ><img :src="item.img" class="modal-img" /></b-row>
       
-      <user-tag :userId="item.userId" class="modal-user"></user-tag>
+      <user-tag :userId="tmp" class="modal-user"></user-tag>
       <div class="close" @click="show=false">X</div>
       
     </b-modal>
@@ -35,7 +35,7 @@ export default {
     item: {
       type: Object,
       required: true,
-    },
+    }
   },
   data() {
     return {
@@ -43,6 +43,7 @@ export default {
       show: false,
       variants: ["primary", "secondary", "success"],
       bodyTextVariant: "dark",
+      tmp: "tmp"
     };
   },
   methods: {
