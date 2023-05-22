@@ -2,16 +2,16 @@
   <div class="share-card">
     <div class="share-tag">
       <user-tag class="share-user-tag"></user-tag>
-      <like-tag class="share-like-tag" :is-liked="true" :number="5"></like-tag>
+      <like-tag class="share-like-tag" :is-liked="true" :number="detail.hit"></like-tag>
     </div>
     <div class="col-style">
       <img :src="detail.img" alt="detail.img" class="img-style" /><br />
       <b-row>
         <b-col cols="8">
-          {{ detail.content }}
+          {{ detail.title }}
         </b-col>
         <b-col cols="4">
-          {{ detail.regitdate }}
+          {{ detail.createdAd }}
         </b-col>
       </b-row>
     </div>

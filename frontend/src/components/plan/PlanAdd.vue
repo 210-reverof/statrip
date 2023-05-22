@@ -2,7 +2,7 @@
   <div class="plan-add">
     <plan-display :planItemList="planItemList"></plan-display>
     <div class="map-block">
-      <kakao-map ref="kakaomap"></kakao-map>
+      <kakao-map ref="kakaomap" :planItemList="planItemList" @marker-click="addPlanToMarker"></kakao-map>
       <b-button v-b-toggle.sidebar-right class="search-bar-button"
         >여행지 검색</b-button
       >
@@ -15,6 +15,8 @@
 import KakaoMap from "@/components/plan/KakaoMap.vue";
 import PlanDisplay from "@/components/plan/side/PlanDisplay.vue";
 import PlanSearch from "@/components/plan/side/PlanSearch.vue";
+import { mapState, } from "vuex";
+const attractionStore = "attractionStore";
 
 export default {
   name: "PlanAdd",
@@ -29,14 +31,25 @@ export default {
     };
   },
   methods: {
-    addPointToMap(index, plan) {
+    addPointToMap(plan) {
       console.log("addPointToMap");
-      console.log(index+" "+ plan);
+      console.log(plan);
       this.planItemList.push(plan);
       console.log(this.planItemList);
 
       // this.$refs.kakaomap.addPoint(plan);
     },
+    addPlanToMarker(plan) {
+      console.log("addPlanToMarker");
+      console.log(plan);
+      this.planItemList.push(plan);
+      console.log(this.planItemList);
+
+      // this.$refs.kakaomap.addPoint(plan);
+    },
+  },
+  computed:{
+    ...mapState(attractionStore, ["sidos", "guguns", "attractions"]),
   },
 };
 </script>

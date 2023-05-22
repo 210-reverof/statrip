@@ -70,7 +70,7 @@ const attractionStore = {
         gugun: gugunCode,
         types: types
       };
-      
+      console.log("params" + params);
       attractionList(
         params,
         ({ data }) => {
