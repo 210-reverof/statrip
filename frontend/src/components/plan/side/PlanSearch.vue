@@ -37,7 +37,7 @@
 
         <div class="scroll-container">
           <div v-for="(plan, index) in attractionList" :key="index" class="plan-item-hover" 
-          @dblclick="planItmeDbClick(index, plan)">
+          @dblclick="planItmeDbClick(plan)">
             <plan-item :plan="plan" :index="index" ></plan-item>
           </div>
         </div>
@@ -110,9 +110,9 @@ export default {
     },
     
 
-    planItmeDbClick(index, plan){
-      console.log(index+" , "+plan);
-      this.$emit("search-click", index, plan);
+    planItmeDbClick(plan){
+      console.log("search-click");
+      this.$emit("search-click", plan);
     }
   },
 };

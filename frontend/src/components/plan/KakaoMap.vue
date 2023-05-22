@@ -18,25 +18,24 @@ export default {
   data() {
     return {
       map: null,
-      linePath: [],
+      // linePath: [],
       attractionList: [],
       markers: [],
+      curSelected: {},
     };
   },
-  created() {},
   mounted() {
     if (window.kakao && window.kakao.maps) {
       this.loadMap();
-      this.linePath.push(
-        new window.kakao.maps.LatLng(33.452344169439975, 126.56878163224233)
-      );
-      this.linePath.push(
-        new window.kakao.maps.LatLng(33.452739313807456, 126.5709308145358)
-      );
-      this.linePath.push(
-        new window.kakao.maps.LatLng(33.45178067090639, 126.5726886938753)
-      );
-      this.drawLine1();
+      // this.linePath.push(
+      //   new window.kakao.maps.LatLng(33.452344169439975, 126.56878163224233)
+      // );
+      // this.linePath.push(
+      //   new window.kakao.maps.LatLng(33.452739313807456, 126.5709308145358)
+      // );
+      // this.linePath.push(
+      //   new window.kakao.maps.LatLng(33.45178067090639, 126.5726886938753)
+      // );
     } else {
       this.loadScript();
     }
@@ -56,19 +55,14 @@ export default {
         this.attractionList.at(-1).longitude
       );
       this.map.panTo(moveLatLon);
-    },
-    //작동 안함
-    sidos() {
-      this.markers.forEach((marker) => {
-        marker.setMap(null);
-      });
+      this.drawLine(this.planItemList);
     },
     attractions() {
       console.log("map att " + this.attractions);
 
       this.markers = [];
-      this.attractions.forEach((element) => {
-        this.markers.push(this.makeMark(element));
+      this.attractions.forEach((attraction) => {
+        this.markers.push(this.makeMark(attraction));
       });
       this.showMark(this.markers);
       // for(var i = 0; i < this.attractions.length; i++){
@@ -78,6 +72,11 @@ export default {
       //     // this.$emit("marker-click", i, this.attractions[i]);
       //   });
       // }
+    },
+    curSelected() {
+      console.log("marker-click");
+      this.$emit("marker-click", this.curSelected);
+      // this.markerItemClick(this.curSelected)
     },
   },
   methods: {
@@ -123,25 +122,18 @@ export default {
                         </div>
                     </div>
                 </div>`;
-      return { markerPosition, markerImage, content };
+      return { element, markerPosition, markerImage, content };
     },
-    showMark(positions) {
-      for (var i = 0; i < positions.length; i++) {
-        // 마커를 생성합니다
+    showMark(elements) {
+      elements.forEach((element) => {
         var marker = new window.kakao.maps.Marker({
           map: this.map, // 마커를 표시할 지도
-          position: positions[i].markerPosition, // 마커의 위치
-          image: positions[i].markerImage,
+          position: element.markerPosition, // 마커의 위치
+          image: element.markerImage,
         });
-
-        // 마커에 표시할 인포윈도우를 생성합니다
         var infowindow = new window.kakao.maps.InfoWindow({
-          content: positions[i].content, // 인포윈도우에 표시할 내용
+          content: element.content, // 인포윈도우에 표시할 내용
         });
-
-        // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
-        // 이벤트 리스너로는 클로저를 만들어 등록합니다
-        // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
         window.kakao.maps.event.addListener(
           marker,
           "mouseover",
@@ -152,8 +144,12 @@ export default {
           "mouseout",
           this.makeOutListener(infowindow)
         );
-        
-      }
+        window.kakao.maps.event.addListener(
+          marker,
+          "click",
+          this.makeClickListener(element.element)
+        );
+      });
     },
     makeOverListener(map, marker, infowindow) {
       return function () {
@@ -165,14 +161,26 @@ export default {
         infowindow.close();
       };
     },
-    addPoint(lat, lng) {
-      console.log(this.linePath);
-      this.linePath.push(
-        new window.kakao.maps.LatLng(33.45178067090639, 126.5)
-      );
-      console.log(lat, lng);
-      console.log(this.linePath);
+    makeClickListener(attraction) {
+      return () => {
+        console.log(attraction);
+        this.curSelected = attraction;
+      };
     },
+    // markerItemClick(plan){
+    //   console.log("marker-click");
+    //   console.log(plan);
+    //   this.$emit("marker-click", plan);
+    // },
+
+    // addPoint(lat, lng) {
+    //   console.log(this.linePath);
+    //   this.linePath.push(
+    //     new window.kakao.maps.LatLng(33.45178067090639, 126.5)
+    //   );
+    //   console.log(lat, lng);
+    //   console.log(this.linePath);
+    // },
     loadScript() {
       const script = document.createElement("script");
       script.src =
@@ -186,22 +194,20 @@ export default {
       const options = {
         center: new window.kakao.maps.LatLng(33.450701, 126.570667),
         level: 3,
+        disableDoubleClickZoom: true,
       };
       this.map = new window.kakao.maps.Map(container, options);
 
-      this.drawLine1();
-      this.drawLine2();
     },
-    drawLine1() {
+    drawLine(route) {
       // console.log(1);
-      // this.linePath = [
-      //     new window.kakao.maps.LatLng(33.452344169439975, 126.56878163224233),
-      //     new window.kakao.maps.LatLng(33.452739313807456, 126.5709308145358),
-      //     new window.kakao.maps.LatLng(33.45178067090639, 126.5726886938753)
-      // ];
+      const linePath = []
+      route.forEach(element => {
+        linePath.push(new window.kakao.maps.LatLng(element.latitude, element.longitude))
+      });
       // 지도에 표시할 선을 생성합니다
       const polyline = new window.kakao.maps.Polyline({
-        path: this.linePath, // 선을 구성하는 좌표배열 입니다
+        path: linePath, // 선을 구성하는 좌표배열 입니다
         strokeWeight: 5, // 선의 두께 입니다
         strokeColor: "#FFAE00", // 선의 색깔입니다
         strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
@@ -210,26 +216,6 @@ export default {
 
       // 지도에 선을 표시합니다
       polyline.setMap(this.map);
-    },
-    drawLine2() {
-      // console.log(2);
-      const linePath1 = [
-        new window.kakao.maps.LatLng(33.45254416, 126.56),
-        new window.kakao.maps.LatLng(33.45293931, 126.57),
-        new window.kakao.maps.LatLng(33.45198067, 126.57),
-        new window.kakao.maps.LatLng(33.45178067090639, 126.5726886938753),
-      ];
-      // 지도에 표시할 선을 생성합니다
-      const polyline1 = new window.kakao.maps.Polyline({
-        path: linePath1, // 선을 구성하는 좌표배열 입니다
-        strokeWeight: 5, // 선의 두께 입니다
-        strokeColor: "#AAAE00", // 선의 색깔입니다
-        strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
-        strokeStyle: "solid", // 선의 스타일입니다
-      });
-
-      // 지도에 선을 표시합니다
-      polyline1.setMap(this.map);
     },
   },
 };
