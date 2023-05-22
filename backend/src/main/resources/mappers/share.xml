@@ -19,14 +19,42 @@
     </insert>
 
     <select id="listArticle" resultType="ShareArticleDto">
-        select article_no AS articleNo, user_id AS userId, plan_id as planId, title, content, hit, created_at as createdAt
-        from share_article
+        SELECT
+        sa.article_no AS articleNo,
+        sa.user_id AS userId,
+        sa.plan_id AS planId,
+        sa.title,
+        sa.content,
+        sa.hit,
+        sa.created_at AS createdAt,
+        COUNT(sl.article_no) AS likeCnt
+        FROM
+        share_article sa
+        LEFT JOIN
+        share_like sl ON sa.article_no = sl.article_no
+        GROUP BY
+        sa.article_no, sa.user_id, sa.plan_id, sa.title, sa.content, sa.hit, sa.created_at;
     </select>
 
     <select id="getArticle" resultType="ShareArticleDto">
-        select article_no AS articleNo, user_id AS userId, plan_id as planId, title, content, hit, created_at as createdAt
-        from share_article
-        where article_no = #{articleNo}
+        SELECT *
+        FROM
+        (SELECT
+        sa.article_no AS articleNo,
+        sa.user_id AS userId,
+        sa.plan_id AS planId,
+        sa.title,
+        sa.content,
+        sa.hit,
+        sa.created_at AS createdAt,
+        COUNT(sl.article_no) AS likeCnt
+        FROM
+        share_article sa
+        LEFT JOIN
+        share_like sl ON sa.article_no = sl.article_no
+        GROUP BY
+        sa.article_no, sa.user_id, sa.plan_id, sa.title, sa.content, sa.hit, sa.created_at) a
+        where a.articleNo = #{articleNo}
     </select>
 
 
