@@ -14,11 +14,13 @@ export default {
   components: {},
   props: {
     planItemList: [],
+    followPlanList: [],
   },
   data() {
     return {
       map: null,
       polylines: [],
+      followPolylines: [],
       attractionList: [],
       markers: [],
       curSelected: {},
@@ -82,6 +84,11 @@ export default {
       console.log("marker-click");
       this.$emit("marker-click", this.curSelected);
     },
+    followPlanList() {
+      if (this.followPlanList) {
+        this.drawFollowLine(this.followPlanList);
+      }
+    },
   },
   methods: {
     makeMark(element) {
@@ -116,7 +123,7 @@ export default {
           imageOption
         ),
         markerPosition = new window.kakao.maps.LatLng(coordX, coordY), // 마커가 표시될 위치입니다
-        content = `<div style="height: 100px;width: 350px ">
+        content = `<div style="height: 100px; width: 350px ">
                     <div style="background-color: #EAF3E8">${element.title}</div>
                         <div style="display: flex; flex-direction: row">
                             <img style="width: 115px; height: 75px" src=${element.firstImage}></img>
@@ -196,7 +203,7 @@ export default {
     loadMap() {
       const container = document.getElementById("map");
       const options = {
-        center: new window.kakao.maps.LatLng(33.450701, 126.570667),
+        center: new window.kakao.maps.LatLng(37.5727035, 126.976971),
         level: 3,
         disableDoubleClickZoom: true,
       };
@@ -224,6 +231,36 @@ export default {
       this.polylines.push(polyline);
       // 지도에 선을 표시합니다
       polyline.setMap(this.map);
+    },
+    drawFollowLine(routes) {
+      if (this.followPolylines) {
+        this.followPolylines.forEach((element) => {
+          element.setMap(null);
+        });
+      }
+      routes.forEach((route) => {
+        const linePath = [];
+        if (route.attractions) {
+          route.attractions.forEach((element) => {
+            linePath.push(
+              new window.kakao.maps.LatLng(element.latitude, element.longitude)
+            );
+          });
+          // 지도에 표시할 선을 생성합니다
+
+          const polyline = new window.kakao.maps.Polyline({
+            path: linePath, // 선을 구성하는 좌표배열 입니다
+            strokeWeight: 6, // 선의 두께 입니다
+            strokeColor: "#B1D8FC", // 선의 색깔입니다
+            strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+            strokeStyle: "solid", // 선의 스타일입니다
+          });
+
+          this.followPolylines.push(polyline);
+          // 지도에 선을 표시합니다
+          polyline.setMap(this.map);
+        }
+      });
     },
   },
 };
