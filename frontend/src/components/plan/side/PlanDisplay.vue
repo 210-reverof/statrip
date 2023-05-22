@@ -14,7 +14,7 @@
       칸을 더블 클릭하세요
     </div>
     <div class="plan-info">
-      여행지 개수 : {{attractionList.length}} 
+      여행지 개수 : {{attractionList.length}} 이동거리 : {{curLength}}
     </div>
     <draggable  class="scroll-container" v-model="attractionList"
      @change="finish()">
@@ -45,6 +45,7 @@ export default {
   },
   props: {
     planItemList: [],
+    curLength:{}
   },
   data() {
     return {

@@ -16,8 +16,8 @@ export default {
     planItemList: [],
     followPlanList: [],
     //2번 타입
-    kakaoMapType: {},
-    kakaoAttractions: {},
+    // kakaoMapType: {},
+    // kakaoAttractions: {},
   },
   data() {
     return {
@@ -27,21 +27,23 @@ export default {
       attractionList: [],
       markers: [],
       curSelected: {},
-      curLength:"",
     };
   },
+  created() {},
   mounted() {
-    console.log("---mounted---");
-    console.log(this.kakaoMapType);
-    console.log("------------");
+    // console.log("---mounted---");
+    // console.log(this.kakaoMapType);
+    // console.log(this.planItemList);
+    // console.log(this.followPlanList);
+    // console.log(this.kakaoAttractions);
+    // console.log("------------");
     if (window.kakao && window.kakao.maps) {
-      console.log("loadMap");
       this.loadMap();
     } else {
-      console.log("loadScript");
       this.loadScript();
     }
     console.log("ccccccccccc");
+    
   },
   computed: {
     ...mapState(attractionStore, ["sidos", "attractions"]),
@@ -83,12 +85,6 @@ export default {
       });
       this.showMark(this.markers);
     },
-    curLength(){
-      if (this.kakaoMapType == 1){
-        this.$emit("get-lenght", this.curLength);
-      }
-
-    },
     curSelected() {
       console.log("marker-click");
       this.$emit("marker-click", this.curSelected);
@@ -97,35 +93,6 @@ export default {
       if (this.followPlanList) {
         this.drawFollowLine(this.followPlanList);
       }
-    },
-    //바로 하면 안떠서 1초 지연 시킴
-    kakaoAttractions() {
-      if (this.kakaoMapType == 2) {
-        setTimeout(() => {
-          this.aaaaaaaaaa();
-        }, 1000);
-      }
-      //2번 타입 지도 - 경로만 표시
-      // console.log("watch - kakaoAttractions");
-      // console.log(this.kakaoAttractions);
-      // if (this.kakaoMapType == 2 && this.kakaoAttractions.length>0) {
-      //   console.log(this.kakaoAttractions[0]);
-      //   console.log(this.kakaoAttractions.at(-1));
-      //   var moveLatLon = new window.kakao.maps.LatLng(
-      //     this.kakaoAttractions[0].latitude,
-      //     this.kakaoAttractions[0].longitude
-      //   );
-      //   this.map.setCenter(moveLatLon);
-      //   this.markers = [];
-      //   this.kakaoAttractions.forEach((attraction) => {
-      //     this.markers.push(this.makeMark(attraction));
-      //   });
-      //   this.showMark(this.markers);
-
-      //   console.log("sssssssssss");
-      //   console.log(this.kakaoAttractions);
-      //   this.drawLine(this.kakaoAttractions);
-      // }
     },
   },
   methods: {
@@ -216,43 +183,19 @@ export default {
         this.curSelected = attraction;
       };
     },
-    aaaaaaaaaa() {
-      //2번 타입 지도 - 경로만 표시
-      console.log("watch - kakaoAttractions");
-      console.log(this.kakaoAttractions);
-      if (this.kakaoMapType == 2 && this.kakaoAttractions.length > 0) {
-        console.log(this.kakaoAttractions[0]);
-        console.log(this.kakaoAttractions.at(-1));
-        var moveLatLon = new window.kakao.maps.LatLng(
-          this.kakaoAttractions[0].latitude,
-          this.kakaoAttractions[0].longitude
-        );
-        this.map.setCenter(moveLatLon);
-        this.markers = [];
-        this.kakaoAttractions.forEach((attraction) => {
-          this.markers.push(this.makeMark(attraction));
-        });
-        this.showMark(this.markers);
+    // creataPlanView() {
+    //   //2번 타입 지도 - 경로만 표시
+    //   if (this.kakaoMapType == 2 && this.kakaoAttractions[0]) {
+    //     this.markers = [];
+    //     this.kakaoAttractions.forEach((attraction) => {
+    //       this.markers.push(this.makeMark(attraction));
+    //     });
+    //     this.showMark(this.markers);
 
-        console.log("sssssssssss");
-        console.log(this.kakaoAttractions);
-        this.drawLine(this.kakaoAttractions);
-        this.$emit("current-length", this.curLength);
-      }
-    },
-    // markerItemClick(plan){
-    //   console.log("marker-click");
-    //   console.log(plan);
-    //   this.$emit("marker-click", plan);
-    // },
-
-    // addPoint(lat, lng) {
-    //   console.log(this.linePath);
-    //   this.linePath.push(
-    //     new window.kakao.maps.LatLng(33.45178067090639, 126.5)
-    //   );
-    //   console.log(lat, lng);
-    //   console.log(this.linePath);
+    //     console.log("sssssssssss");
+    //     console.log(this.kakaoAttractions);
+    //     this.drawLine(this.kakaoAttractions);
+    //   }
     // },
     loadScript() {
       const script = document.createElement("script");
@@ -264,6 +207,14 @@ export default {
     },
     loadMap() {
       var startPos = { lat: 37.5727035, lon: 126.976971 };
+      // if (this.kakaoMapType == 2 && this.kakaoAttractions[0]) {
+      //   console.log("loadMap");
+      //   console.log(this.kakaoAttractions[0]);
+      //   startPos = {
+      //     lat: this.kakaoAttractions[0].latitude,
+      //     lon: this.kakaoAttractions[0].longitude,
+      //   };
+      // }
       const container = document.getElementById("map");
       console.log(startPos);
       const options = {
@@ -291,8 +242,7 @@ export default {
         strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
         strokeStyle: "solid", // 선의 스타일입니다
       });
-      console.log(polyline.getLength());
-      this.curLength = polyline.getLength();
+
       this.polylines.push(polyline);
       // 지도에 선을 표시합니다
       polyline.setMap(this.map);

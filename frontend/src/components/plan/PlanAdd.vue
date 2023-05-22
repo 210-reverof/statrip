@@ -2,6 +2,7 @@
   <div class="plan-add">
     <plan-display
       :planItemList="planItemList"
+      :curLength="curLength"
       @delete-click="deletePlan"
       @dragged="draggedItem"
     ></plan-display>
@@ -12,6 +13,7 @@
         :planItemList="planItemList"
         :followPlanList="followPlanList"
         @marker-click="addPlanToMarker"
+        @get-lenght="getCurLength"
       ></kakao-map>
       <b-button v-b-toggle.sidebar-right class="search-bar-button"
         >여행지 검색</b-button
@@ -41,6 +43,7 @@ export default {
     return {
       planItemList: [],
       followPlanList:[],
+      curLength:""
     };
   },
   methods: {
@@ -60,6 +63,9 @@ export default {
       this.planItemList.push(plan);
 
       // this.$refs.kakaomap.addPoint(plan);
+    },
+    getCurLength(curLength){
+      this.curLength = curLength;
     },
     deletePlan(index) {
       console.log("deletePlan");
