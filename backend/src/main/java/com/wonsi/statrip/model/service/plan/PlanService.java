@@ -16,5 +16,9 @@ public interface PlanService {
 
     List<PlanResDto> getOverlayList(List<Integer> selectedAttrs, String userId) throws Exception;
 
+	List<PlanListResDto> AllList();
+
+	List<PlanListResDto> followList(String userId);
+
 
 }

@@ -70,4 +70,14 @@ public class PlanServiceImpl implements PlanService {
 
         return res;
     }
+
+	@Override
+	public List<PlanListResDto> AllList() {
+		return sqlSession.getMapper(PlanRepository.class).AllList();
+	}
+
+	@Override
+	public List<PlanListResDto> followList(String userId) {
+		return sqlSession.getMapper(PlanRepository.class).followList(userId);
+	}
 }

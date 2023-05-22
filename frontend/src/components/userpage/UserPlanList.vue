@@ -34,6 +34,8 @@
 
 <script>
 import PlanCard from "@/components/home/PlanCard.vue";
+import { getPlanUserList } from "@/api/plan";
+
 export default {
   name: "UserPlanList",
   components: {
@@ -41,7 +43,7 @@ export default {
   },
   data: function () {
     return {
-      usernickn:"",
+      userId:"",
       perPage: 2,
       currentPage: 1,
       plans: [],
@@ -49,7 +51,11 @@ export default {
   },
   created() {
     this.plans = this.$route.params.items;
-    this.usernickn = this.$route.params.usernickn
+    this.userId = this.$route.params.userId;
+    getPlanUserList( this.userId,
+        ({ data }) => (this.plans = data),
+        (error) => console.log(error)
+      );
   },
   computed: {
     lists() {

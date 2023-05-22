@@ -2,7 +2,7 @@
   <div class="myplan-list">
     <div class="contents-block">
       <h1>Plan</h1>
-      <h5>나의 지인들의 경로 목록</h5>
+      <h5>최신 경로 목록</h5>
       <hr />
       <div class="card-holder">
         <b-row
@@ -35,7 +35,7 @@
 
 <script>
 import PlanCard from "@/components/home/PlanCard.vue";
-import { getPlanList } from "@/api/plan";
+import { getPlanAllList } from "@/api/plan";
 
 export default {
   name: "PlanList",
@@ -50,8 +50,8 @@ export default {
     };
   },
   created() {
-    getPlanList(
-                ({ data }) => this.plans = data.slice(0,3),
+    getPlanAllList(
+                ({ data }) => this.plans = data,
                 (error) => console.log(error)
             );
   },

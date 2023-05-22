@@ -2,9 +2,22 @@ import { apiInstance } from "./index.js";
 
 const api = apiInstance();
 
-async function getPlanList(success, fail) {
+async function getPlanAllList(success, fail) {
+    await api.get(`/plan/list/all`).then(success).catch(fail);
+}
+
+async function getPlanMyList(success, fail) {
     api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
-    await api.get(`/plan`).then(success).catch(fail);
+    await api.get(`/plan/list/my`).then(success).catch(fail);
+}
+
+async function getPlanUserList(userId, success, fail) {
+    await api.get(`/plan/list/user/` + userId).then(success).catch(fail);
+}
+
+async function getPlanFollowList(success, fail) {
+    api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
+    await api.get(`/plan/list/follow`).then(success).catch(fail);
 }
 
 async function getPlan(planId, success, fail) {
@@ -17,4 +30,4 @@ async function addPlan(plan, success, fail) {
     await api.post(`/plan`, JSON.stringify(plan)).then(success).catch(fail);
 }
 
-export { getPlanList, getPlan, addPlan }
+export { getPlan, addPlan, getPlanAllList, getPlanMyList, getPlanFollowList, getPlanUserList }
