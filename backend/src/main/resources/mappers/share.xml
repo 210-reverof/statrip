@@ -18,13 +18,13 @@
         values (#{userId}, #{planId}, #{title}, #{content}, 0, now())
     </insert>
 
-    <select id="listArticle">
-        select b.article_no, b.user_id, b.plan_id, b.title, b.content, b.hit, b.created_at
+    <select id="listArticle" resultType="ShareArticleDto">
+        select article_no AS articleNo, user_id AS userId, plan_id as planId, title, content, hit, created_at as createdAt
         from share_article
     </select>
 
-    <select id="getArticle">
-        select article_no, user_id, plan_id, title, content, hit, created_at
+    <select id="getArticle" resultType="ShareArticleDto">
+        select article_no AS articleNo, user_id AS userId, plan_id as planId, title, content, hit, created_at as createdAt
         from share_article
         where article_no = #{articleNo}
     </select>

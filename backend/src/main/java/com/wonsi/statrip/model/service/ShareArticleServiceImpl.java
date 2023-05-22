@@ -20,13 +20,13 @@ public class ShareArticleServiceImpl implements ShareArticleService {
     }
 
     @Override
-    public List<ShareArticleDto> listArticle(Map<String, String> map) throws Exception {
-        return null;
+    public List<ShareArticleDto> listArticle() throws Exception {
+        return session.getMapper(ShareArticleRepository.class).listArticle();
     }
 
     @Override
     public ShareArticleDto getArticle(int articleNo) throws Exception {
-        return null;
+        return session.getMapper(ShareArticleRepository.class).getArticle(articleNo);
     }
 
     @Override
