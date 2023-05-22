@@ -4,7 +4,7 @@
     :style="{ backgroundImage: 'url(' + this.item.img + ')' }"
     @click="cardClick"
   >
-    <user-tag class="hot-spot-user-tag"></user-tag>
+    <user-tag :userId="item.userId" class="hot-spot-user-tag"></user-tag>
     <like-tag
       class="hot-spot-like-tag"
       :is-liked="true"
@@ -14,7 +14,7 @@
     <b-modal v-model="show" class="custom-modal" size="sm" centered hide-header hide-footer>
       <b-row class="modal-content" ><img :src="item.img" class="modal-img" /></b-row>
       
-      <user-tag class="modal-user"></user-tag>
+      <user-tag :userId="item.userId" class="modal-user"></user-tag>
       <div class="close" @click="show=false">X</div>
       
     </b-modal>

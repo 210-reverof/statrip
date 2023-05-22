@@ -1,7 +1,7 @@
 <template>
   <div class="share-card">
     <div class="share-tag">
-      <user-tag class="share-user-tag"></user-tag>
+      <user-tag :userId="detail.userId" class="share-user-tag"></user-tag>
       <like-tag class="share-like-tag" :is-liked="true" :number="detail.hit"></like-tag>
     </div>
     <div class="col-style">

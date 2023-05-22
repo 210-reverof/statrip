@@ -1,7 +1,7 @@
 <template>
   <div class="plan-card" @click="moveViewPlan(plan.planId)">
     <div class="card-background">
-      <user-tag class="user-tag"></user-tag>
+      <user-tag :userId="plan.userId" class="user-tag"></user-tag>
       <div class="title">{{plan.title}}</div>
       <b-row class="my-row">
         <b-col class="card-col" cols="3">

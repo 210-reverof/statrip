@@ -2,14 +2,14 @@
   <div
     class="user-tag"
     onclick="event.cancelBubble = true;"
-    @click="$router.push({ name: 'userPageMain', params: { usernickn: usernickn } }).catch(()=>{});
+    @click="$router.push({ name: 'userPageMain', params: { userId: userId } }).catch(()=>{});
 
 "
   >
     <b-row class="align-items-center">
       <div class="stat-box-a"></div>
       <div class="stat-box-b"></div>
-      <div class="user-name">{{ usernickn }}</div>
+      <div class="user-name">{{ userId }}</div>
     </b-row>
   </div>
 </template>
@@ -17,13 +17,13 @@
 <script>
 export default {
   name: "UserTag",
-  data() {
-    return {
-      usernickn: "",
-    };
+  props: {
+    userId: {
+      type: String,
+      required: true
+    }
   },
   created() {
-    this.usernickn = 'Jessica_jj'
   },
 };
 </script>
