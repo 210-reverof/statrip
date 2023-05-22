@@ -24,6 +24,8 @@ public class StatServiceImpl implements StatService{
         // 관광타입(12:관광지, 14:문화시설, 15:축제공연행사, 25:여행코스, 28:레포츠, 32:숙박, 38:쇼핑, 39:음식점)
         int sum = 0;
         for (TypeCountDto t : map) {
+            if (dto.getFirstType() == 0) dto.setFirstType(t.getTypeId());
+            else if (dto.getSecondType() == 0) dto.setSecondType(t.getTypeId());
             sum += t.getCnt();
             if (t.getTypeId() == 12) dto.setSightSeeing(t.getCnt());
             else if (t.getTypeId() == 14) dto.setCultural(t.getCnt());

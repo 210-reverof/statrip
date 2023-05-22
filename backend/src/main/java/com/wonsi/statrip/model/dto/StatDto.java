@@ -24,6 +24,8 @@ public class StatDto {
     private double sleepingPercent = 0;
     private double shoppingPercent = 0;
     private double restaurantPercent = 0;
+    private int firstType = 0;
+    private int secondType = 0;
 
     public StatDto() {}
 

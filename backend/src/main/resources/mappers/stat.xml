@@ -30,6 +30,7 @@
         WHERE p.user_id IN (SELECT following_id FROM follow WHERE follower_id = #{userId})
         GROUP BY a.content_type_id
         ) sub
-        GROUP BY typeId;
+        GROUP BY typeId
+        ORDER BY cnt DESC;
     </select>
 </mapper>
