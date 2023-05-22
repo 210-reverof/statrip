@@ -15,6 +15,7 @@
   	<mapper resource="mappers/AttractionMapper.xml"/>
     <mapper resource="mappers/user.xml"/>
       <mapper resource="mappers/plan.xml"/>
+      <mapper resource="mappers/share.xml"/>
   </mappers>
 
 </configuration>
