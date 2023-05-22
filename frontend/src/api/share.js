@@ -7,9 +7,6 @@ async function addShareArticle(shareArticle, success, fail) {
     await api.post('/share', JSON.stringify(shareArticle)).then(success).catch(fail);
 }
 
-<<<<<<< HEAD
-export { addShareArticle };
-=======
 async function getList(success, fail) {
     await api.get('/share').then(success).catch(fail);
 }
@@ -19,4 +16,3 @@ async function getArticle(articleNo, success, fail) {
 }
 
 export { addShareArticle, getList, getArticle };
->>>>>>> develop

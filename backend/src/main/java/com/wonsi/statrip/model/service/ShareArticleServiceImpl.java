@@ -26,16 +26,12 @@ public class ShareArticleServiceImpl implements ShareArticleService {
 
     @Override
     public ShareArticleDto getArticle(int articleNo) throws Exception {
+    	session.getMapper(ShareArticleRepository.class).updateHit(articleNo);
         return session.getMapper(ShareArticleRepository.class).getArticle(articleNo);
     }
 
     @Override
-    public void updateHit(int articleNo) throws Exception {
-
-    }
-
-    @Override
-    public void likeArticle(String userId, int articleNo) {
+    public void likeArticle(String userId, int articleNo) throws Exception {
         session.getMapper(ShareArticleRepository.class).likeArticle(userId, articleNo);
     }
 }

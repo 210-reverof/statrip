@@ -51,9 +51,15 @@
         where a.articleNo = #{articleNo}
     </select>
 
-    <update id="likeArticle">
+    <insert id="likeArticle">
         INSERT INTO share_like (user_id, article_no)
         VALUES (#{userId}, #{articleNo})
+    </insert>
+    
+    <update id="updateHit">
+    	UPDATE share
+		SET hit = hit + 1
+		WHERE article_no = #{articleNO};
     </update>
 
 </mapper>
