@@ -15,6 +15,8 @@ export default {
   props: {
     planItemList: [],
     followPlanList: [],
+    kakaoMapType: {},
+    kakaoAttractions:{},
   },
   data() {
     return {
@@ -27,25 +29,20 @@ export default {
     };
   },
   mounted() {
+    console.log(this.kakaoMapType)
     if (window.kakao && window.kakao.maps) {
       this.loadMap();
-      // this.linePath.push(
-      //   new window.kakao.maps.LatLng(33.452344169439975, 126.56878163224233)
-      // );
-      // this.linePath.push(
-      //   new window.kakao.maps.LatLng(33.452739313807456, 126.5709308145358)
-      // );
-      // this.linePath.push(
-      //   new window.kakao.maps.LatLng(33.45178067090639, 126.5726886938753)
-      // );
     } else {
       this.loadScript();
     }
+    console.log("ccccccccccc")
+    console.log(this.kakaoAttractions)
   },
   computed: {
     ...mapState(attractionStore, ["sidos", "attractions"]),
   },
   watch: {
+    //선택된 여행지
     planItemList(newValue, oldValue) {
       console.log(newValue, oldValue);
       this.attractionList = newValue;
@@ -71,6 +68,7 @@ export default {
         console.log(this.polylines);
       }
     },
+    //검색된 모든 여행지
     attractions() {
       console.log("map att " + this.attractions);
 
@@ -201,9 +199,14 @@ export default {
       document.head.appendChild(script);
     },
     loadMap() {
+      var startPos = {lat: 37.5727035, lon: 126.976971}
+      // if(this.kakaoMapType==2){
+      //   startPos = {lat: this.kakaoAttractions.latitude, lon: this.kakaoAttractions.longitude}
+      // }
       const container = document.getElementById("map");
+      console.log(startPos)
       const options = {
-        center: new window.kakao.maps.LatLng(37.5727035, 126.976971),
+        center: new window.kakao.maps.LatLng(startPos.lat, startPos.lon),
         level: 3,
         disableDoubleClickZoom: true,
       };

@@ -8,6 +8,7 @@
     <div class="map-block">
       <kakao-map
         ref="kakaomap"
+        :kakaoMapType="1"
         :planItemList="planItemList"
         :followPlanList="followPlanList"
         @marker-click="addPlanToMarker"
@@ -46,6 +47,9 @@ export default {
     addPointToMap(plan) {
       console.log("addPointToMap");
       console.log(plan);
+      this.planItemList.forEach(element => {
+        if(element == plan) return
+      });
       this.planItemList.push(plan);
 
       // this.$refs.kakaomap.addPoint(plan);

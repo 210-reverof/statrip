@@ -4,9 +4,9 @@
     <div class="exp-desc">
       {{ plan.createdAt }}, {{ plan.userId }}
     </div>
-    <div class="plan-info">여행지 개수 : 이동거리 : 1</div>
+    <div class="plan-info">여행지 개수 : {{plan.attractions.length}} 이동거리 : 1</div>
     <div class="scroll-container">
-      <plan-item v-for="attraction in plan.attractions" :key="attraction.id" :attraction="attraction"></plan-item>
+      <plan-item v-for="(attraction, index) in plan.attractions" :key="index" :plan="attraction"></plan-item>
     </div>
   </div>
 </template>
