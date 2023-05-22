@@ -1,7 +1,9 @@
 package com.wonsi.statrip.controller;
 
+import com.wonsi.statrip.model.dto.StatDto;
 import com.wonsi.statrip.model.dto.response.FollowCntDto;
 import com.wonsi.statrip.model.service.JwtService;
+import com.wonsi.statrip.model.service.StatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,7 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+
 	@Autowired
 	private JwtService jwtService;
 	
@@ -94,7 +97,4 @@ public class UserController {
 
 		return ResponseEntity.ok(dto);
 	}
-
-
-
 }

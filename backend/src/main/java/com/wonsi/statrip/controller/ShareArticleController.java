@@ -35,6 +35,13 @@ public class ShareArticleController {
         return ResponseEntity.ok(articles);
     }
 
+    @GetMapping("/list/user/{user}")
+    private ResponseEntity<List<ShareArticleDto>> getUserList() throws Exception {
+        List<ShareArticleDto> articles = shareArticleService.listArticle();
+
+        return ResponseEntity.ok(articles);
+    }
+
     @GetMapping("/{no}")
     private ResponseEntity<ShareArticleDto> getArticle(@PathVariable("no") int no) throws Exception {
         ShareArticleDto article = shareArticleService.getArticle(no);

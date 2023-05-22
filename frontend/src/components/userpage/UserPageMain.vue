@@ -20,7 +20,7 @@
       <div>
         <div>
           <b-row class="center" id="my-row">
-            <b-col class="card-col" cols="3" v-for="item in hotspotlists" :key="item.id">
+            <b-col class="card-col" cols="3" v-for="item in hotspotitems" :key="item.id">
               <hot-spot-card :item="item"></hot-spot-card>
             </b-col>
           </b-row>
@@ -41,7 +41,7 @@
         <div>
           <b-row class="center" id="my-row">
             <div @click="moveViewPlan()">
-              <plan-card v-for="plan in planlists" :key="plan.id" :plan="plan"></plan-card>
+              <plan-card v-for="plan in planitems" :key="plan.id" :plan="plan"></plan-card>
             </div>
           </b-row>
         </div>
@@ -60,7 +60,7 @@
         <hr />
         <b-row class="center">
           <!-- 카드 하나씩을 출력하며 각 카드에 클릭 이벤트를 달아줌. id값만 넘어가기 때문에 moveDetail로 넘어간 shareDetail에서는 별도의 get을 통해 게시글에 들어갈 plan을 받아줘야 함 -->
-          <b-col cols="6" v-for="item in sharelists" :key="item.name" @click="moveDetail(item.id)">
+          <b-col cols="6" v-for="item in shareitems" :key="item.name" @click="moveDetail(item.id)">
             <share-card class="card-size" :detail="item"></share-card>
           </b-col>
         </b-row>
@@ -88,6 +88,7 @@ import HotSpotCard from "@/components/home/HotSpotCard.vue";
 import PlanCard from "@/components/home/PlanCard.vue";
 import ShareCard from "@/components/home/ShareCard.vue";
 import { followUserCnt } from "@/api/user";
+import { getPlanUserList } from "@/api/plan";
 
 export default {
   name: "UserPageMain",
@@ -117,24 +118,25 @@ export default {
   created() {
     this.user.userId = this.$route.params.userId;
     this.getFollowCnt();
+    this.getPlanList();
 
   },
   computed: {
-    hotspotlists() {
-      const items = this.hotspotitems;
-      return items.slice((this.currentPage - 1) * this.perPage, this.currentPage * this.perPage);
-    },
-    planlists() {
-      const items = this.planitems;
-      return items.slice((this.currentPage - 1) * this.twoPage, this.currentPage * this.twoPage);
-    },
-    sharelists() {
-      const items = this.shareitems;
-      return items.slice((this.currentPage - 1) * this.twoPage, this.currentPage * this.twoPage);
-    },
-    hotspottotalRows() {
-      return this.hotspotitems.length;
-    },
+    // hotspotlists() {
+    //   const items = this.hotspotitems;
+    //   return items.slice((this.currentPage - 1) * this.perPage, this.currentPage * this.perPage);
+    // },
+    // planlists() {
+    //   const items = this.planitems;
+    //   return items.slice((this.currentPage - 1) * this.twoPage, this.currentPage * this.twoPage);
+    // },
+    // sharelists() {
+    //   const items = this.shareitems;
+    //   return items.slice((this.currentPage - 1) * this.twoPage, this.currentPage * this.twoPage);
+    // },
+    // hotspottotalRows() {
+    //   return this.hotspotitems.length;
+    // },
   },
   methods: {
     moveViewPlan() {
@@ -150,6 +152,12 @@ export default {
         (error) => console.log(error)
       );
     },
+    async getPlanList() {
+      getPlanUserList(this.user.userId,
+      ({data}) => this.planitems = data.slice(0,3),
+      (error) => console.log(error)
+      );
+    }
   },
 };
 </script>

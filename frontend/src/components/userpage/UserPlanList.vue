@@ -41,7 +41,7 @@ export default {
   components: {
     PlanCard,
   },
-  data: function () {
+  data () {
     return {
       userId:"",
       perPage: 2,
@@ -52,8 +52,10 @@ export default {
   created() {
     this.plans = this.$route.params.items;
     this.userId = this.$route.params.userId;
+    console.log(this,this.userId);
     getPlanUserList( this.userId,
-        ({ data }) => (this.plans = data),
+        ({ data }) => {this.plans = data;
+        console.log(this.plan);},
         (error) => console.log(error)
       );
   },

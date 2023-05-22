@@ -16,6 +16,7 @@
     <mapper resource="mappers/user.xml"/>
       <mapper resource="mappers/plan.xml"/>
       <mapper resource="mappers/share.xml"/>
+      <mapper resource="mappers/stat.xml"/>
   </mappers>
 
 </configuration>
