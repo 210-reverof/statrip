@@ -53,7 +53,7 @@ export default {
             this.article.planId = this.plan.planId;
             await addShareArticle( this.article
                 ,console.log(this.article)
-                , console.log("faiillll")
+                , console.log("fail")
             );
             this.$router.push({ name: 'shareList' })
         }

@@ -65,7 +65,7 @@
     </insert>
     
     <update id="updateHit">
-    	UPDATE share
+    	UPDATE share_article
 		SET hit = hit + 1
 		WHERE article_no = #{articleNO};
     </update>

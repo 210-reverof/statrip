@@ -5,7 +5,7 @@
       <like-tag class="share-like-tag" :is-liked="true" :number="detail.hit"></like-tag>
     </div>
     <div class="col-style">
-      <img :src="detail.thumbnail" alt="detail.img" class="img-style" /><br />
+      <img :src="getValidImageUrl(detail.thumbnail)" alt="detail.img" class="img-style" /><br />
       <b-row>
         <b-col cols="8">
           {{ detail.title }}
@@ -36,6 +36,12 @@ export default {
     hoverEffect() {
       this.$refs.card.style.opacity = 0.5;
     },
+    getValidImageUrl(imageUrl) {
+      if (!imageUrl || imageUrl.trim() === "") {
+        return "https://via.placeholder.com/400x300"; 
+      }
+      return imageUrl;
+    }
   },
 };
 </script>

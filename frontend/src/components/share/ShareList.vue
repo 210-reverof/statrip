@@ -17,7 +17,7 @@
           cols="6"
           v-for="item in lists"
           :key="item.name"
-          @click="moveDetail(item.id)"
+          @click="moveDetail(item.articleNo)"
         >
         <!-- sharelist에 띄울 card의 모양에 들어가는 데이터의 리스트를 받아 출력 -->
           <share-card class="card-size" :detail="item"></share-card>
@@ -73,9 +73,8 @@ export default {
     },
   },
   methods: {
-    moveDetail(id) {
-      console.log(id);
-      this.$router.push({ name: "shareDetail", params: { id: id } });
+    moveDetail(articleNo) {
+      this.$router.push({ name: "shareDetail", params: { articleNo: articleNo } });
     },
   },
 };
