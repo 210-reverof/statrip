@@ -1,6 +1,7 @@
 <template>
   <div class="plan-add">
-    <plan-display :planItemList="planItemList"></plan-display>
+    <plan-display :planItemList="planItemList" @delete-click="deletePlan"
+    @dragged="draggedItem"></plan-display>
     <div class="map-block">
       <kakao-map ref="kakaomap" :planItemList="planItemList" @marker-click="addPlanToMarker"></kakao-map>
       <b-button v-b-toggle.sidebar-right class="search-bar-button"
@@ -35,7 +36,6 @@ export default {
       console.log("addPointToMap");
       console.log(plan);
       this.planItemList.push(plan);
-      console.log(this.planItemList);
 
       // this.$refs.kakaomap.addPoint(plan);
     },
@@ -43,10 +43,17 @@ export default {
       console.log("addPlanToMarker");
       console.log(plan);
       this.planItemList.push(plan);
-      console.log(this.planItemList);
 
       // this.$refs.kakaomap.addPoint(plan);
     },
+    deletePlan(index){
+      console.log("deletePlan");
+      this.planItemList.splice(index, 1);
+    },
+    draggedItem(attractionList){
+      console.log("draggedPlan" + attractionList);
+      this.planItemList = attractionList
+    }
   },
   computed:{
     ...mapState(attractionStore, ["sidos", "guguns", "attractions"]),
