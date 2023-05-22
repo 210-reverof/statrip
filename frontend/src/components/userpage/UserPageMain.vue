@@ -121,23 +121,6 @@ export default {
     this.getPlanList();
 
   },
-  computed: {
-    // hotspotlists() {
-    //   const items = this.hotspotitems;
-    //   return items.slice((this.currentPage - 1) * this.perPage, this.currentPage * this.perPage);
-    // },
-    // planlists() {
-    //   const items = this.planitems;
-    //   return items.slice((this.currentPage - 1) * this.twoPage, this.currentPage * this.twoPage);
-    // },
-    // sharelists() {
-    //   const items = this.shareitems;
-    //   return items.slice((this.currentPage - 1) * this.twoPage, this.currentPage * this.twoPage);
-    // },
-    // hotspottotalRows() {
-    //   return this.hotspotitems.length;
-    // },
-  },
   methods: {
     moveViewPlan() {
       this.$router.push({ name: "viewPlan" });

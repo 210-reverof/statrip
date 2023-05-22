@@ -51,5 +51,10 @@
 		join user u on f.follower_id = u.user_id
 		where following_id = #{userId}
 	</select>
+
+	<select id="userList" resultType="String">
+		select user_id AS userId
+		from user
+	</select>
 	
 </mapper>
