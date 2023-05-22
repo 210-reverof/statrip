@@ -83,12 +83,17 @@ const routes = [
       {
         path: 'list',
         name: 'shareList',
-        component: () => import(/* webpackChunkName: "question" */ '@/components/share/ShareList.vue'),
+        component: () => import(/* webpackChunkName: "share" */ '@/components/share/ShareList.vue'),
       },
       {
         path: 'detail',
         name: 'shareDetail',
-        component: () => import(/* webpackChunkName: "question" */ '@/components/share/ShareDetail.vue'),
+        component: () => import(/* webpackChunkName: "share" */ '@/components/share/ShareDetail.vue'),
+      },
+      {
+        path: 'write',
+        name: 'shareWrite',
+        component: () => import(/* webpackChunkName: "share" */ '@/components/share/ShareWrite.vue'),
       }
     ]
   },

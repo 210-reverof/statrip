@@ -1,86 +1,92 @@
 <template>
     <div class="contents-block">
-      <h2>Share</h2>
-      <h5>자신이 자랑하고싶은 여행 경로를 공유해주세요</h5>
-      <hr>
-      <div>
-          <div @click="moveViewPlan()"><plan-card :plan="plan"></plan-card></div>
-          <b-row>
-            <div class="content-left">{{plan.content}}</div>
-            
-          </b-row>
-          <hr>
-      </div>
-      <b-row>
-          <b-button  class="btn-pos" squared variant="outline-info" @click="$router.push({name: 'shareList'})"
-              >뒤로가기
-          </b-button>
-      </b-row>
+        <h2>Share</h2>
+        <h5>공유 게시글을 작성해주세요</h5>
+        <hr>
+        <div>
+            <plan-card :plan="plan"></plan-card>
+            <div class="title-input">
+                <input v-model="article.title" placeholder="공유게시물 제목을 적어주세요">
+            </div>
+            <hr>
+            <div class="content-input">
+                <textarea v-model="article.content" placeholder="공유게시물 내용을 입력해주세요"></textarea>
+            </div>
+        </div>
+        <b-row class="justify-content-end">
+            <b-button class="btn" squared variant="outline-success" @click="shareBtn">
+                작성 완료
+            </b-button>
+            <b-button class="btn" squared variant="outline-info" @click="$router.push({ name: 'shareList' })">
+                뒤로가기
+            </b-button>
+        </b-row>
     </div>
-  </template>
+</template>
   
-  <script>
-  
-  import PlanCard from '@/components/home/PlanCard.vue'
+<script>
+import PlanCard from '@/components/home/PlanCard.vue'
+import { addShareArticle } from "@/api/share";
 
-  export default {
-    name: "ShareDetail",
+export default {
+    name: "ShareWrite",
     components: {
-      PlanCard
+        PlanCard
     },
-    data: function () {
-      return {
-        id:"",
-        // plan은 id로 불러서 호출한 데이터, 여기서도 3개씩만 뜨도록 수정
-        plan: {
-            id: 1,
-            route:[{id:3, img: "http://placehold.it/300x200?text=No-image",},
-             {id:1, img: "http://placehold.it/300x200?text=No-image",},
-              {id:2, img: "http://placehold.it/300x200?text=No-image",},
-              {id:4, img: "http://placehold.it/300x200?text=No-image",},],
-            writer: "Jessica_jj",
-            likes: "12",
-            content: "이 경로 진짜 짱짱 추천입니다",
-            regitdate: "2023.03.03",
-          },
-      };
+    data() {
+        return {
+            plan: {},
+            article : {
+                title: "",
+                content: ""
+            }
+        };
     },
     created() {
-      this.id = this.$route.params.id;
-      // item.id로 경로 불러와서 경로 다 찍어주기
+        this.plan = this.$route.params.plan;
+        if (this.plan.attractions.length > 0) this.plan.img1 = this.plan.attractions[0].firstImage;
+        if (this.plan.attractions.length > 1) this.plan.img2 = this.plan.attractions[1].firstImage;
+        if (this.plan.attractions.length > 2) this.plan.img3 = this.plan.attractions[2].firstImage;
     },
     methods: {
-      moveViewPlan(){
-        console.log("click");
-        this.$router.push({name:'viewPlan'});
-      }
+        async shareBtn() {
+            this.article.planId = this.plan.planId;
+            await addShareArticle( this.article
+                ,console.log(this.article)
+                , console.log("faiillll")
+            );
+            this.$router.push({ name: 'shareList' })
+        }
+        
     },
-  };
-  </script>
+};
+</script>
   
-  <style scoped>
-  .contents-block {
+<style scoped>
+.contents-block {
     max-width: 1800px;
     justify-content: center;
     margin: 0 auto;
-  }
-  
-  .btn-pos{
-      margin-top: 1%;
-      margin-bottom: 5%;
-      margin-left: 92%;
-      margin-right: 1%;
-      overflow:hidden;
-      text-overflow:ellipsis;
-      white-space:nowrap;
-  }
-  
-  
-  .content-left{
-    text-align :left;
+}
+
+.content-left {
+    text-align: left;
     padding-left: 5%;
     padding-right: 5%;
     margin-bottom: 5%;
-  }
-  </style>
+}
+
+.title-input,
+.content-input {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+</style>
   
