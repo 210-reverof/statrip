@@ -5,7 +5,7 @@
       <like-tag class="share-like-tag" :is-liked="true" :number="detail.hit"></like-tag>
     </div>
     <div class="col-style">
-      <img :src="detail.img" alt="detail.img" class="img-style" /><br />
+      <img :src="detail.thumbnail" alt="detail.img" class="img-style" /><br />
       <b-row>
         <b-col cols="8">
           {{ detail.title }}
@@ -30,10 +30,6 @@ export default {
   },
   props: {
     detail: {
-      img: {
-        type: String,
-        required: true,
-      },
     },
   },
   methods: {

@@ -16,6 +16,8 @@ public class ShareArticleServiceImpl implements ShareArticleService {
 
     @Override
     public void writeArticle(ShareArticleDto shareArticleDto) throws Exception {
+    	String thumbnail = session.getMapper(ShareArticleRepository.class).getThumbnail(shareArticleDto.getPlanId());
+    	if (thumbnail != null) shareArticleDto.setThumbnail(thumbnail);
         session.getMapper(ShareArticleRepository.class).writeArticle(shareArticleDto);
     }
 
