@@ -19,13 +19,7 @@
     </insert>
 
     <select id="listArticle" resultType="ShareArticleDto">
-        SELECT
-        sa.article_no AS articleNo,
-        sa.user_id AS userId,
-        sa.plan_id AS planId,
-        sa.title,
-        sa.content,
-        sa.hit,
+        SELECT sa.article_no AS articleNo, sa.user_id AS userId, sa.plan_id AS planId, sa.title, sa.content, ssa.hit,
         sa.created_at AS createdAt,
         COUNT(sl.article_no) AS likeCnt
         FROM
@@ -56,6 +50,11 @@
         sa.article_no, sa.user_id, sa.plan_id, sa.title, sa.content, sa.hit, sa.created_at) a
         where a.articleNo = #{articleNo}
     </select>
+
+    <update id="likeArticle">
+        INSERT INTO share_like (user_id, article_no)
+        VALUES (#{userId}, #{articleNo})
+    </update>
 
 
 </mapper>

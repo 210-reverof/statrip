@@ -41,4 +41,12 @@ public class ShareArticleController {
 
         return ResponseEntity.ok(article);
     }
+
+    @PostMapping("/like/{articleNo}")
+    private ResponseEntity<String> likeArticle(@PathVariable("articleNo") int articleNo) throws Exception {
+        String userId = jwtService.getUserId();
+        shareArticleService.likeArticle(userId, articleNo);
+
+        return ResponseEntity.ok("success");
+    }
 }

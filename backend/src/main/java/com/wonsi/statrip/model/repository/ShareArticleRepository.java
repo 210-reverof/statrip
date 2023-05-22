@@ -9,4 +9,5 @@ public interface ShareArticleRepository {
     List<ShareArticleDto> listArticle() throws Exception;
     ShareArticleDto getArticle(int articleNo) throws Exception;
     void updateHit(int articleNo) throws Exception;
+    void likeArticle(String userId, int articleNo);
 }

@@ -33,4 +33,9 @@ public class ShareArticleServiceImpl implements ShareArticleService {
     public void updateHit(int articleNo) throws Exception {
 
     }
+
+    @Override
+    public void likeArticle(String userId, int articleNo) {
+        session.getMapper(ShareArticleRepository.class).likeArticle(userId, articleNo);
+    }
 }
