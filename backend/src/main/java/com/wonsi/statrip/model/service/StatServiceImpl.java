@@ -39,7 +39,6 @@ public class StatServiceImpl implements StatService{
         if (sum == 0) return dto;
 
         for (TypeCountDto t : map) {
-            sum += t.getCnt();
             if (t.getTypeId() == 12) dto.setSightSeeingPercent((double)t.getCnt() / sum);
             else if (t.getTypeId() == 14) dto.setCulturalPercent((double)t.getCnt() / sum);
             else if (t.getTypeId() == 15) dto.setFestivalPercent((double)t.getCnt() / sum);
