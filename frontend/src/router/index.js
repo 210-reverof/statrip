@@ -50,7 +50,7 @@ const routes = [
         component: () => import(/* webpackChunkName: "plan" */ "@/components/plan/PlanAdd.vue"),
       },
       {
-        path: "plan",
+        path: "view/:planId",
         name: "viewPlan",
         component: () =>
           import(/* webpackChunkName: "plan" */ "@/components/plan/view/PlanView.vue"),
@@ -74,7 +74,7 @@ const routes = [
         component: () => import(/* webpackChunkName: "share" */ '@/components/share/ShareList.vue'),
       },
       {
-        path: 'detail',
+        path: 'detail/:articleNo',
         name: 'shareDetail',
         component: () => import(/* webpackChunkName: "share" */ '@/components/share/ShareDetail.vue'),
       },
@@ -249,6 +249,14 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (router.pending && to.name !== from.name) {
+    console.log('Navigation cancelled:', from.fullPath, 'to', to.fullPath);
+    return;
+  }
+  next();
 });
 
 export default router;

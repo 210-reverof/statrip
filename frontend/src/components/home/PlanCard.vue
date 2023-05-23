@@ -1,7 +1,7 @@
 <template>
   <div class="plan-card" @click="moveViewPlan(plan.planId)">
     <div class="card-background">
-      <user-tag :userId="plan.userId" class="user-tag"></user-tag>
+      <user-tag v-if="plan.userId !== ''" :userId="plan.userId" class="user-tag"></user-tag>
       <div class="title">{{plan.title}}</div>
       <b-row class="my-row">
         <b-col class="card-col" cols="3">
@@ -36,10 +36,11 @@ export default {
     };
   },
   created() {
+    console.log(this.plan.userId + "======11111");
   },
   methods: {
     moveViewPlan(planId){
-      this.$router.push({name:'viewPlan', params: {planId}});
+      this.$router.push({ path: `/plan/view/${planId}`});
     },
     getValidImageUrl(imageUrl) {
       if (!imageUrl || imageUrl.trim() === "") {

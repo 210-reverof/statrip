@@ -9,7 +9,7 @@
 
 <mapper namespace="com.wonsi.statrip.model.repository.CommentRepository">
     <select id="commentByShareId" resultType="CommentDto">
-        SELECT user_id AS userId, content, created_at AS createdAt
+        SELECT comment_id AS commentId, user_id AS userId, content, created_at AS createdAt
         FROM comment
         WHERE share_id = #{shareId}
     </select>

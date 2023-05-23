@@ -4,7 +4,7 @@
       <b-textarea
         class="text-area"
         placeholder="댓글을 입력하세요"
-        v-model="content"
+        v-model="comment.content"
       >
       </b-textarea>
     </b-row>
@@ -23,22 +23,33 @@
 </template>
 
 <script>
+import { addComment } from "@/api/comment";
+
 export default {
   name: "ShareCommentInput",
   components: {},
   props: {
-    user: String,
+    shareId: {
+      required: true
+    },
   },
   data() {
     return {
-      content: "",
+      comment: {
+        shareId: 0,
+        content: ""
+      }
     };
   },
-  created() {},
+  created() {
+    this.comment.shareId = this.shareId;
+  },
   methods: {
     createComment() {
-      console.log("댓글입력! : " + this.user + " : " + this.content);
-      this.content = "";
+      addComment(this.comment,
+      window.location.reload(),
+      (error) => console.log(error)
+    )
     },
   },
 };

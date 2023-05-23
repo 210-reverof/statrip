@@ -31,6 +31,7 @@ export default {
     }
   },
   created() {
+    console.log(this.userId + "======22222");
     if (this.userId != "tmp") {
       getUserStat(this.userId, 
       ({data}) => {
