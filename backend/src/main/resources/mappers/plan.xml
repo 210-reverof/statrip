@@ -73,6 +73,7 @@
 		JOIN sido s ON i.sido_code = s.sido_code
 		JOIN gugun g ON i.sido_code = g.sido_code AND i.gugun_code = g.gugun_code
 		WHERE r.plan_id = #{planId}
+		ORDER BY r.ord
 	</select>
 
 	<select id="getRelatedPlanIds" resultType="Integer">
