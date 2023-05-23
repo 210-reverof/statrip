@@ -7,6 +7,7 @@
   <typeAliases>
   	<typeAlias type="com.wonsi.statrip.model.dto.UserDto" alias="UserDto"/>
   	<typeAlias type="com.wonsi.statrip.model.dto.plan.AttractionDto" alias="AttractionDto"/>
+  	<typeAlias type="com.wonsi.statrip.model.dto.HotspotDto" alias="HotspotDto"/>
   	<typeAlias type="com.wonsi.statrip.model.dto.plan.SidoDto" alias="SidoDto"/>
   	<typeAlias type="com.wonsi.statrip.model.dto.plan.GugunDto" alias="GugunDto"/>
   </typeAliases>
@@ -17,6 +18,7 @@
       <mapper resource="mappers/plan.xml"/>
       <mapper resource="mappers/share.xml"/>
       <mapper resource="mappers/stat.xml"/>
+      <mapper resource="mappers/hotspot.xml"/>
   </mappers>
 
 </configuration>
