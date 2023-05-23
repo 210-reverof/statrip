@@ -48,19 +48,35 @@ export default {
   },
   methods: {
     addPointToMap(plan) {
-      console.log("addPointToMap");
-      console.log(plan);
+      let flag = true;
+      console.log("addPointToMap--------start");
+      console.log(plan.contentId);
+      console.log(this.planItemList);
       this.planItemList.forEach(element => {
-        if(element == plan) return
+        console.log("num-------------")
+        console.log(element.contentId)
+        if(element.contentId == plan.contentId){
+          flag = false;
+        } 
       });
-      this.planItemList.push(plan);
-
+      if(flag == true) this.planItemList.push(plan);
+      console.log("addPointToMap--------end");
       // this.$refs.kakaomap.addPoint(plan);
     },
     addPlanToMarker(plan) {
-      console.log("addPlanToMarker");
-      console.log(plan);
-      this.planItemList.push(plan);
+      let flag = true;
+      console.log("addPlanToMarker--------start");
+      console.log(plan.contentId);
+      console.log(this.planItemList);
+      this.planItemList.forEach(element => {
+        console.log("num-------------")
+        console.log(element.contentId)
+        if(element.contentId == plan.contentId){
+          flag = false;
+        }
+      });
+      if(flag == true) this.planItemList.push(plan);
+      console.log("addPlanToMarker--------end");
 
       // this.$refs.kakaomap.addPoint(plan);
     },
