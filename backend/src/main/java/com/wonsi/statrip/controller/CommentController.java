@@ -33,21 +33,22 @@ public class CommentController {
         return ResponseEntity.ok("success");
     }
 
-    @DeleteMapping("/id/{commentId}")
+    @DeleteMapping("/{commentId}")
     public ResponseEntity<String> deleteCommentById(@PathVariable("commentId") int commentId) throws Exception {
+        System.out.println("delete=====" + commentId);
         commentService.deleteCommentById(commentId);
         return ResponseEntity.ok("success");
     }
 
-    @DeleteMapping("/share/{shareId}")
-    public ResponseEntity<String> deleteCommentByShare(@PathVariable("shareId") int shareId) throws Exception {
-        commentService.deleteCommentByShareId(shareId);
-        return ResponseEntity.ok("success");
-    }
-
-    @DeleteMapping("/user/{userId}")
-    public ResponseEntity<String> deleteCommentByUserId(@PathVariable("userId") String userId) throws Exception {
-        commentService.deleteCommentByUserId(userId);
-        return ResponseEntity.ok("success");
-    }
+//    @DeleteMapping("/share/{shareId}")
+//    public ResponseEntity<String> deleteCommentByShare(@PathVariable("shareId") int shareId) throws Exception {
+//        commentService.deleteCommentByShareId(shareId);
+//        return ResponseEntity.ok("success");
+//    }
+//
+//    @DeleteMapping("/user/{userId}")
+//    public ResponseEntity<String> deleteCommentByUserId(@PathVariable("userId") String userId) throws Exception {
+//        commentService.deleteCommentByUserId(userId);
+//        return ResponseEntity.ok("success");
+//    }
 }

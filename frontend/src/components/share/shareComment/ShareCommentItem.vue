@@ -5,7 +5,7 @@
         <user-tag :userId="detail.userId"></user-tag>
         {{ detail.createdAt }}
       </b-col>
-      <b-col class="delete-col">
+      <b-col class="delete-col" v-if="userInfo.userId == detail.userId">
         <!-- 삭제 버튼을 오른쪽에 붙입니다 -->
         <b-button @click="deleteComment" variant="danger" size="sm">삭제</b-button>
       </b-col>
@@ -15,10 +15,16 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import UserTag from "@/components/common/UserTag.vue";
+import { deleteComment } from "@/api/comment";
+const userStore = "userStore";
 
 export default {
   name: "ShareCommentItem",
+  computed: {
+    ...mapState(userStore, ["userInfo"]),
+  },
   components: {
     UserTag,
   },
@@ -28,7 +34,13 @@ export default {
   created() {},
   methods: {
     deleteComment() {
-      console.log("댓글 삭제 함수 호출");
+      deleteComment(this.detail.commentId, this.handleDeleteSuccess, this.handleDeleteError);
+    },
+    handleDeleteSuccess() {
+      window.location.reload();
+    },
+    handleDeleteError(error) {
+      console.log(error);
     },
   },
 };

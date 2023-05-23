@@ -2,8 +2,7 @@
   <div
     class="user-tag"
     onclick="event.cancelBubble = true;"
-    @click="$router.push({ name: 'userPageMain', params: { userId: userId } }).catch(()=>{});
-
+    @click="$router.push({ path: `/userpage/main/${userId}` }).catch(()=>{});
 "
   >
     <b-row class="align-items-center">
@@ -31,7 +30,6 @@ export default {
     }
   },
   created() {
-    console.log(this.userId + "======22222");
     if (this.userId != "tmp") {
       getUserStat(this.userId, 
       ({data}) => {

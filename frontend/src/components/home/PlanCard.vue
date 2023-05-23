@@ -36,7 +36,6 @@ export default {
     };
   },
   created() {
-    console.log(this.plan.userId + "======11111");
   },
   methods: {
     moveViewPlan(planId){
