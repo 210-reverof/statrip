@@ -2,7 +2,7 @@
   <div class="plan-view">
     <plan-display :plan="plan"></plan-display>
     <div class="map-block">
-      <kakao-map ref="kakaomap"></kakao-map>
+      <kakao-map ref="kakaomap" :kakaoMapType="2" :kakaoAttractions="plan.attractions"></kakao-map>
     </div>
   </div>
 </template>
@@ -33,9 +33,11 @@ export default {
   },
   created() {
     const planId = this.$route.params.planId;
-
     getPlan(planId,
-    ({data}) => this.plan = data,
+    ({data}) => {
+      this.plan = data;
+      // console.log(this.plan)
+    },
     (error) => console.log(error));
   },
   methods: {},

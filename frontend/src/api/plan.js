@@ -25,9 +25,16 @@ async function getPlan(planId, success, fail) {
     await api.get(`/plan/` + planId).then(success).catch(fail);
 }
 
+async function getSelectedPlan(params, success, fail) {
+    console.log("api getSelectedPlan")
+    console.log(params)
+    api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
+    await api.get(`/plan/overlay?`+params.toString()).then(success).catch(fail);
+}
+
 async function addPlan(plan, success, fail) {
     api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
     await api.post(`/plan`, JSON.stringify(plan)).then(success).catch(fail);
 }
 
-export { getPlan, addPlan, getPlanAllList, getPlanMyList, getPlanFollowList, getPlanUserList }
+export { getPlan, addPlan, getPlanAllList, getPlanMyList, getPlanFollowList, getPlanUserList, getSelectedPlan}
