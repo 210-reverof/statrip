@@ -56,5 +56,9 @@
 		SET hit = hit + 1
 		WHERE article_no = #{articleNO};
     </update>
+    
+    <delete id="deleteArticle">
+    	DELETE FROM share_article WHERE article_no = #{articleNo};
+    </delete>
 
 </mapper>
