@@ -33,6 +33,11 @@ public class UserController {
 		return ResponseEntity.ok("success");
 	}
 	
+	@GetMapping("/possible/{userId}")
+	public ResponseEntity<Boolean> check(@PathVariable("userId") String userId) throws Exception {
+		return ResponseEntity.ok(userService.isPossible(userId));
+	}
+	
 	@PostMapping("/login")
 	public ResponseEntity<LoginResDto> login(@RequestBody UserDto userDto) throws Exception {
 		return ResponseEntity.ok(userService.login(userDto));	
@@ -45,7 +50,7 @@ public class UserController {
 	}
 
 	@GetMapping("/logout/{userId}")
-	public ResponseEntity<Void> logout(@PathVariable("userId") String userId) {
+	public ResponseEntity<Void> logout(@PathVariable("userId") String userId) throws Exception {
 		userService.logout(userId);
 		return ResponseEntity.ok(null);
 	}
@@ -56,7 +61,7 @@ public class UserController {
 	}
 
 	@PostMapping("/follow/{id}")
-	public ResponseEntity<String> follow(HttpServletRequest request, @PathVariable("id") String followingId) {
+	public ResponseEntity<String> follow(HttpServletRequest request, @PathVariable("id") String followingId) throws Exception {
 		String userId = jwtService.getUserId();
 		userService.follow(userId, followingId);
 
@@ -64,7 +69,7 @@ public class UserController {
 	}
 
 	@GetMapping("/following")
-	public ResponseEntity<List<UserDto>> following(HttpServletRequest request) {
+	public ResponseEntity<List<UserDto>> following(HttpServletRequest request) throws Exception {
 		String userId = jwtService.getUserId();
 		List<UserDto> followings = userService.followingList(userId);
 
@@ -72,7 +77,7 @@ public class UserController {
 	}
 
 	@GetMapping("/follower")
-	public ResponseEntity<List<UserDto>> follower(HttpServletRequest request) {
+	public ResponseEntity<List<UserDto>> follower(HttpServletRequest request) throws Exception {
 		String userId = jwtService.getUserId();
 		List<UserDto> followers = userService.followerList(userId);
 
@@ -80,7 +85,7 @@ public class UserController {
 	}
 
 	@GetMapping("/follow-cnt")
-	public ResponseEntity<FollowCntDto> followCnt(HttpServletRequest request) {
+	public ResponseEntity<FollowCntDto> followCnt(HttpServletRequest request) throws Exception {
 		String userId = jwtService.getUserId();
 		FollowCntDto dto = new FollowCntDto();
 		dto.setFollowerCnt(userService.followerList(userId).size());
@@ -90,7 +95,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/follow-user-cnt/{userId}")
-	public ResponseEntity<FollowCntDto> followUserCnt(@PathVariable("userId") String userId) {
+	public ResponseEntity<FollowCntDto> followUserCnt(@PathVariable("userId") String userId) throws Exception {
 		FollowCntDto dto = new FollowCntDto();
 		dto.setFollowerCnt(userService.followerList(userId).size());
 		dto.setFollowingCnt(userService.followingList(userId).size());

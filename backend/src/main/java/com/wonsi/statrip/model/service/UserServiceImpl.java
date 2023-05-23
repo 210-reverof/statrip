@@ -37,29 +37,37 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void join(UserDto userDto) {
+	public void join(UserDto userDto) throws Exception {
 		sqlSession.getMapper(UserRepository.class).join(userDto);
+		// TODO:: 초기설문 넣기
 		
 	}
 
 	@Override
-	public void logout(String userId) {
+	public void logout(String userId) throws Exception {
 		sqlSession.getMapper(UserRepository.class).logout(userId);
 	}
 
 	@Override
-	public void follow(String followerId, String followingId) {
+	public void follow(String followerId, String followingId) throws Exception {
 		sqlSession.getMapper(UserRepository.class).follow(followerId, followingId);
 	}
 
 	@Override
-	public List<UserDto> followingList(String userId) {
+	public List<UserDto> followingList(String userId) throws Exception {
 		return sqlSession.getMapper(UserRepository.class).followingList(userId);
 	}
 
 	@Override
-	public List<UserDto> followerList(String userId) {
+	public List<UserDto> followerList(String userId) throws Exception {
 		return sqlSession.getMapper(UserRepository.class).followerList(userId);
+	}
+
+	@Override
+	public Boolean isPossible(String userId) throws Exception {
+		String res = sqlSession.getMapper(UserRepository.class).isPossible(userId);
+		if (res == null) return true;
+		return false;
 	}
 
 }

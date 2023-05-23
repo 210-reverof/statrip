@@ -9,18 +9,20 @@ import java.util.List;
 @Mapper
 public interface UserRepository {
 	UserDto findUserByUserId(String userId) throws Exception;
-	UserDto login(UserDto userDto);
-	void setToken(String userId, String refreshToken);
-	void join(UserDto userDto);
+	UserDto login(UserDto userDto) throws Exception;
+	void setToken(String userId, String refreshToken) throws Exception;
+	void join(UserDto userDto) throws Exception;
 
-    void logout(String userId);
+    void logout(String userId) throws Exception;
 
-	void follow(String followerId, String followingId);
-	void unFollow(String followerId, String followingId);
+	void follow(String followerId, String followingId) throws Exception;
+	void unFollow(String followerId, String followingId) throws Exception;
 
-	List<UserDto> followingList(String userId);
+	List<UserDto> followingList(String userId) throws Exception;
 
-	List<UserDto> followerList(String userId);
+	List<UserDto> followerList(String userId) throws Exception;
 
-	List<String> userList();
+	List<String> userList() throws Exception;
+	
+	String isPossible(String userId) throws Exception;
 }
