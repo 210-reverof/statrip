@@ -4,7 +4,7 @@
     <h5>나만의 핫스팟을 인증샷과 함께 자랑해주세요</h5>
     <hr />
     <div>
-      <div style="text-align:left">경로 입력</div>
+      <div style="text-align: left">경로 입력</div>
       <!-- <plan-card></plan-card> -->
       <b-form-select
         v-model="rootselected"
@@ -12,18 +12,22 @@
       ></b-form-select>
 
       <div class="mt-3">
-        <h4>선택됨: <strong>{{ rootselected }}</strong></h4>
+        <h4>
+          선택됨: <strong>{{ rootselected }}</strong>
+        </h4>
       </div>
     </div>
     <div>
-      <div style="text-align:left">관광지 선택</div>
+      <div style="text-align: left">관광지 선택</div>
       <b-form-select
         v-model="attrselected"
         :options="attroptions"
       ></b-form-select>
 
       <div class="mt-3">
-        <h4>선택됨: <strong>{{ attrselected }}</strong></h4>
+        <h4>
+          선택됨: <strong>{{ attrselected }}</strong>
+        </h4>
       </div>
     </div>
 
@@ -65,8 +69,20 @@
       </div>
     </div>
     <div>사진 추가</div>
-    <b-button class="btn-pos" squared variant="outline-danger" @click="$router.push({ name: 'hotspotList' })">뒤로가기</b-button>
-    <b-button class="btn-pos" squared variant="outline-info" @click="$router.push({name: 'hotspotList'})">글쓰기</b-button>
+    <b-button
+      class="btn-pos"
+      squared
+      variant="outline-danger"
+      @click="$router.push({ name: 'hotspotList' })"
+      >뒤로가기</b-button
+    >
+    <b-button
+      class="btn-pos"
+      squared
+      variant="outline-info"
+      @click="$router.push({ name: 'hotspotList' })"
+      >글쓰기</b-button
+    >
   </div>
 </template>
 
@@ -76,6 +92,7 @@
 //rootselect가 선택되면 해당 계획의 모든 관광지들을 attroption에 넣어야 함
 
 // import PlanCard from '@/components/home/PlanCard.vue'
+import { getPlanMyList, getPlan } from "@/api/plan";
 
 export default {
   name: "HotspotAdd",
@@ -86,24 +103,28 @@ export default {
     return {
       images: "",
       rootselected: null,
-      rootoptions: [
-        { value: null, text: "Please select an option" },
-        { value: "a", text: "This is First option" },
-        { value: "b", text: "Selected Option" },
-        { value: { C: "3PO" }, text: "This is an option with object value" },
-        { value: "d", text: "This one is disabled", disabled: true },
-      ],
+      plan: {},
+      plans: [],
+      rootoptions: [],
       attrselected: null,
-      attroptions: [
-        { value: null, text: "Please select an option" },
-        { value: "a", text: "This is First option" },
-        { value: "b", text: "Selected Option" },
-        { value: { C: "3PO" }, text: "This is an option with object value" },
-        { value: "d", text: "This one is disabled", disabled: true },
-      ],
+      attroptions: [],
     };
   },
-  created() {},
+  created() {
+    getPlanMyList(
+      ({ data }) => {
+        this.plans = data;
+        console.log(this.plans);
+        this.plans.forEach((element) => {
+          this.rootoptions.push({
+            value: element.planId,
+            text: element.title,
+          });
+        });
+      },
+      (error) => console.log(error)
+    );
+  },
   methods: {
     uploadImage: function () {
       let form = new FormData();
@@ -125,6 +146,27 @@ export default {
     },
     reset() {
       this.images = "";
+    },
+  },
+  watch: {
+    rootselected() {
+      console.log(this.rootselected);
+      if (this.rootselected) {
+        getPlan(
+          this.rootselected,
+          ({ data }) => {
+            console.log(this.rootselected);
+            this.plan = data;
+            console.log(this.plan);
+            this.plan.attractions.forEach((element) => {
+              this.attroptions.push({
+                value: element.contentId,
+                text: element.title,
+              });
+            });
+          },
+        );
+      }
     },
   },
 };

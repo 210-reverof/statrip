@@ -17,6 +17,7 @@
       <mapper resource="mappers/plan.xml"/>
       <mapper resource="mappers/share.xml"/>
       <mapper resource="mappers/stat.xml"/>
+      <mapper resource="mappers/hotspot.xml"/>
   </mappers>
 
 </configuration>
