@@ -4,10 +4,10 @@
       <hr />
       <div>
         <div>
-          <div>
+<div>
             <h1>{{ user.userId }}</h1>
-            <doughnut-chart-graph class="chart-size"></doughnut-chart-graph>
-          </div>
+            <doughnut-chart-graph :userId="user.userId" class="chart-size"></doughnut-chart-graph>
+          </div>          
           <div class="data-block">
             <h3>팔로잉 수 : {{followCnt.followingCnt}}</h3>
             <h3>팔로워 수 : {{followCnt.followerCnt}}</h3>
@@ -113,6 +113,16 @@ export default {
       perPage: 4,
       twoPage: 2,
       currentPage: 1,
+      stat: {
+        sightSeeing: 0,
+        cultural: 0,
+        festival: 0,
+        travelRoute: 0,
+        leports: 0,
+        sleeping: 0,
+        shopping: 0,
+        restaurant: 0
+      }
     };
   },
   created() {
@@ -140,7 +150,7 @@ export default {
       ({data}) => this.planitems = data.slice(0,3),
       (error) => console.log(error)
       );
-    }
+    },
   },
 };
 </script>

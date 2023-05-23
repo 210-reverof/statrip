@@ -14,7 +14,7 @@
       칸을 더블 클릭하세요
     </div>
     <div class="plan-info">
-      여행지 개수 : {{attractionList.length}} 최단 경로 : 1
+      여행지 개수 : {{attractionList.length}} 
     </div>
     <draggable  class="scroll-container" v-model="attractionList"
      @change="finish()">

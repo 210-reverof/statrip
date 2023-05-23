@@ -14,36 +14,35 @@ export default {
   components: {},
   props: {
     planItemList: [],
+    followPlanList: [],
+    kakaoMapType: {},
+    kakaoAttractions:{},
   },
   data() {
     return {
       map: null,
       polylines: [],
+      followPolylines: [],
       attractionList: [],
       markers: [],
       curSelected: {},
     };
   },
   mounted() {
+    console.log(this.kakaoMapType)
     if (window.kakao && window.kakao.maps) {
       this.loadMap();
-      // this.linePath.push(
-      //   new window.kakao.maps.LatLng(33.452344169439975, 126.56878163224233)
-      // );
-      // this.linePath.push(
-      //   new window.kakao.maps.LatLng(33.452739313807456, 126.5709308145358)
-      // );
-      // this.linePath.push(
-      //   new window.kakao.maps.LatLng(33.45178067090639, 126.5726886938753)
-      // );
     } else {
       this.loadScript();
     }
+    console.log("ccccccccccc")
+    console.log(this.kakaoAttractions)
   },
   computed: {
     ...mapState(attractionStore, ["sidos", "attractions"]),
   },
   watch: {
+    //선택된 여행지
     planItemList(newValue, oldValue) {
       console.log(newValue, oldValue);
       this.attractionList = newValue;
@@ -69,6 +68,7 @@ export default {
         console.log(this.polylines);
       }
     },
+    //검색된 모든 여행지
     attractions() {
       console.log("map att " + this.attractions);
 
@@ -81,6 +81,11 @@ export default {
     curSelected() {
       console.log("marker-click");
       this.$emit("marker-click", this.curSelected);
+    },
+    followPlanList() {
+      if (this.followPlanList) {
+        this.drawFollowLine(this.followPlanList);
+      }
     },
   },
   methods: {
@@ -116,7 +121,7 @@ export default {
           imageOption
         ),
         markerPosition = new window.kakao.maps.LatLng(coordX, coordY), // 마커가 표시될 위치입니다
-        content = `<div style="height: 100px;width: 350px ">
+        content = `<div style="height: 100px; width: 350px ">
                     <div style="background-color: #EAF3E8">${element.title}</div>
                         <div style="display: flex; flex-direction: row">
                             <img style="width: 115px; height: 75px" src=${element.firstImage}></img>
@@ -194,9 +199,14 @@ export default {
       document.head.appendChild(script);
     },
     loadMap() {
+      var startPos = {lat: 37.5727035, lon: 126.976971}
+      // if(this.kakaoMapType==2){
+      //   startPos = {lat: this.kakaoAttractions.latitude, lon: this.kakaoAttractions.longitude}
+      // }
       const container = document.getElementById("map");
+      console.log(startPos)
       const options = {
-        center: new window.kakao.maps.LatLng(33.450701, 126.570667),
+        center: new window.kakao.maps.LatLng(startPos.lat, startPos.lon),
         level: 3,
         disableDoubleClickZoom: true,
       };
@@ -224,6 +234,36 @@ export default {
       this.polylines.push(polyline);
       // 지도에 선을 표시합니다
       polyline.setMap(this.map);
+    },
+    drawFollowLine(routes) {
+      if (this.followPolylines) {
+        this.followPolylines.forEach((element) => {
+          element.setMap(null);
+        });
+      }
+      routes.forEach((route) => {
+        const linePath = [];
+        if (route.attractions) {
+          route.attractions.forEach((element) => {
+            linePath.push(
+              new window.kakao.maps.LatLng(element.latitude, element.longitude)
+            );
+          });
+          // 지도에 표시할 선을 생성합니다
+
+          const polyline = new window.kakao.maps.Polyline({
+            path: linePath, // 선을 구성하는 좌표배열 입니다
+            strokeWeight: 6, // 선의 두께 입니다
+            strokeColor: "#B1D8FC", // 선의 색깔입니다
+            strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+            strokeStyle: "solid", // 선의 스타일입니다
+          });
+
+          this.followPolylines.push(polyline);
+          // 지도에 선을 표시합니다
+          polyline.setMap(this.map);
+        }
+      });
     },
   },
 };
