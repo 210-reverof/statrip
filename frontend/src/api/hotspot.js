@@ -2,9 +2,10 @@ import { apiInstance } from "./index.js";
 
 const api = apiInstance();
 
-async function addHotspotArticle(hotspotArticle, success, fail) {
+async function addHotspotArticle(formdata, success, fail) {
     api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
-    await api.post('/hotspot', JSON.stringify(hotspotArticle)).then(success).catch(fail);
+    api.defaults.headers["Content-Type"] = "multipart/form-data";
+    await api.post('/hotspot', formdata).then(success).catch(fail);
 }
 
 async function getHotspotList(success, fail) {

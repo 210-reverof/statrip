@@ -1,7 +1,7 @@
 <template>
   <div
     class="hot-spot-card"
-    :style="{ backgroundImage: 'url(' + this.item.img + ')' }"
+    :style="{ backgroundImage: 'url(' + this.item.imgPath + ')' }"
     @click="cardClick"
   >
     <user-tag :userId="tmp" class="hot-spot-user-tag"></user-tag>
@@ -12,7 +12,7 @@
     ></like-tag>
 
     <b-modal v-model="show" class="custom-modal" size="sm" centered hide-header hide-footer>
-      <b-row class="modal-content" ><img :src="item.img" class="modal-img" /></b-row>
+      <b-row class="modal-content" ><img :src="item.imgPath" class="modal-img" /></b-row>
       
       <user-tag :userId="tmp" class="modal-user"></user-tag>
       <div class="close" @click="show=false">X</div>
@@ -52,14 +52,14 @@ export default {
     },
     cardClick() {
       this.show = true;
-      console.log(this.item.id);
+      console.log(this.item.articleNo);
     },
     close(){
 
     }
   },
   created() {
-    this.id = this.item.id;
+    this.id = this.item.articleNo;
   },
 };
 </script>
@@ -90,7 +90,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 300px;
+  width: 100px;
   height: 400px;
 }
 
@@ -101,6 +101,7 @@ export default {
 .modal-img{
   width: 600px;
   height: 800px;
+  min-height: 400px;
   border-radius: 20px;
   margin-left: -50%;
 }
