@@ -23,6 +23,7 @@ public class StateController {
 
     @GetMapping("/my")
     public ResponseEntity<StatDto> getMyStat() throws Exception {
+    	System.out.println("my");
         String userId = jwtService.getUserId();
         StatDto dto = statService.getStat(userId);
 
@@ -31,6 +32,7 @@ public class StateController {
 
     @GetMapping("/{userId}")
     public ResponseEntity<StatDto> getStat(@PathVariable("userId") String userId) throws Exception {
+    	System.out.println("recommenduserId");
         StatDto dto = statService.getStat(userId);
 
         return ResponseEntity.ok(dto);
@@ -38,6 +40,7 @@ public class StateController {
 
     @GetMapping("/recommend")
     public ResponseEntity<List<StatDto>> getRecommend() throws Exception {
+    	System.out.println("recommend");
         String userId = jwtService.getUserId();
         List<StatDto> recommends = statService.getRecommend(userId);
 
