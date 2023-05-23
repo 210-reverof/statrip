@@ -5,7 +5,7 @@
         <img src="@/assets/common/logo_white.png" style="max-width: 100px; max-height: 60px; padding-left: 20px;" class="mr-2" />
       </b-navbar-brand>
       <b-nav class="ml-auto">
-        <router-link to="/plan" class="nav-link">MY PLAN</router-link>
+        <router-link to="/plan" class="nav-link">PLAN</router-link>
         <router-link to="/hotspot" class="nav-link">HOT SPOT</router-link>
         <router-link to="/share" class="nav-link">SHARE</router-link>
         <router-link to="/mypage" class="nav-link">MY PAGE</router-link>

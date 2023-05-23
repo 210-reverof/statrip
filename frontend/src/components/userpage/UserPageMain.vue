@@ -1,36 +1,16 @@
 <template>
   <div class="userpage">
     <div class="contents-block">
-      <h1>{{usernickn}}</h1>
       <hr />
       <div>
         <div>
           <div>
-            <b-tabs content-class="mt-3" align="center" class="chart-block">
-              <b-tab title="취향">
-                <h3>
-                  사용자의 취향 분석 - 초기 설문 & 팔로우 목록 & 계획에 포함된
-                  태그 합
-                </h3>
-                <doughnut-chart-graph class="chart-size"></doughnut-chart-graph>
-              </b-tab>
-              <b-tab title="경험">
-                <h3>사용자의 경험 분석 - 인증한 경로에 한해서 태그 합</h3>
-                <radar-chart-graph class="chart-size"></radar-chart-graph>
-              </b-tab>
-              <b-tab title="달력" active>
-                <h2>
-                  달력 - 달력에 여행 인증 기록 표시, 다른 색으로 계획 달성 체크
-                  표시<br />
-                  계획 달성률, 자주 방문하는 지역, 태그 표시
-                </h2>
-                <calender-graph></calender-graph>
-              </b-tab>
-            </b-tabs>
+            <h1>{{ user.userId }}</h1>
+            <doughnut-chart-graph class="chart-size"></doughnut-chart-graph>
           </div>
           <div class="data-block">
-            <h3>팔로잉 수 (전체 팔로잉 보기 할까?)</h3>
-            <h3>팔로워 수 (전체 팔로워 보기 할까?)</h3>
+            <h3>팔로잉 수 : {{followCnt.followingCnt}}</h3>
+            <h3>팔로워 수 : {{followCnt.followerCnt}}</h3>
             <h3>전체 게시글 수</h3>
             <h3>전체 받은 하트</h3>
           </div>
@@ -40,12 +20,7 @@
       <div>
         <div>
           <b-row class="center" id="my-row">
-            <b-col
-              class="card-col"
-              cols="3"
-              v-for="item in hotspotlists"
-              :key="item.id"
-            >
+            <b-col class="card-col" cols="3" v-for="item in hotspotitems" :key="item.id">
               <hot-spot-card :item="item"></hot-spot-card>
             </b-col>
           </b-row>
@@ -55,7 +30,7 @@
             @click="
               $router.push({
                 name: 'userHotspotList',
-                params: { items: hotspotitems, usernickn:usernickn },
+                params: { items: hotspotitems, userId: userId },
               })
             "
           >
@@ -66,18 +41,17 @@
         <div>
           <b-row class="center" id="my-row">
             <div @click="moveViewPlan()">
-              <plan-card
-                v-for="plan in planlists"
-                :key="plan.id"
-                :plan="plan"
-              ></plan-card>
+              <plan-card v-for="plan in planitems" :key="plan.id" :plan="plan"></plan-card>
             </div>
           </b-row>
         </div>
         <b-row class="center">
           <h5
             @click="
-              $router.push({ name: 'userPlanList', params: { items: planitems, usernickn:usernickn } })
+              $router.push({
+                name: 'userPlanList',
+                params: { items: planitems, userId: userId },
+              })
             "
           >
             더보기
@@ -85,15 +59,8 @@
         </b-row>
         <hr />
         <b-row class="center">
-          <!-- 카드 하나씩을 출력하며 각 카드에 클릭 이벤트를 달아줌.
-       id값만 넘어가기 때문에 moveDetail로 넘어간 shareDetail에서는 별도의 get을 통해 게시글에 들어갈 plan을 받아줘야 함 -->
-          <b-col
-            cols="6"
-            v-for="item in sharelists"
-            :key="item.name"
-            @click="moveDetail(item.id)"
-          >
-            <!-- sharelist에 띄울 card의 모양에 들어가는 데이터의 리스트를 받아 출력 -->
+          <!-- 카드 하나씩을 출력하며 각 카드에 클릭 이벤트를 달아줌. id값만 넘어가기 때문에 moveDetail로 넘어간 shareDetail에서는 별도의 get을 통해 게시글에 들어갈 plan을 받아줘야 함 -->
+          <b-col cols="6" v-for="item in shareitems" :key="item.name" @click="moveDetail(item.id)">
             <share-card class="card-size" :detail="item"></share-card>
           </b-col>
         </b-row>
@@ -102,7 +69,7 @@
             @click="
               $router.push({
                 name: 'userShareList',
-                params: { items: shareitems, usernickn:usernickn },
+                params: { items: shareitems, userId: userId },
               })
             "
           >
@@ -117,194 +84,63 @@
 
 <script>
 import DoughnutChartGraph from "@/components/common/DoughnutChartGraph.vue";
-import RadarChartGraph from "@/components/common/RadarChartGraph.vue";
-import CalenderGraph from "@/components/common/CalenderGraph.vue";
 import HotSpotCard from "@/components/home/HotSpotCard.vue";
 import PlanCard from "@/components/home/PlanCard.vue";
 import ShareCard from "@/components/home/ShareCard.vue";
+import { followUserCnt } from "@/api/user";
+import { getPlanUserList } from "@/api/plan";
 
 export default {
   name: "UserPageMain",
   components: {
     DoughnutChartGraph,
-    RadarChartGraph,
-    CalenderGraph,
     HotSpotCard,
     PlanCard,
     ShareCard,
   },
   data() {
     return {
-      usernickn:"",
+      user: {
+        userId: "",
+      },
+      followCnt: {
+        followingCnt: 0,
+        followerCnt: 0,
+      },
+      hotspotitems: [],
+      planitems: [],
+      shareitems: [],
       perPage: 4,
       twoPage: 2,
       currentPage: 1,
-      hotspotitems: [
-        {
-          id: 1,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
-        {
-          id: 2,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
-        {
-          id: 3,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
-        {
-          id: 4,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
-        {
-          id: 5,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
-        {
-          id: 6,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
-        {
-          id: 7,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
-        {
-          id: 8,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
-        {
-          id: 9,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
-        {
-          id: 10,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
-      ],
-      planitems: [
-        {
-          id: 1,
-          route: [
-            { id: 3, img: "http://placehold.it/300x200?text=No-image" },
-            { id: 1, img: "http://placehold.it/300x200?text=No-image" },
-            { id: 2, img: "http://placehold.it/300x200?text=No-image" },
-          ],
-          writer: "Jessica_jj",
-          likes: "12",
-          content: "이 경로 진짜 짱짱 추천입니다",
-          regitdate: "2023.03.03",
-        },
-        {
-          id: 2,
-          route: [
-            { id: 3, img: "http://placehold.it/300x200?text=No-image" },
-            { id: 1, img: "http://placehold.it/300x200?text=No-image" },
-            { id: 2, img: "http://placehold.it/300x200?text=No-image" },
-          ],
-          writer: "Jessica_jj",
-          likes: "12",
-          content: "이 경로 진짜 짱짱 추천입니다",
-          regitdate: "2023.03.03",
-        },
-        {
-          id: 3,
-          route: [
-            { id: 3, img: "http://placehold.it/300x200?text=No-image" },
-            { id: 1, img: "http://placehold.it/300x200?text=No-image" },
-            { id: 2, img: "http://placehold.it/300x200?text=No-image" },
-          ],
-          writer: "Jessica_jj",
-          likes: "12",
-          content: "이 경로 진짜 짱짱 추천입니다",
-          regitdate: "2023.03.03",
-        },
-      ],
-      shareitems: [
-        {
-          id: 1,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x200?text=No-image",
-          likes: "12",
-          content: "이 경로 진짜 짱짱 추천입니다",
-          regitdate: "2023.03.03",
-        },
-        {
-          id: 2,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x200?text=No-image",
-          likes: "12",
-          content: "이 경로 진짜 짱짱 추천입니다",
-          regitdate: "2023.03.03",
-        },
-        {
-          id: 3,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x200?text=No-image",
-          likes: "12",
-          content: "이 경로 진짜 짱짱 추천입니다",
-          regitdate: "2023.03.03",
-        },
-      ],
     };
   },
   created() {
-    this.usernickn = this.$route.params.usernickn
-  },
-  computed: {
-    hotspotlists() {
-      const items = this.hotspotitems;
-      return items.slice(
-        (this.currentPage - 1) * this.perPage,
-        this.currentPage * this.perPage
-      );
-    },
-    planlists() {
-      const items = this.planitems;
-      return items.slice(
-        (this.currentPage - 1) * this.twoPage,
-        this.currentPage * this.twoPage
-      );
-    },
-    sharelists() {
-      const items = this.shareitems;
-      return items.slice(
-        (this.currentPage - 1) * this.twoPage,
-        this.currentPage * this.twoPage
-      );
-    },
-    hotspottotalRows() {
-      return this.hotspotitems.length;
-    },
+    this.user.userId = this.$route.params.userId;
+    this.getFollowCnt();
+    this.getPlanList();
+
   },
   methods: {
     moveViewPlan() {
-      console.log("click");
       this.$router.push({ name: "viewPlan" });
     },
     moveDetail(id) {
       console.log(id);
       this.$router.push({ name: "shareDetail", params: { id: id } });
     },
+    async getFollowCnt() {
+      followUserCnt( this.user.userId,
+        ({ data }) => this.followCnt = data,
+        (error) => console.log(error)
+      );
+    },
+    async getPlanList() {
+      getPlanUserList(this.user.userId,
+      ({data}) => this.planitems = data.slice(0,3),
+      (error) => console.log(error)
+      );
+    }
   },
 };
 </script>

@@ -3,7 +3,7 @@
   <div align="center">
     <b-row class="share-header">
       <b-col cols="8">
-        <user-tag class="user-tag"></user-tag>
+        <user-tag  class="user-tag"></user-tag>
       </b-col>
       <b-col cols="4"> - </b-col>
     </b-row>

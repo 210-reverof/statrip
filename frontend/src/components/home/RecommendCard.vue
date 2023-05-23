@@ -27,11 +27,6 @@ export default {
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
 }
 
-.user-tag {
-  padding-left: 60px;
-  padding-top: 40px;
-}
-
 .image-row {
   display: flex;
   justify-content: center;

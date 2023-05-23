@@ -55,6 +55,62 @@ const routes = [
         component: () =>
           import(/* webpackChunkName: "plan" */ "@/components/plan/view/PlanView.vue"),
       },
+      {
+        path: 'add',
+        name: 'hotspotAdd',
+        component: () => import(/* webpackChunkName: "hotspotAdd" */ '@/components/hotspot/HotspotAdd.vue'),
+      }
+    ]
+  },
+  {
+    path: '/share',
+    name: 'share',
+    component: () => import(/* webpackChunkName: "share" */ '@/views/ShareView.vue'),
+    redirect: "/share/list",
+    children:[
+      {
+        path: 'list',
+        name: 'shareList',
+        component: () => import(/* webpackChunkName: "share" */ '@/components/share/ShareList.vue'),
+      },
+      {
+        path: 'detail',
+        name: 'shareDetail',
+        component: () => import(/* webpackChunkName: "share" */ '@/components/share/ShareDetail.vue'),
+      },
+      {
+        path: 'write',
+        name: 'shareWrite',
+        component: () => import(/* webpackChunkName: "share" */ '@/components/share/ShareWrite.vue'),
+      }
+    ]
+  },
+  {
+    path: '/mypage',
+    name: 'mypage',
+    component: () => import(/* webpackChunkName: "mypage" */ '@/views/MyPageView.vue'),
+    redirect: '/mypage/main',
+    children:[
+      {
+        path: 'main',
+        name: 'myPageMain',
+        component: () => import(/* webpackChunkName: "auth" */ '@/components/mypage/MyPageMain.vue'),
+      },
+      {
+        path: 'myhot',
+        name: 'myHotspotList',
+        component: () => import(/* webpackChunkName: "auth" */ '@/components/mypage/MyHotspotList.vue'),
+      },
+      {
+        path: 'myplan',
+        name: 'myPlanList',
+        component: () => import(/* webpackChunkName: "auth" */ '@/components/mypage/MyPlanList.vue'),
+      },
+      {
+        path: 'myshare',
+        name: 'myShareList',
+        component: () => import(/* webpackChunkName: "auth" */ '@/components/mypage/MyShareList.vue'),
+      }
     ],
   },
   {

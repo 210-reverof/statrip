@@ -1,7 +1,7 @@
 <template>
   <div class="plan-card" @click="moveViewPlan(plan.planId)">
     <div class="card-background">
-      <user-tag class="user-tag"></user-tag>
+      <user-tag :userId="plan.userId" class="user-tag"></user-tag>
       <div class="title">{{plan.title}}</div>
       <b-row class="my-row">
         <b-col class="card-col" cols="3">
@@ -12,7 +12,7 @@
       </b-row>
       <b-row class="content-row">
         <div class="left-align">
-          <p>여행지 개수: {{plan.attractions}} 최소 이동 거리: 1234km</p>
+          <p>여행지 개수: {{plan.attractionCnt}} 최소 이동 거리: {{plan.attractionWeight}}km</p>
         </div>
         <div class="right-align">
           <p>{{plan.createdAt}}</p>

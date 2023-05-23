@@ -2,6 +2,7 @@ package com.wonsi.statrip.model.service.plan;
 
 import com.wonsi.statrip.model.dto.plan.AttractionDto;
 import com.wonsi.statrip.model.dto.plan.GugunDto;
+import com.wonsi.statrip.model.dto.plan.PlanAttrDto;
 import com.wonsi.statrip.model.dto.plan.SidoDto;
 import com.wonsi.statrip.model.repository.plan.AttractionRepository;
 import com.wonsi.statrip.model.service.plan.AttractionService;

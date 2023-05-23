@@ -1,17 +1,17 @@
 <template>
   <div class="share-card">
     <div class="share-tag">
-      <user-tag class="share-user-tag"></user-tag>
-      <like-tag class="share-like-tag" :is-liked="true" :number="5"></like-tag>
+      <user-tag :userId="detail.userId" class="share-user-tag"></user-tag>
+      <like-tag class="share-like-tag" :is-liked="true" :number="detail.hit"></like-tag>
     </div>
     <div class="col-style">
-      <img :src="detail.img" alt="detail.img" class="img-style" /><br />
+      <img :src="getValidImageUrl(detail.thumbnail)" alt="detail.img" class="img-style" /><br />
       <b-row>
         <b-col cols="8">
-          {{ detail.content }}
+          {{ detail.title }}
         </b-col>
         <b-col cols="4">
-          {{ detail.regitdate }}
+          {{ detail.createdAd }}
         </b-col>
       </b-row>
     </div>
@@ -30,16 +30,18 @@ export default {
   },
   props: {
     detail: {
-      img: {
-        type: String,
-        required: true,
-      },
     },
   },
   methods: {
     hoverEffect() {
       this.$refs.card.style.opacity = 0.5;
     },
+    getValidImageUrl(imageUrl) {
+      if (!imageUrl || imageUrl.trim() === "") {
+        return "https://via.placeholder.com/400x300"; 
+      }
+      return imageUrl;
+    }
   },
 };
 </script>

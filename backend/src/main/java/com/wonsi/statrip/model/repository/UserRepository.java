@@ -21,4 +21,6 @@ public interface UserRepository {
 	List<UserDto> followingList(String userId);
 
 	List<UserDto> followerList(String userId);
+
+	List<String> userList();
 }

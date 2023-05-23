@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wonsi.statrip.model.repository.ShareArticleRepository">
+    <resultMap type="ShareArticleDto" id="article">
+        <result column="article_no" property="articleNo"/>
+        <result column="user_id" property="userId"/>
+        <result column="plan_id" property="planId"/>
+        <result column="title" property="title"/>
+        <result column="content" property="content"/>
+        <result column="created_at" property="createdAt"/>
+        <result column="hit" property="hit"/>
+    </resultMap>
+    
+    <select id="getThumbnail" resultType="String">
+    	SELECT a.first_image AS fisrtImage
+    	FROM plan_relation r
+    	JOIN attraction_info a ON r.attraction_id = a.content_id 
+    	WHERE r.plan_id = #{planId}  	 	
+    	ORDER BY r.ord
+    	LIMIT 1
+    </select>
+
+    <insert id="writeArticle" parameterType="ShareArticleDto">
+        insert into share_article (user_id, plan_id, title, content, hit, created_at, thumbnail)
+        values (#{userId}, #{planId}, #{title}, #{content}, 0, now(), #{thumbnail})
+    </insert>
+
+    <select id="listArticle" resultType="ShareArticleDto">
+        SELECT sa.article_no AS articleNo, sa.user_id AS userId, sa.plan_id AS planId, sa.title AS title, sa.content AS content, sa.hit AS hit, sa.thumbnail AS thumbnail, sa.created_at AS createdAt,
+        COUNT(sl.article_no) AS likeCnt
+        FROM share_article sa
+        LEFT JOIN share_like sl ON sa.article_no = sl.article_no
+        GROUP BY sa.article_no, sa.user_id, sa.plan_id, sa.title, sa.content, sa.hit, sa.created_at;
+    </select>
+
+    <select id="getArticle" resultType="ShareArticleDto">
+        SELECT *
+        FROM
+        	(SELECT sa.article_no AS articleNo, sa.user_id AS userId, sa.plan_id AS planId, sa.title, sa.content, sa.hit, sa.created_at AS createdAt, COUNT(sl.article_no) AS likeCnt
+       		FROM share_article sa
+        	LEFT JOIN share_like sl ON sa.article_no = sl.article_no
+        	GROUP BY
+       		 sa.article_no, sa.user_id, sa.plan_id, sa.title, sa.content, sa.hit, sa.created_at) a
+        WHERE a.articleNo = #{articleNo}
+    </select>
+
+    <insert id="likeArticle">
+        INSERT INTO share_like (user_id, article_no)
+        VALUES (#{userId}, #{articleNo})
+    </insert>
+    
+    <update id="updateHit">
+    	UPDATE share_article
+		SET hit = hit + 1
+		WHERE article_no = #{articleNO};
+    </update>
+
+</mapper>

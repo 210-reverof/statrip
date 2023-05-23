@@ -16,8 +16,12 @@ async function info(success, fail) {
 //   await api.post(`/user/refresh`, user).then(success).catch(fail);
 // }
 
-async function logout(userid, success, fail) {
-  await api.get(`/user/logout/${userid}`).then(success).catch(fail);
+async function logout(userId, success, fail) {
+  await api.get(`/user/logout/${userId}`).then(success).catch(fail);
+}
+
+async function followUserCnt(userId, success, fail) {
+  await api.get(`/user/follow-user-cnt/` + userId).then(success).catch(fail);
 }
 
 async function followCnt(success, fail) {
@@ -25,4 +29,4 @@ async function followCnt(success, fail) {
   await api.get(`/user/follow-cnt`).then(success).catch(fail);
 }
 
-export { login, info, logout, followCnt };
+export { login, info, logout, followUserCnt, followCnt };

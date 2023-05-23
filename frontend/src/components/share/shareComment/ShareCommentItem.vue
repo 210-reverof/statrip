@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-row>
-      <b-col> <user-tag></user-tag></b-col>
+      <b-col> <user-tag :userId="detail.userId"></user-tag></b-col>
     </b-row>
     <b-row class="comment-content">{{detail}}</b-row>
   </div>
@@ -24,11 +24,6 @@ export default {
 </script>
 
 <style scoped>
-.comment{
-  /* margin-left: 1%;
-  margin-right: 1%; */
-}
-
 .comment-content{
   margin-left: 3%;
   margin-right: 3%;

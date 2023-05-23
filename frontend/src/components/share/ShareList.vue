@@ -17,7 +17,7 @@
           cols="6"
           v-for="item in lists"
           :key="item.name"
-          @click="moveDetail(item.id)"
+          @click="moveDetail(item.articleNo)"
         >
         <!-- sharelist에 띄울 card의 모양에 들어가는 데이터의 리스트를 받아 출력 -->
           <share-card class="card-size" :detail="item"></share-card>
@@ -39,6 +39,7 @@
 
 <script>
 import ShareCard from "@/components/home/ShareCard.vue";
+import { getList } from "@/api/share";
 export default {
   name: "ShareList",
   components: {
@@ -49,87 +50,19 @@ export default {
       usernickn:"",
       perPage: 6,
       currentPage: 1,
-      items: [
-        {
-          id: 1,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x200?text=No-image",
-          likes: "12",
-          content: "이 경로 진짜 짱짱 추천입니다",
-          regitdate: "2023.03.03",
-        },
-        {
-          id: 2,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x200?text=No-image",
-          likes: "12",
-          content: "이 경로 진짜 짱짱 추천입니다",
-          regitdate: "2023.03.03",
-        },
-        {
-          id: 3,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x200?text=No-image",
-          likes: "12",
-          content: "이 경로 진짜 짱짱 추천입니다",
-          regitdate: "2023.03.03",
-        },
-        {
-          id: 4,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x200?text=No-image",
-          likes: "12",
-          content: "이 경로 진짜 짱짱 추천입니다",
-          regitdate: "2023.03.03",
-        },
-        {
-          id: 5,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x200?text=No-image",
-          likes: "12",
-          content: "이 경로 진짜 짱짱 추천입니다",
-          regitdate: "2023.03.03",
-        },
-        {
-          id: 6,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x200?text=No-image",
-          likes: "12",
-          content: "이 경로 진짜 짱짱 추천입니다",
-          regitdate: "2023.03.03",
-        },
-        {
-          id: 7,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x200?text=No-image",
-          likes: "12",
-          content: "이 경로 진짜 짱짱 추천입니다",
-          regitdate: "2023.03.03",
-        },
-        {
-          id: 8,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x200?text=No-image",
-          likes: "12",
-          content: "이 경로 진짜 짱짱 추천입니다",
-          regitdate: "2023.03.03",
-        },
-        {
-          id: 9,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x200?text=No-image",
-          likes: "12",
-          content: "이 경로 진짜 짱짱 추천입니다",
-          regitdate: "2023.03.03",
-        },
-      ],
+      items: [],
     };
   },
-  created() {},
+  created() {
+    getList(
+      ({data}) => this.items = data,
+      (error) => console.log(error)
+    )
+    
+  },
   computed: {
     lists() {
       const items = this.items;
-      // Return just page of items needed
       return items.slice(
         (this.currentPage - 1) * this.perPage,
         this.currentPage * this.perPage
@@ -140,9 +73,8 @@ export default {
     },
   },
   methods: {
-    moveDetail(id) {
-      console.log(id);
-      this.$router.push({ name: "shareDetail", params: { id: id } });
+    moveDetail(articleNo) {
+      this.$router.push({ name: "shareDetail", params: { articleNo: articleNo } });
     },
   },
 };
