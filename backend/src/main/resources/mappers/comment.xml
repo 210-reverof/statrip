@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--        private int commentId;-->
+<!--        private String userId;-->
+<!--        private int shareId;-->
+<!--        private String content;-->
+
+<mapper namespace="com.wonsi.statrip.model.repository.CommentRepository">
+    <select id="commentByShareId" resultType="CommentDto">
+        SELECT user_id AS userId, content, created_at AS createdAt
+        FROM comment
+        WHERE share_id = #{shareId}
+    </select>
+
+    <insert id="addComment">
+        INSERT INTO comment (user_id, share_id, content, created_at)
+        VALUES (#{userId}, #{shareId}, #{content}, now())
+    </insert>
+
+    <delete id="deleteCommentById">
+        DELETE FROM comment
+        WHERE comment_id = #{commentId}
+    </delete>
+
+    <delete id="deleteCommentByUserId">
+        DELETE FROM comment
+        WHERE user_id = #{userId}
+    </delete>
+
+    <delete id="deleteCommentByShareId">
+        DELETE FROM comment
+        WHERE share_id = #{shareId}
+    </delete>
+</mapper>

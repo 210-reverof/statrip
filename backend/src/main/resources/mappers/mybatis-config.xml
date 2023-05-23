@@ -18,6 +18,7 @@
       <mapper resource="mappers/share.xml"/>
       <mapper resource="mappers/stat.xml"/>
       <mapper resource="mappers/hotspot.xml"/>
+      <mapper resource="mappers/comment.xml"/>
   </mappers>
 
 </configuration>
