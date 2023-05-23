@@ -60,6 +60,10 @@
 	<delete id="deletePlan" parameterType="int"> 
 		DELETE FROM plan WHERE plan_id = #{planId};
 	</delete>
+	
+	<delete id="deleteShareByPlan" parameterType="int"> 
+		DELETE FROM share_article WHERE plan_id = #{planId};
+	</delete>
 
 	<select id="selectPlanAttrs" parameterType="int" resultType="PlanAttrDto">
 		SELECT visited, r.`ord` AS `number`, i.content_id AS contentId, content_type_id AS contentTypeId, overview, title, addr1, first_image AS firstImage, i.sido_code AS sidoCode, s.sido_name AS sidoName, i.gugun_code AS gugunCode, g.gugun_name AS gugunName, latitude, longitude

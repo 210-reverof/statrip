@@ -19,6 +19,7 @@ public interface PlanRepository {
     void updatePlan(PlanDto planDto) throws Exception;
     void deletePlan(int planId) throws Exception;
     void deletePlanRelation(int planId) throws Exception;
+    void deleteShareByPlan(int planId) throws Exception;
     PlanResDto selectPlan(int planId) throws Exception;
     List<PlanAttrDto> selectPlanAttrs(int planId) throws Exception;
     List<Integer> getRelatedPlanIds(List<Integer> selectedAttrs, int size, String userId) throws Exception;
