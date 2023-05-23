@@ -11,4 +11,5 @@ public interface ShareArticleRepository {
     ShareArticleDto getArticle(int articleNo) throws Exception;
     void updateHit(int articleNo) throws Exception;
     void likeArticle(String userId, int articleNo);
+    void deleteArticle(int articleNo);
 }

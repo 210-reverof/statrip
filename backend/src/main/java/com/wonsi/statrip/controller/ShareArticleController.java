@@ -48,6 +48,13 @@ public class ShareArticleController {
 
         return ResponseEntity.ok(article);
     }
+    
+    @DeleteMapping("/{no}")
+    private ResponseEntity<String> deleteArticle(@PathVariable("no") int no) throws Exception {
+        shareArticleService.deleteArticle(no);
+
+        return ResponseEntity.ok("success");
+    }
 
     @PostMapping("/like/{articleNo}")
     private ResponseEntity<String> likeArticle(@PathVariable("articleNo") int articleNo) throws Exception {
