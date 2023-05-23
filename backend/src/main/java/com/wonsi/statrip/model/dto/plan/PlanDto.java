@@ -18,6 +18,7 @@ public class PlanDto {
     int present1;
     int present2;
     int present3;
+    int attractionWeight = 0;
     
 
     public PlanDto(int planId, String userId, String title, String createdAt) {

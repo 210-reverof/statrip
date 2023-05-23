@@ -9,10 +9,24 @@
 </template>
 <script>
 import RecommendCard from '@/components/home/RecommendCard.vue';
+import { getMyRecommend, getRecommend } from "@/api/stat";
+import { mapState } from "vuex";
+const userStore = "userStore";
 export default {
   name: "RecommendBlock",
   components: {
     RecommendCard
+  },
+  computed: {
+    ...mapState(userStore, ["userInfo"]),
+  },
+  created() {
+    if (this.userInfo) {
+      getMyRecommend();
+
+    } else {
+      getRecommend();
+    }
   },
   data() {
     return {
