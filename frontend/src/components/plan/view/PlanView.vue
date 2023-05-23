@@ -1,8 +1,10 @@
 <template>
   <div class="plan-view">
-    <plan-display :plan="plan"></plan-display>
+    <plan-display :plan="plan" :curLength="curLength"></plan-display>
     <div class="map-block">
-      <kakao-map ref="kakaomap" :kakaoMapType="2" :kakaoAttractions="plan.attractions"></kakao-map>
+      <!-- {{plan.attractions}} -->
+      <kakao-map ref="kakaomap" :kakaoMapType="2" :kakaoAttractions="plan.attractions"
+      @current-length="CheckCurLength"></kakao-map>
     </div>
   </div>
 </template>
@@ -27,8 +29,9 @@ export default {
         userId: "",
         title: "",
         attractions: [],
-        createdAt: "" 
-      }
+        createdAt: "" ,
+      },
+      curLength:{}
     };
   },
   created() {
@@ -40,7 +43,11 @@ export default {
     },
     (error) => console.log(error));
   },
-  methods: {},
+  methods: {
+    CheckCurLength(curLength){
+      this.curLength = curLength;
+    }
+  },
 };
 </script>
 
