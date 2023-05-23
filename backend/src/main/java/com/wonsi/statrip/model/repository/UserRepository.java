@@ -12,6 +12,7 @@ public interface UserRepository {
 	UserDto login(UserDto userDto) throws Exception;
 	void setToken(String userId, String refreshToken) throws Exception;
 	void join(UserDto userDto) throws Exception;
+	void addUserType(String userId, int typeId, int cnt) throws Exception;
 
     void logout(String userId) throws Exception;
 

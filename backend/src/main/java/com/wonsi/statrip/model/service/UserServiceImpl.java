@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wonsi.statrip.exception.UnAuthorizedException;
+import com.wonsi.statrip.model.dto.JoinDto;
 import com.wonsi.statrip.model.dto.UserDto;
 import com.wonsi.statrip.model.dto.response.LoginResDto;
 import com.wonsi.statrip.model.repository.UserRepository;
@@ -37,10 +38,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void join(UserDto userDto) throws Exception {
-		sqlSession.getMapper(UserRepository.class).join(userDto);
-		// TODO:: 초기설문 넣기
-		
+	public void join(JoinDto joinDto) throws Exception {
+		sqlSession.getMapper(UserRepository.class).join(joinDto.toUserDto());
+		sqlSession.getMapper(UserRepository.class).addUserType(joinDto.getUserId(), joinDto.getType1(), 2);
+		sqlSession.getMapper(UserRepository.class).addUserType(joinDto.getUserId(), joinDto.getType2(), 1);
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package com.wonsi.statrip.controller;
 
+import com.wonsi.statrip.model.dto.JoinDto;
 import com.wonsi.statrip.model.dto.StatDto;
 import com.wonsi.statrip.model.dto.response.FollowCntDto;
 import com.wonsi.statrip.model.service.JwtService;
@@ -28,8 +29,8 @@ public class UserController {
 	private JwtService jwtService;
 	
 	@PostMapping("/join")
-	public ResponseEntity<String> join(@RequestBody UserDto userDto) throws Exception {
-		userService.join(userDto);
+	public ResponseEntity<String> join(@RequestBody JoinDto joinDto) throws Exception {
+		userService.join(joinDto);
 		return ResponseEntity.ok("success");
 	}
 	
