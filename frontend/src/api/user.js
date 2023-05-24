@@ -29,4 +29,23 @@ async function followCnt(success, fail) {
   await api.get(`/user/follow-cnt`).then(success).catch(fail);
 }
 
-export { login, info, logout, followUserCnt, followCnt };
+async function isPossible(userId, success, fail) {
+  await api.get(`/user/possible/` + userId).then(success).catch(fail);
+}
+
+async function join(join, success, fail) {
+  await api.post(`/user/join`, JSON.stringify(join)).then(success).catch(fail);
+}
+
+async function getMyRecommend(success, fail) {
+    api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
+    await api.get(`/stat/my`).then(success).catch(fail);
+}
+
+async function getRecommend(success, fail) {
+  await api.get(`/stat/ssafy`).then(success).catch(fail);
+}
+
+
+
+export { login, info, logout, followUserCnt, followCnt, isPossible, join, getMyRecommend, getRecommend };

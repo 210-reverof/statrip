@@ -43,7 +43,7 @@ export default {
     },
     getValidImageUrl(imageUrl) {
       if (!imageUrl || imageUrl.trim() === "") {
-        return "https://via.placeholder.com/400x300"; 
+        return "https://firebasestorage.googleapis.com/v0/b/pocket-sch.appspot.com/o/noimg-statrip.png?alt=media&token=6a8354d8-3533-4eee-9272-7d8a7e87302d"; 
       }
       return imageUrl;
     }
