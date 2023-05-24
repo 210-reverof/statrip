@@ -29,6 +29,11 @@
         JOIN attraction_info a ON r.attraction_id = a.content_id
         WHERE p.user_id IN (SELECT following_id FROM follow WHERE follower_id = #{userId})
         GROUP BY a.content_type_id
+        
+        UNION ALL
+        SELECT type_id AS typeId, cnt
+        FROM user_flavor
+        WHERE user_id = #{userId}
         ) sub
         GROUP BY typeId
         ORDER BY cnt DESC;

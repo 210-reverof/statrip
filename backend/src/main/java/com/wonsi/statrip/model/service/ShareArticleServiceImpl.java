@@ -1,6 +1,7 @@
 package com.wonsi.statrip.model.service;
 
 import com.wonsi.statrip.model.dto.ShareArticleDto;
+import com.wonsi.statrip.model.repository.CommentRepository;
 import com.wonsi.statrip.model.repository.ShareArticleRepository;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,4 +37,20 @@ public class ShareArticleServiceImpl implements ShareArticleService {
     public void likeArticle(String userId, int articleNo) throws Exception {
         session.getMapper(ShareArticleRepository.class).likeArticle(userId, articleNo);
     }
+
+	@Override
+	public void deleteArticle(int no) throws Exception {
+		session.getMapper(ShareArticleRepository.class).deleteLikeByArticle(no);
+		session.getMapper(CommentRepository.class).deleteCommentByShareId(no);
+		session.getMapper(ShareArticleRepository.class).deleteArticle(no);
+		
+	}
+
+	@Override
+	public boolean doILike(String userId, int articleNo) {
+		String u = session.getMapper(ShareArticleRepository.class).doILike(userId, articleNo);
+		if (u == null) return false;
+		return true;
+		
+	}
 }

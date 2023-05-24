@@ -5,7 +5,7 @@
     <div class="exp-desc">
       {{ plan.createdAt }}, {{ plan.userId }}
     </div>
-    <div class="plan-info">여행지 개수 : {{plan.attractions.length}} 이동거리 : 1</div>
+    <div class="plan-info">여행지 개수 : {{plan.attractions.length}} 이동거리 : {{curLength}}</div>
     <div class="scroll-container">
       <plan-item v-for="(attraction, index) in plan.attractions" :key="index" :plan="attraction"></plan-item>
     </div>
@@ -18,6 +18,7 @@ import PlanItem from "@/components/plan/side/PlanItem.vue";
 export default {
   name: "PlanDisplay",
   props: {
+    curLength:{},
     plan: {
       type: Object,
       required: true

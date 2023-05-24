@@ -12,7 +12,7 @@
               type="text"
               class="form-control"
               id="username"
-              v-model="username"
+              v-model="id"
             />
           </div>
         </b-col>
@@ -55,6 +55,7 @@
 
 
 <script>
+import { isPossible } from '@/api/user';
 export default {
   name: "AuthJoinA",
   data() {
@@ -63,7 +64,13 @@ export default {
       password: "",
       checkpassword: "",
       username: "",
+      possible: false
     };
+  },
+  watch: {
+    id() {
+      this.possible = false;
+    }
   },
   methods: {
     submitForm() {
@@ -71,11 +78,26 @@ export default {
       this.password = "";
     },
     submit() {
-      console.log("authJoinA");
+      console.log(this.id);
+      isPossible(
+        this.id,
+        ({data}) => {
+          console.log(data);
+          if (data) {
+            alert("사용 가능한 아이디입니다");
+            this.possible = true;
+          } else {
+            alert("이미 있는 아이디입니다");
+          }
+        },
+        (error) => {console.log(error)}
+      );
+      
     },
     next(){
-      console.log("next");
-      this.$router.push('/auth/joinb')
+      if (!this.possible) alert("중복 확인 해주세요");
+      else if (this.password.length < 1 || this.password != this.checkpassword) alert("비밀번호를 확인해주세요");
+      else this.$router.push({path: '/auth/joinb', query: { id: this.id, password: this.password }})
     }
   },
 };

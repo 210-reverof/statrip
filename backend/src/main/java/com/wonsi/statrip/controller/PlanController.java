@@ -67,8 +67,9 @@ public class PlanController {
     }
 
     @DeleteMapping("/{planId}")
-    public void delete(@PathVariable("planId") int planId) throws Exception {
+    public ResponseEntity<String> delete(@PathVariable("planId") int planId) throws Exception {
         planService.deletePlan(planId);
+        return ResponseEntity.ok("success");
     }
 
     @GetMapping("/{planId}")

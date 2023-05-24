@@ -2,19 +2,19 @@
   <div
     class="user-tag"
     onclick="event.cancelBubble = true;"
-    @click="$router.push({ name: 'userPageMain', params: { userId: userId } }).catch(()=>{});
-
+    @click="$router.push({ path: `/userpage/main/${userId}` }).catch(()=>{});
 "
   >
     <b-row class="align-items-center">
-      <div class="stat-box-a"></div>
-      <div class="stat-box-b"></div>
+      <div :style="getStatBoxStyle(firstType)" class="stat-box-a"></div>
+      <div :style="getStatBoxStyle(secondType)" class="stat-box-b"></div>
       <div class="user-name">{{ userId }}</div>
     </b-row>
   </div>
 </template>
 
 <script>
+import { getUserStat } from "@/api/stat";
 export default {
   name: "UserTag",
   props: {
@@ -23,8 +23,41 @@ export default {
       required: true
     }
   },
-  created() {
+  data() {
+    return {
+      firstType: 0,
+      secondType: 0,
+    }
   },
+  created() {
+    if (this.userId != "tmp") {
+      getUserStat(this.userId, 
+      ({data}) => {
+        this.firstType = data.firstType;
+        this.secondType = data.secondType;
+      }
+    , (error) => console.log(error)
+    )
+    }
+  },
+  methods: {
+    getStatBoxStyle(type) {
+      const colorMap = {
+        12: "#FF0000", // 빨강
+        14: "#FFA500", // 주황
+        15: "#FFFF00", // 노랑
+        25: "#00FF00", // 초록
+        28: "#0000FF", // 파랑
+        32: "#800080", // 보라
+        38: "#FF00FF", // 분홍
+        39: "#888888"  // 회색
+      };
+
+      return {
+        backgroundColor: colorMap[type] || 'transparent'
+      };
+    }
+  }
 };
 </script>
 

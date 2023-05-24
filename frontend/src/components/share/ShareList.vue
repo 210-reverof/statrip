@@ -74,7 +74,7 @@ export default {
   },
   methods: {
     moveDetail(articleNo) {
-      this.$router.push({ name: "shareDetail", params: { articleNo: articleNo } });
+      this.$router.push({ path: `/share/detail/${articleNo}` });
     },
   },
 };

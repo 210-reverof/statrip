@@ -56,5 +56,20 @@
 		SET hit = hit + 1
 		WHERE article_no = #{articleNO};
     </update>
+    
+    <delete id="deleteArticle">
+    	DELETE FROM share_article WHERE article_no = #{articleNo};
+    </delete>
+    
+    <delete id="deleteLikeByArticle">
+    	DELETE FROM share_like WHERE article_no = #{articleNo};
+    </delete>
+    
+    <select id="doILike" resultType="String">
+		SELECT user_id
+		FROM share_like
+		WHERE user_id = #{userId} AND article_no = #{articleNo}
+		LIMIT 1;
+    </select>
 
 </mapper>

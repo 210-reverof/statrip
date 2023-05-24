@@ -2,7 +2,7 @@
   <div class="share-card">
     <div class="share-tag">
       <user-tag :userId="detail.userId" class="share-user-tag"></user-tag>
-      <like-tag class="share-like-tag" :is-liked="true" :number="detail.hit"></like-tag>
+      <like-tag class="share-like-tag" :is-liked="this.doILike" :likeCnt="detail.likeCnt"></like-tag>
     </div>
     <div class="col-style">
       <img :src="getValidImageUrl(detail.thumbnail)" alt="detail.img" class="img-style" /><br />
@@ -21,6 +21,7 @@
 <script>
 import UserTag from "@/components/common/UserTag.vue";
 import LikeTag from "@/components/common/LikeTag.vue";
+import { doILike } from "@/api/share";
 
 export default {
   name: "ShareCard",
@@ -32,13 +33,21 @@ export default {
     detail: {
     },
   },
+  data() {
+    return {
+      doILike: false
+    }
+  },
+  created() {
+    doILike(this.detail.articleNo, ({data}) => this.doILike=data, (error) => console.log(error) );
+  },
   methods: {
     hoverEffect() {
       this.$refs.card.style.opacity = 0.5;
     },
     getValidImageUrl(imageUrl) {
       if (!imageUrl || imageUrl.trim() === "") {
-        return "https://via.placeholder.com/400x300"; 
+        return "https://firebasestorage.googleapis.com/v0/b/pocket-sch.appspot.com/o/noimg-statrip.png?alt=media&token=6a8354d8-3533-4eee-9272-7d8a7e87302d"; 
       }
       return imageUrl;
     }

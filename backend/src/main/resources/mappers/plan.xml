@@ -51,6 +51,19 @@
 		FROM plan
 		WHERE plan_id = #{planId}
 	</select>
+	
+	<delete id="deletePlanRelation" parameterType="int"> 
+		DELETE FROM plan_relation
+		WHERE plan_id = #{planId};
+	</delete>
+	
+	<delete id="deletePlan" parameterType="int"> 
+		DELETE FROM plan WHERE plan_id = #{planId};
+	</delete>
+	
+	<delete id="deleteShareByPlan" parameterType="int"> 
+		DELETE FROM share_article WHERE plan_id = #{planId};
+	</delete>
 
 	<select id="selectPlanAttrs" parameterType="int" resultType="PlanAttrDto">
 		SELECT visited, r.`ord` AS `number`, i.content_id AS contentId, content_type_id AS contentTypeId, overview, title, addr1, first_image AS firstImage, i.sido_code AS sidoCode, s.sido_name AS sidoName, i.gugun_code AS gugunCode, g.gugun_name AS gugunName, latitude, longitude
@@ -60,6 +73,7 @@
 		JOIN sido s ON i.sido_code = s.sido_code
 		JOIN gugun g ON i.sido_code = g.sido_code AND i.gugun_code = g.gugun_code
 		WHERE r.plan_id = #{planId}
+		ORDER BY r.ord
 	</select>
 
 	<select id="getRelatedPlanIds" resultType="Integer">

@@ -4,9 +4,20 @@
 
 <mapper namespace="com.wonsi.statrip.model.repository.UserRepository">
 
+	 <select id="isPossible" resultType="String">
+	 	SELECT user_id
+	 	FROM user
+	 	WHERE user_id = #{userId}
+	 </select>
+	 
 	 <insert id="join" parameterType="UserDto">
     	INSERT INTO user (`user_id`, `password`, `name`, `email`, `gender`, `age_group`, `addr_group`) 
     	VALUES (#{userId}, #{password}, #{name}, #{email}, #{gender}, #{ageGroup}, #{addrGroup})
+    </insert>
+    
+    <insert id="addUserType">
+    	INSERT INTO user_flavor (`user_id`, `type_id`, `cnt`) 
+    	VALUES (#{userId}, #{typeId}, #{cnt});
   	</insert>
 
 	<select id="findUserByUserId" parameterType="String" resultType="UserDto">

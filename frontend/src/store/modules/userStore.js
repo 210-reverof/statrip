@@ -51,6 +51,8 @@ const userStore = {
             sessionStorage.setItem("refresh-token", refreshToken);
         },
         (error) => {
+          alert("잘못된 로그인 정보입니다.");
+          console.log(sessionStorage.getItem("access-token"));
           console.log(error);
         }
       );
@@ -79,6 +81,9 @@ const userStore = {
             commit("SET_IS_LOGIN", false);
             commit("SET_USER_INFO", null);
             commit("SET_IS_VALID_TOKEN", false);
+            sessionStorage.setItem("access-token", null);
+            sessionStorage.setItem("refresh-token", null);
+            window.location.reload();
         },
         (error) => {
           console.log(error);

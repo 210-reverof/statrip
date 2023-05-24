@@ -1,7 +1,7 @@
 <template>
   <div class="plan-card" @click="moveViewPlan(plan.planId)">
     <div class="card-background">
-      <user-tag :userId="plan.userId" class="user-tag"></user-tag>
+      <user-tag v-if="plan.userId !== ''" :userId="plan.userId" class="user-tag"></user-tag>
       <div class="title">{{plan.title}}</div>
       <b-row class="my-row">
         <b-col class="card-col" cols="3">
@@ -39,11 +39,11 @@ export default {
   },
   methods: {
     moveViewPlan(planId){
-      this.$router.push({name:'viewPlan', params: {planId}});
+      this.$router.push({ path: `/plan/view/${planId}`});
     },
     getValidImageUrl(imageUrl) {
       if (!imageUrl || imageUrl.trim() === "") {
-        return "https://via.placeholder.com/400x300"; 
+        return "https://firebasestorage.googleapis.com/v0/b/pocket-sch.appspot.com/o/noimg-statrip.png?alt=media&token=6a8354d8-3533-4eee-9272-7d8a7e87302d"; 
       }
       return imageUrl;
     }

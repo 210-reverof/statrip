@@ -43,12 +43,22 @@ public class PlanServiceImpl implements PlanService {
 
     @Override
     public void updatePlan(PlanDto planDto) throws Exception {
+    	sqlSession.getMapper(PlanRepository.class).deletePlanRelation(planDto.getPlanId());
+    	
+    	// TODO :: 내용 수정 부분
+    	
+    	
+    	for (int i = 0; i < planDto.getAttractions().size(); i++) {
+    		sqlSession.getMapper(PlanRepository.class).insertPlanAttrs(planDto.getPlanId(), planDto.getAttractions().get(i), (i+1));
+		}
 
     }
 
     @Override
     public void deletePlan(int planId) throws Exception {
-
+    	sqlSession.getMapper(PlanRepository.class).deleteShareByPlan(planId);
+    	sqlSession.getMapper(PlanRepository.class).deletePlanRelation(planId);
+    	sqlSession.getMapper(PlanRepository.class).deletePlan(planId);
     }
 
     @Override

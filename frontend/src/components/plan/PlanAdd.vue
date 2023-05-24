@@ -2,6 +2,7 @@
   <div class="plan-add">
     <plan-display
       :planItemList="planItemList"
+      :curLength="curLength"
       @delete-click="deletePlan"
       @dragged="draggedItem"
     ></plan-display>
@@ -12,6 +13,7 @@
         :planItemList="planItemList"
         :followPlanList="followPlanList"
         @marker-click="addPlanToMarker"
+        @get-lenght="getCurLength"
       ></kakao-map>
       <b-button v-b-toggle.sidebar-right class="search-bar-button"
         >여행지 검색</b-button
@@ -41,25 +43,45 @@ export default {
     return {
       planItemList: [],
       followPlanList:[],
+      curLength:""
     };
   },
   methods: {
     addPointToMap(plan) {
-      console.log("addPointToMap");
-      console.log(plan);
+      let flag = true;
+      console.log("addPointToMap--------start");
+      console.log(plan.contentId);
+      console.log(this.planItemList);
       this.planItemList.forEach(element => {
-        if(element == plan) return
+        console.log("num-------------")
+        console.log(element.contentId)
+        if(element.contentId == plan.contentId){
+          flag = false;
+        } 
       });
-      this.planItemList.push(plan);
-
+      if(flag == true) this.planItemList.push(plan);
+      console.log("addPointToMap--------end");
       // this.$refs.kakaomap.addPoint(plan);
     },
     addPlanToMarker(plan) {
-      console.log("addPlanToMarker");
-      console.log(plan);
-      this.planItemList.push(plan);
+      let flag = true;
+      console.log("addPlanToMarker--------start");
+      console.log(plan.contentId);
+      console.log(this.planItemList);
+      this.planItemList.forEach(element => {
+        console.log("num-------------")
+        console.log(element.contentId)
+        if(element.contentId == plan.contentId){
+          flag = false;
+        }
+      });
+      if(flag == true) this.planItemList.push(plan);
+      console.log("addPlanToMarker--------end");
 
       // this.$refs.kakaomap.addPoint(plan);
+    },
+    getCurLength(curLength){
+      this.curLength = curLength;
     },
     deletePlan(index) {
       console.log("deletePlan");
