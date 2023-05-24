@@ -24,7 +24,7 @@ const onlyAuthUser = async (to, from, next) => {
 
 const routes = [
   {
-    path: "/",
+    path: "/home",
     name: "home",
     component: HomeView,
   },
@@ -206,10 +206,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (router.pending && to.name !== from.name) {
-    console.log('Navigation cancelled:', from.fullPath, 'to', to.fullPath);
-    return;
-  }
+  store.dispatch('routerStore/setOnBoard', false); // 링크 클릭 시 setOnBoard 액션을 호출하여 false 값을 전달한다.
   next();
 });
 
