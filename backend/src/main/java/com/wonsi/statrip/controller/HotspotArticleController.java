@@ -33,16 +33,13 @@ public class HotspotArticleController {
         hotspotArticleDto.setAttractionId(attractionId);
         
         try {
-            String uploadDir = "c:/tmp/img/";
+            String uploadDir = "C:\\SSAFY\\IDETools\\statrip\\frontend\\src\\img\\";
             String fileName = file.getOriginalFilename();
             String filePath = uploadDir + fileName;
             
             // 파일 저장
             File dest = new File(filePath);
             file.transferTo(dest);
-
-            hotspotArticleDto.setUploadDir(uploadDir);
-            hotspotArticleDto.setImgName(fileName);
             hotspotArticleDto.setImgPath(filePath);
 
             System.out.println("hot - writeArticle upload : " + hotspotArticleDto.toString());

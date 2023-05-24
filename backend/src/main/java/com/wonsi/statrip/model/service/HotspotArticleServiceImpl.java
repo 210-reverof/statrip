@@ -18,23 +18,26 @@ public class HotspotArticleServiceImpl implements HotspotArticleService {
 
     @Override
     public void writeArticle(HotspotArticleDto hotspotArticleDto) throws Exception {
+    	System.out.println(hotspotArticleDto.toString());
     	session.getMapper(HotspotArticleRepository.class).writeArticle(hotspotArticleDto);
     }
 
     @Override
     public List<HotspotArticleDto> listArticle() throws Exception {
+    	System.out.println("lllistttt");
         return session.getMapper(HotspotArticleRepository.class).listArticle();
     }
 
     @Override
     public HotspotArticleDto getArticle(int articleNo) throws Exception {
+    	System.out.println("getArticlegetArticle : " + articleNo);
     	session.getMapper(HotspotArticleRepository.class).updateHit(articleNo);
         return session.getMapper(HotspotArticleRepository.class).getArticle(articleNo);
     }
 
 	@Override
-	public void deleteArticle(int articleNo) throws Exception {;
+	public void deleteArticle(int articleNo) throws Exception {
+    	System.out.println("deleteArticledeleteArticle : "+articleNo);
         session.getMapper(HotspotArticleRepository.class).deleteArticle(articleNo);
-		
 	}
 }
