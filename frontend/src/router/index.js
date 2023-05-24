@@ -10,18 +10,13 @@ const onlyAuthUser = async (to, from, next) => {
   const checkUserInfo = store.getters["userStore/checkUserInfo"];
   const checkToken = store.getters["userStore/checkToken"];
   let token = sessionStorage.getItem("access-token");
-  console.log("로그인 처리 전", checkUserInfo, token);
 
   if (checkUserInfo != null && token) {
-    console.log("토큰 유효성 체크하러 가자!!!!");
     await store.dispatch("userStore/getUserInfo", token);
   }
   if (!checkToken || checkUserInfo === null) {
-    alert("로그인이 필요한 페이지입니다..");
-    // next({ name: "login" });
     router.push({ name: "login" });
   } else {
-    console.log("로그인 했다!!!!!!!!!!!!!.");
     next();
   }
 };
@@ -50,7 +45,7 @@ const routes = [
         component: () => import(/* webpackChunkName: "plan" */ "@/components/plan/PlanAdd.vue"),
       },
       {
-        path: "plan",
+        path: "view/:planId",
         name: "viewPlan",
         component: () =>
           import(/* webpackChunkName: "plan" */ "@/components/plan/view/PlanView.vue"),
@@ -74,7 +69,7 @@ const routes = [
         component: () => import(/* webpackChunkName: "share" */ '@/components/share/ShareList.vue'),
       },
       {
-        path: 'detail',
+        path: 'detail/:articleNo',
         name: 'shareDetail',
         component: () => import(/* webpackChunkName: "share" */ '@/components/share/ShareDetail.vue'),
       },
@@ -192,7 +187,7 @@ const routes = [
     redirect: "/userpage/main",
     children: [
       {
-        path: "main",
+        path: "main/:userId",
         name: "userPageMain",
         component: () =>
           import(/* webpackChunkName: "auth" */ "@/components/userpage/UserPageMain.vue"),
@@ -249,6 +244,14 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (router.pending && to.name !== from.name) {
+    console.log('Navigation cancelled:', from.fullPath, 'to', to.fullPath);
+    return;
+  }
+  next();
 });
 
 export default router;

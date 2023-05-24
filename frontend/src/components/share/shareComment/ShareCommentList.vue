@@ -3,7 +3,7 @@
     <b-row>
       <b-col>
         <div class="backgorund-green">
-            <share-comment-input :user="user"></share-comment-input >
+            <share-comment-input :shareId="shareId"></share-comment-input >
         </div>
       </b-col>
     </b-row>
@@ -21,38 +21,28 @@
 <script>
 import ShareCommentItem from "./ShareCommentItem.vue";
 import ShareCommentInput from "./ShareCommentInput.vue";
+import { getComments } from "@/api/comment";
 export default {
   name: "ShareCommentList",
   components: {
     ShareCommentItem,
     ShareCommentInput,
   },
+  props:{
+    shareId: {},
+  },
   data() {
     return {
-      user: "currentuser",
-      comments: [
-        {
-          writer: "u1",
-          content: "꿀잼",
-          regitdate: "2023-05-07",
-          regittime: "16:26",
-        },
-        {
-          writer: "u2",
-          content: "노잼",
-          regitdate: "2023-05-07",
-          regittime: "16:27",
-        },
-        {
-          writer: "me",
-          content: "굿굿",
-          regitdate: "2023-05-07",
-          regittime: "16:28",
-        },
-      ],
+      comments: null,
     };
   },
-  created() {},
+  created() {
+    getComments(this.shareId, 
+    ({data}) => this.comments = data,
+    (error) => console.log(error)
+    )
+
+  },
   methods: {},
 };
 </script>

@@ -11,7 +11,7 @@
           
         </b-row>
         <hr>
-        <share-comment-list></share-comment-list>
+        <share-comment-list :shareId="article.articleNo"></share-comment-list>
     </div>
     <b-row>
         <b-button  class="btn-pos" squared variant="outline-info" @click="$router.push({name: 'shareList'})"
@@ -50,7 +50,9 @@ export default {
       article: {
         articleNo: 0,
       },
-      plan: {}
+      plan: {
+        userId:""
+      }
     };
   },
   created() {
