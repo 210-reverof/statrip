@@ -6,7 +6,7 @@
     <div>
       <plan-card :plan="plan"></plan-card>
       <h2>{{ article.title }}</h2>
-      <div class="btn-pos">♥ {{ article.likeCnt }} 👁{{ article.hit }}</div>
+      <div class="article-info">♥ {{ article.likeCnt }} 👁{{ article.hit }}</div>
       <b-row>
         <div class="content-start">{{ article.content }}</div>
       </b-row>
@@ -20,7 +20,7 @@
         <b-button squared variant="outline-info" @click="$router.push({ name: 'shareList' })">뒤로가기</b-button>
       </b-row>
       <hr />
-      <share-comment-list :shareId="article.articleNo"></share-comment-list>
+      <share-comment-list class="comment-list" :shareId="article.articleNo"></share-comment-list>
     </div>
   </div>
 </template>
@@ -124,15 +124,32 @@ export default {
 
 <style scoped>
 .btn-pos {
+  justify-content: right;
   margin-top: 1%;
-  margin-left: 80%;
-  margin-right: 2%;
+  margin-right: 15%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
+.article-info {
+  text-align: right;
+  justify-content: right;
+  margin-right: 15%;
+}
+
 .content-start {
   margin-left: 15%;
+  margin-right: 15%;
+  width: 100%;
+  min-height: 200px;
+  padding: 20px;
+  background-color: rgb(245, 245, 245);
+  display: flex;
+}
+
+.comment-list {
+  margin-left: 15%;
+  margin-right: 15%;
 }
 </style>
