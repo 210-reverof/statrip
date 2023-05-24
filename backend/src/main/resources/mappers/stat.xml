@@ -14,6 +14,15 @@
         GROUP BY a.content_type_id
 
         UNION ALL
+        SELECT a.content_type_id AS typeId, COUNT(*) * 5 AS cnt
+        FROM plan_relation r
+        JOIN plan p ON p.plan_id = r.plan_id
+        LEFT JOIN hotspot_article h ON p.plan_id = h.plan_id
+        JOIN attraction_info a ON r.attraction_id = a.content_id
+        WHERE h.user_id = #{userId}
+        GROUP BY a.content_type_id
+
+        UNION ALL
         SELECT a.content_type_id AS typeId, COUNT(*) * 2 AS cnt
         FROM plan_relation r
         JOIN plan p ON p.plan_id = r.plan_id
