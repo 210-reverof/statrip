@@ -42,6 +42,7 @@ const routes = [
       {
         path: "add",
         name: "planAdd",
+        beforeEnter: onlyAuthUser,
         component: () => import(/* webpackChunkName: "plan" */ "@/components/plan/PlanAdd.vue"),
       },
       {
@@ -76,37 +77,10 @@ const routes = [
       {
         path: 'write',
         name: 'shareWrite',
+        beforeEnter: onlyAuthUser,
         component: () => import(/* webpackChunkName: "share" */ '@/components/share/ShareWrite.vue'),
       }
     ]
-  },
-  {
-    path: '/mypage',
-    name: 'mypage',
-    component: () => import(/* webpackChunkName: "mypage" */ '@/views/MyPageView.vue'),
-    redirect: '/mypage/main',
-    children:[
-      {
-        path: 'main',
-        name: 'myPageMain',
-        component: () => import(/* webpackChunkName: "auth" */ '@/components/mypage/MyPageMain.vue'),
-      },
-      {
-        path: 'myhot',
-        name: 'myHotspotList',
-        component: () => import(/* webpackChunkName: "auth" */ '@/components/mypage/MyHotspotList.vue'),
-      },
-      {
-        path: 'myplan',
-        name: 'myPlanList',
-        component: () => import(/* webpackChunkName: "auth" */ '@/components/mypage/MyPlanList.vue'),
-      },
-      {
-        path: 'myshare',
-        name: 'myShareList',
-        component: () => import(/* webpackChunkName: "auth" */ '@/components/mypage/MyShareList.vue'),
-      }
-    ],
   },
   {
     path: "/hotspot",
@@ -123,34 +97,16 @@ const routes = [
       {
         path: "add",
         name: "hotspotAdd",
+        beforeEnter: onlyAuthUser,
         component: () =>
           import(/* webpackChunkName: "hotspotAdd" */ "@/components/hotspot/HotspotAdd.vue"),
       },
     ],
   },
   {
-    path: "/share",
-    name: "share",
-    component: () => import(/* webpackChunkName: "share" */ "@/views/ShareView.vue"),
-    redirect: "/share/list",
-    children: [
-      {
-        path: "list",
-        name: "shareList",
-        component: () =>
-          import(/* webpackChunkName: "question" */ "@/components/share/ShareList.vue"),
-      },
-      {
-        path: "detail",
-        name: "shareDetail",
-        component: () =>
-          import(/* webpackChunkName: "question" */ "@/components/share/ShareDetail.vue"),
-      },
-    ],
-  },
-  {
     path: "/mypage",
     name: "mypage",
+    beforeEnter: onlyAuthUser,
     component: () => import(/* webpackChunkName: "mypage" */ "@/views/MyPageView.vue"),
     redirect: "/mypage/main",
     children: [
