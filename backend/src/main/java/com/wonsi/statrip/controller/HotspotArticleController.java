@@ -35,7 +35,7 @@ public class HotspotArticleController {
         hotspotArticleDto.setAttractionId(attractionId);
         
         try {
-            String fileName = file.getOriginalFilename().toLowerCase();
+            String fileName = file.getOriginalFilename().toLowerCase().replaceAll(" ", "");
             String filePath = uploadDir + fileName;
             
             // 파일 저장

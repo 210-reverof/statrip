@@ -30,17 +30,13 @@
         FROM
         	(select ha.article_no as articleNo, ha.user_id as userId, ha.plan_id as planId, ha.attraction_id as attractionId, 
     	ha.img_name as imgName, ha.img_path as imgPath, ha.created_at as createdAt
-       		FROM hotspot_article) a
+       		FROM hotspot_article ha) a
         WHERE a.articleNo = #{articleNo}
     </select>
     
     <delete id="deleteArticle" parameterType="int">
-        delete *
-        FROM
-        	(ha.article_no as articleNo, ha.user_id as userId, ha.plan_id as planId, ha.attraction_id as attractionId, 
-        	ha.img_name as imgName, ha.img_path as imgPath, ha.created_at as createdAt
-       		FROM hotspot_article) a
-        WHERE a.articleNo = #{articleNo}
+        delete FROM hotspot_article
+        WHERE article_no = #{articleNo}
     </delete>
     
     <update id="updateHit">
