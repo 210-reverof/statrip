@@ -30,6 +30,8 @@ export default {
     }
   },
   created() {
+    console.log("usertag----------")
+    console.log(this.userId)
     if (this.userId != "tmp") {
       getUserStat(this.userId, 
       ({data}) => {

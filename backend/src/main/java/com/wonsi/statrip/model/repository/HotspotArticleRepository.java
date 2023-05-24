@@ -9,5 +9,6 @@ public interface HotspotArticleRepository {
     void writeArticle(HotspotArticleDto hotspotArticleDto) throws Exception;
     List<HotspotArticleDto> listArticle() throws Exception;
     HotspotArticleDto getArticle(int articleNo) throws Exception;
+    void deleteArticle(int articleNo) throws Exception;
     void updateHit(int articleNo) throws Exception;
 }

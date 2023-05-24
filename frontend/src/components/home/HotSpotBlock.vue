@@ -22,6 +22,9 @@
 </template>
 <script>
 import HotSpotCard from './HotSpotCard.vue';
+import { getHotspotList } from "@/api/hotspot";
+import { mapState } from "vuex";
+const userStore = "userStore";
 
 export default {
   name: "HotSpotBlock",
@@ -34,46 +37,20 @@ export default {
       windowSize: 4,
       paginationFactor: 340,
       items: [
-        {
-          id: 1,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
-        {
-          id: 2,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
-        {
-          id: 3,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
-        {
-          id: 4,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
-        {
-          id: 5,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
-        {
-          id: 6,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
       ],
     };
   },
+  created() {
+    console.log("hotspotblock----------bb")
+    getHotspotList(
+      ({ data }) => (this.items = data),
+      (error) => console.log(error),
+      console.log(this.items)
+    );
+    this.setHotspotBlockItem();
+  },
   computed: {
+    ...mapState(userStore, ["userInfo"]),
     atEndOfList() {
       return (
         this.currentOffset <=
@@ -85,6 +62,9 @@ export default {
     },
   },
   methods: {
+    setHotspotBlockItem(){
+      if(this.items.length>6) this.items = this.items.slice(0, 6)
+    },
     moveCarousel(direction) {
       if (direction === 1 && !this.atEndOfList) {
         this.currentOffset -= this.paginationFactor;
