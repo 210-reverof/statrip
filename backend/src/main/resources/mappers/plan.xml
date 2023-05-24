@@ -5,8 +5,8 @@
 <mapper namespace="com.wonsi.statrip.model.repository.plan.PlanRepository">
 
 	<insert id="insertPlan" useGeneratedKeys="true" keyProperty="planId" keyColumn="plan_id">
-		INSERT INTO plan (user_id, title, created_at)
-  		VALUES (#{userId}, #{title}, NOW())
+		INSERT INTO plan (user_id, title, attraction_cnt, attraction_weight, created_at)
+  		VALUES (#{userId}, #{title}, #{attractionCnt}, #{attractionWeight}, NOW())
 	</insert>
 	
 	<insert id="insertPlanPresent1">
@@ -34,7 +34,7 @@
   	
   	<select id="selectMyList" parameterType="String" resultType="PlanListResDto">
 		SELECT plan_id AS planId, user_id AS userId, plan.title AS title, created_at AS createdAt,
-		present1, present2, present3,
+		present1, present2, present3, attraction_cnt as attractionCnt, attraction_weight as attractionWeight,
 		attraction1.first_image AS img1,
 		attraction2.first_image AS img2,
 		attraction3.first_image AS img3
@@ -96,7 +96,8 @@
 	</select>
 	
 	<select id="AllList" parameterType="String" resultType="PlanListResDto">
-		SELECT plan_id AS planId, user_id AS userId, plan.title AS title, created_at AS createdAt,
+		SELECT plan_id AS planId, user_id AS userId, plan.title AS title, 
+		attraction_cnt as attractionCnt, attraction_weight as attractionWeight, created_at AS createdAt,
 		present1, present2, present3,
 		attraction1.first_image AS img1,
 		attraction2.first_image AS img2,
