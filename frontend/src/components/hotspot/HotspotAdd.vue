@@ -106,7 +106,7 @@ export default {
   data() {
     return {
       showImg:null,
-      images: null,
+      images: "",
       rootselected: null,
       plan: {},
       plans: [],

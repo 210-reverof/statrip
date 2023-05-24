@@ -24,7 +24,6 @@ public class HotspotArticleServiceImpl implements HotspotArticleService {
 
     @Override
     public List<HotspotArticleDto> listArticle() throws Exception {
-    	System.out.println("lllistttt");
         return session.getMapper(HotspotArticleRepository.class).listArticle();
     }
 

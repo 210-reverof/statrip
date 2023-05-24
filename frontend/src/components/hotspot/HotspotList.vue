@@ -47,7 +47,7 @@ export default {
   components: {
     HotSpotCard,
   },
-  data: function () {
+  data() {
     return {
       perPage: 8,
       currentPage: 1,
@@ -57,8 +57,12 @@ export default {
   created() {
     getHotspotList(
       ({ data }) => (this.items = data),
-      (error) => console.log(error)
+      (error) => console.log(error),
+      console.log(this.items)
     );
+  },
+  mounted() {
+    console.log(this.items)
   },
   computed: {
     lists() {

@@ -9,6 +9,7 @@ async function addHotspotArticle(formdata, success, fail) {
 }
 
 async function getHotspotList(success, fail) {
+    console.log("getHotspotList")
     await api.get('/hotspot').then(success).catch(fail);
 }
 

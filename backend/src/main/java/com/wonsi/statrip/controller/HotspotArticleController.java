@@ -17,6 +17,8 @@ import java.util.List;
 @RequestMapping("/hotspot")
 public class HotspotArticleController {
 	
+	private String uploadDir = "C:\\SSAFY\\IDETools\\statrip\\frontend\\src\\img\\";
+	
     @Autowired
     private HotspotArticleService hotspotArticleService;
 
@@ -33,13 +35,13 @@ public class HotspotArticleController {
         hotspotArticleDto.setAttractionId(attractionId);
         
         try {
-            String uploadDir = "C:\\SSAFY\\IDETools\\statrip\\frontend\\src\\img\\";
-            String fileName = file.getOriginalFilename();
+            String fileName = file.getOriginalFilename().toLowerCase();
             String filePath = uploadDir + fileName;
             
             // 파일 저장
             File dest = new File(filePath);
             file.transferTo(dest);
+            hotspotArticleDto.setImgName(fileName);
             hotspotArticleDto.setImgPath(filePath);
 
             System.out.println("hot - writeArticle upload : " + hotspotArticleDto.toString());
@@ -58,14 +60,14 @@ public class HotspotArticleController {
     @GetMapping
     private ResponseEntity<List<HotspotArticleDto>> getList() throws Exception {
         List<HotspotArticleDto> articles = hotspotArticleService.listArticle();
-
+    	System.out.println("lllistttt");
+    	System.out.println(articles.toString());
         return ResponseEntity.ok(articles);
     }
 
     @GetMapping("/list/user/{user}")
     private ResponseEntity<List<HotspotArticleDto>> getUserList() throws Exception {
         List<HotspotArticleDto> articles = hotspotArticleService.listArticle();
-
         return ResponseEntity.ok(articles);
     }
 
@@ -78,7 +80,10 @@ public class HotspotArticleController {
     
     @DeleteMapping("/{no}")
     private ResponseEntity<String> deleteArticle(@PathVariable("no") int no) throws Exception {
+    	HotspotArticleDto article = hotspotArticleService.getArticle(no);
+        File file = new File(article.getImgPath());
     	hotspotArticleService.deleteArticle(no);
+        boolean result = file.delete();
 
         return ResponseEntity.ok("success");
     }
