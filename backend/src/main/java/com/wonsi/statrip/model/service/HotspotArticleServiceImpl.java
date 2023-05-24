@@ -31,4 +31,10 @@ public class HotspotArticleServiceImpl implements HotspotArticleService {
     	session.getMapper(HotspotArticleRepository.class).updateHit(articleNo);
         return session.getMapper(HotspotArticleRepository.class).getArticle(articleNo);
     }
+
+	@Override
+	public void deleteArticle(int articleNo) throws Exception {;
+        session.getMapper(HotspotArticleRepository.class).deleteArticle(articleNo);
+		
+	}
 }
