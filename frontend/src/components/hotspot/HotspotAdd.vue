@@ -181,9 +181,9 @@ export default {
         formdata,
         ({ data }) => {
           console.log(data);
+          window.location.reload();
         },
         (error) => {
-
           console.log(error);
         }
       );
