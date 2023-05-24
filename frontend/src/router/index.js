@@ -210,6 +210,13 @@ const routes = [
         component: () =>
           import(/* webpackChunkName: "auth" */ "@/components/userpage/UserShareList.vue"),
       },
+      {
+        path: "userlist/:follow/:userId",
+        name: "userList",
+        component: () =>
+          import(/* webpackChunkName: "auth" */ "@/components/userpage/UserList.vue"),
+
+      }
     ],
   },
   {

@@ -69,17 +69,15 @@ public class UserController {
 		return ResponseEntity.ok("success");
 	}
 
-	@GetMapping("/following")
-	public ResponseEntity<List<UserDto>> following(HttpServletRequest request) throws Exception {
-		String userId = jwtService.getUserId();
+	@GetMapping("/following/{userId}")
+	public ResponseEntity<List<UserDto>> following(HttpServletRequest request, @PathVariable("userId") String userId) throws Exception {
 		List<UserDto> followings = userService.followingList(userId);
 
 		return ResponseEntity.ok(followings);
 	}
 
-	@GetMapping("/follower")
-	public ResponseEntity<List<UserDto>> follower(HttpServletRequest request) throws Exception {
-		String userId = jwtService.getUserId();
+	@GetMapping("/follower/{userId}")
+	public ResponseEntity<List<UserDto>> follower(HttpServletRequest request, @PathVariable("userId") String userId) throws Exception {
 		List<UserDto> followers = userService.followerList(userId);
 
 		return ResponseEntity.ok(followers);
