@@ -105,27 +105,6 @@ export default {
           this.aaaaaaaaaa();
         }, 300);
       }
-      //2번 타입 지도 - 경로만 표시
-      // console.log("watch - kakaoAttractions");
-      // console.log(this.kakaoAttractions);
-      // if (this.kakaoMapType == 2 && this.kakaoAttractions.length>0) {
-      //   console.log(this.kakaoAttractions[0]);
-      //   console.log(this.kakaoAttractions.at(-1));
-      //   var moveLatLon = new window.kakao.maps.LatLng(
-      //     this.kakaoAttractions[0].latitude,
-      //     this.kakaoAttractions[0].longitude
-      //   );
-      //   this.map.setCenter(moveLatLon);
-      //   this.markers = [];
-      //   this.kakaoAttractions.forEach((attraction) => {
-      //     this.markers.push(this.makeMark(attraction));
-      //   });
-      //   this.showMark(this.markers);
-
-      //   console.log("sssssssssss");
-      //   console.log(this.kakaoAttractions);
-      //   this.drawLine(this.kakaoAttractions);
-      // }
     },
   },
   methods: {

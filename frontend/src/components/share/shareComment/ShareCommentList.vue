@@ -2,7 +2,7 @@
   <div>
     <b-row>
       <b-col>
-        <div class="backgorund-green">
+        <div class="backgorund-green" v-if="userInfo">
             <share-comment-input :shareId="shareId"></share-comment-input >
         </div>
       </b-col>
@@ -22,11 +22,17 @@
 import ShareCommentItem from "./ShareCommentItem.vue";
 import ShareCommentInput from "./ShareCommentInput.vue";
 import { getComments } from "@/api/comment";
+import { mapState } from "vuex";
+const userStore = "userStore";
+
 export default {
   name: "ShareCommentList",
   components: {
     ShareCommentItem,
     ShareCommentInput,
+  },
+  computed: {
+    ...mapState(userStore, ["userInfo"]),
   },
   props:{
     shareId: {},

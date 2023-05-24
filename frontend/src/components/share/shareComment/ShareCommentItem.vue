@@ -1,12 +1,11 @@
 <template>
-  <div>
+  <div class="share-comment-id">
     <b-row class="header-row">
       <b-col>
         <user-tag :userId="detail.userId"></user-tag>
         {{ detail.createdAt }}
       </b-col>
       <b-col class="delete-col" v-if="userInfo.userId == detail.userId">
-        <!-- 삭제 버튼을 오른쪽에 붙입니다 -->
         <b-button @click="deleteComment" variant="danger" size="sm">삭제</b-button>
       </b-col>
     </b-row>
@@ -47,6 +46,11 @@ export default {
 </script>
 
 <style scoped>
+
+.share-comment-id {
+  margin-bottom: 5%;
+}
+
 .header-row {
   display: flex;
   justify-content: space-between;

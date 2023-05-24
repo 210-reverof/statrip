@@ -2,7 +2,7 @@
   <div class="share-card">
     <div class="share-tag">
       <user-tag :userId="detail.userId" class="share-user-tag"></user-tag>
-      <like-tag class="share-like-tag" :is-liked="true" :number="detail.hit"></like-tag>
+      <like-tag class="share-like-tag" :is-liked="this.doILike" :likeCnt="detail.likeCnt"></like-tag>
     </div>
     <div class="col-style">
       <img :src="getValidImageUrl(detail.thumbnail)" alt="detail.img" class="img-style" /><br />
@@ -21,6 +21,7 @@
 <script>
 import UserTag from "@/components/common/UserTag.vue";
 import LikeTag from "@/components/common/LikeTag.vue";
+import { doILike } from "@/api/share";
 
 export default {
   name: "ShareCard",
@@ -31,6 +32,14 @@ export default {
   props: {
     detail: {
     },
+  },
+  data() {
+    return {
+      doILike: false
+    }
+  },
+  created() {
+    doILike(this.detail.articleNo, ({data}) => this.doILike=data, (error) => console.log(error) );
   },
   methods: {
     hoverEffect() {

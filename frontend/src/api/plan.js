@@ -26,8 +26,6 @@ async function getPlan(planId, success, fail) {
 }
 
 async function getSelectedPlan(params, success, fail) {
-    console.log("api getSelectedPlan")
-    console.log(params)
     api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
     await api.get(`/plan/overlay?`+params.toString()).then(success).catch(fail);
 }

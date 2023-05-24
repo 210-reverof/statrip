@@ -12,4 +12,6 @@ public interface ShareArticleRepository {
     void updateHit(int articleNo) throws Exception;
     void likeArticle(String userId, int articleNo);
     void deleteArticle(int articleNo);
+    void deleteLikeByArticle(int articleNo);
+    String doILike(String userId, int articleNo);
 }

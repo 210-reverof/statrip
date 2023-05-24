@@ -3,7 +3,7 @@
     <div class="contents-block">
       <h2>Hot Spots</h2>
       <h5>나만의 핫스팟을 인증샷과 함께 자랑해주세요</h5>
-      <hr>
+      <hr />
       <div class="card-holder">
         <b-row
           id="my-row"
@@ -17,13 +17,17 @@
             v-for="item in lists"
             :key="item.name"
           >
-            <hot-spot-card
-              :item="item"
-            ></hot-spot-card>
+            <hot-spot-card :item="item"></hot-spot-card>
           </b-col>
         </b-row>
       </div>
-      <b-button class="btn-pos" squared variant="outline-info" @click="$router.push({name: 'hotspotAdd'})">글쓰기</b-button>
+      <b-button
+        class="btn-pos"
+        squared
+        variant="outline-info"
+        @click="$router.push({ name: 'hotspotAdd' })"
+        >글쓰기</b-button
+      >
       <b-pagination
         class="center"
         v-model="currentPage"
@@ -37,80 +41,29 @@
 
 <script>
 import HotSpotCard from "@/components/home/HotSpotCard.vue";
+import { getHotspotList } from "@/api/hotspot";
 export default {
   name: "HotspotList",
   components: {
     HotSpotCard,
   },
-  data: function () {
+  data() {
     return {
       perPage: 8,
       currentPage: 1,
-      items: [
-        {
-          id: 1,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
-        {
-          id: 2,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
-        {
-          id: 3,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
-        {
-          id: 4,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
-        {
-          id: 5,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
-        {
-          id: 6,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
-        {
-          id: 7,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
-        {
-          id: 8,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
-        {
-          id: 9,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
-        {
-          id: 10,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
-      ],
+      items: [],
     };
   },
-  created() {},
+  created() {
+    getHotspotList(
+      ({ data }) => (this.items = data),
+      (error) => console.log(error),
+      console.log(this.items)
+    );
+  },
+  mounted() {
+    console.log(this.items)
+  },
   computed: {
     lists() {
       const items = this.items;
@@ -153,13 +106,13 @@ export default {
   justify-content: center;
 }
 
-.btn-pos{
-    margin-top: 1%;
-    margin-bottom: 1%;
-    margin-left: 92%;
-    margin-right: 1%;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    white-space:nowrap;
+.btn-pos {
+  margin-top: 1%;
+  margin-bottom: 1%;
+  margin-left: 92%;
+  margin-right: 1%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 </style>

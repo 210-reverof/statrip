@@ -9,6 +9,7 @@
       <b-form-select
         v-model="rootselected"
         :options="rootoptions"
+        @change="isPlanSelected"
       ></b-form-select>
 
       <div class="mt-3">
@@ -22,6 +23,7 @@
       <b-form-select
         v-model="attrselected"
         :options="attroptions"
+        @change="isAttrSelected"
       ></b-form-select>
 
       <div class="mt-3">
@@ -36,7 +38,8 @@
     <div class="center">
       <div class="img-upload-form">
         <div v-if="images" class="w-full h-full flex items-center">
-          <img class="img" :src="images" alt="image" @click="reset()" />
+          <img class="img" :src="showImg" alt="image" @click="reset()" />
+          {{images}}
           누르면 취소
         </div>
         <div v-else class="img-upload" @click="clickInputTag()">
@@ -47,7 +50,7 @@
             name="image"
             accept="image/*"
             multiple="multiple"
-            @change="uploadImage()"
+            @change="onFileSelected"
             hidden
           />
           <svg
@@ -80,7 +83,7 @@
       class="btn-pos"
       squared
       variant="outline-info"
-      @click="$router.push({ name: 'hotspotList' })"
+      @click="uploadImage()"
       >글쓰기</b-button
     >
   </div>
@@ -93,6 +96,7 @@
 
 // import PlanCard from '@/components/home/PlanCard.vue'
 import { getPlanMyList, getPlan } from "@/api/plan";
+import { addHotspotArticle } from "@/api/hotspot";
 
 export default {
   name: "HotspotAdd",
@@ -101,6 +105,7 @@ export default {
   },
   data() {
     return {
+      showImg:null,
       images: "",
       rootselected: null,
       plan: {},
@@ -126,19 +131,63 @@ export default {
     );
   },
   methods: {
-    uploadImage: function () {
-      let form = new FormData();
-      let image = this.$refs["image"].files[0];
-
-      form.append("image", image);
-      this.images = require("./king.png");
+    isPlanSelected() {
+      console.log(this.rootselected);
+      if (this.rootselected) {
+        getPlan(this.rootselected, ({ data }) => {
+          console.log(this.rootselected);
+          this.plan = data;
+          console.log(this.plan);
+          this.plan.attractions.forEach((element) => {
+            this.attroptions.push({
+              value: element.contentId,
+              text: element.title,
+            });
+          });
+        });
+      }
+    },
+    isAttrSelected() {
+      console.log(this.attrselected);
+    },
+    onFileSelected(event) {
+      this.images = event.target.files[0];
       console.log(this.images);
-      // axios.post('/upload', form, {
-      //     header: { 'Content-Type': 'multipart/form-data' }
-      // }).then( ({data}) => {
-      //   this.images = data
-      // })
-      // .catch( err => console.log(err))
+      if(this.images){
+        let itemImage = this.$refs.image; //img dom 접근
+        
+        itemImage.src = window.URL.createObjectURL(this.images);//img src에 blob주소 변환
+        
+        this.showImg = itemImage.src; //이미지 주소 data 변수에 바인딩해서 나타내게 처리
+        
+        itemImage.width ='200'; // 이미지 넓이
+        
+        itemImage.onload = () => {
+          window.URL.revokeObjectURL(this.src)  //나중에 반드시 해제해주어야 메모리 누수가 안생김.
+        }
+      }
+    },
+    uploadImage() {
+      console.log(this.rootselected);
+      console.log(this.attrselected);
+      console.log(this.images);
+      const formdata = new FormData();
+      formdata.append('planId', this.rootselected);
+      formdata.append('attractionId', this.attrselected);
+      formdata.append('file', this.images);
+
+      console.log(formdata);
+      addHotspotArticle(
+        formdata,
+        ({ data }) => {
+          console.log(data);
+          window.location.reload();
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+      this.$router.push({ name: 'hotspotList' })
     },
     clickInputTag: function () {
       this.$refs["image"].click();
@@ -148,27 +197,7 @@ export default {
       this.images = "";
     },
   },
-  watch: {
-    rootselected() {
-      console.log(this.rootselected);
-      if (this.rootselected) {
-        getPlan(
-          this.rootselected,
-          ({ data }) => {
-            console.log(this.rootselected);
-            this.plan = data;
-            console.log(this.plan);
-            this.plan.attractions.forEach((element) => {
-              this.attroptions.push({
-                value: element.contentId,
-                text: element.title,
-              });
-            });
-          },
-        );
-      }
-    },
-  },
+  watch: {},
 };
 </script>
 

@@ -18,6 +18,7 @@ public class PlanDto {
     int present1;
     int present2;
     int present3;
+    int attractionCnt = 0;
     int attractionWeight = 0;
     
 
@@ -41,6 +42,7 @@ public class PlanDto {
         this.attractions = attractions;
         this.createdAt = createdAt;
     }
+    
 
 	public PlanDto() {
 		super();
@@ -55,5 +57,34 @@ public class PlanDto {
 		this.present1 = present1;
 		this.present2 = present2;
 		this.present3 = present3;
+	}
+
+	public PlanDto(int planId, String userId, String title,String createdAt, int present1,
+			int present2, int present3, int attractionCnt, int attractionWeight) {
+		super();
+		this.planId = planId;
+		this.userId = userId;
+		this.title = title;
+		this.createdAt = createdAt;
+		this.present1 = present1;
+		this.present2 = present2;
+		this.present3 = present3;
+		this.attractionCnt = attractionCnt;
+		this.attractionWeight = attractionWeight;
+	}
+	
+	public PlanDto(int planId, String userId, String title, List<Integer> attractions, String createdAt, int present1,
+			int present2, int present3, int attractionCnt, int attractionWeight) {
+		super();
+		this.planId = planId;
+		this.userId = userId;
+		this.title = title;
+		this.attractions = attractions;
+		this.createdAt = createdAt;
+		this.present1 = present1;
+		this.present2 = present2;
+		this.present3 = present3;
+		this.attractionCnt = attractionCnt;
+		this.attractionWeight = attractionWeight;
 	}
 }
