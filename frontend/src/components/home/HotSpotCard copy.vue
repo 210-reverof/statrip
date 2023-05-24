@@ -12,11 +12,13 @@
 
     <b-modal v-model="show" hide-backdrop centered hide-footer>
     <template #modal-title>
-      <user-tag :userId="tmp" ></user-tag>
+      usertag
+      <user-tag :userId="tmp"></user-tag>
     </template>
-    <div>
-    <img :src="require(`@/img/${item.imgName}`)" class="modal-content" />
+    <div class="modal-content">
+<img :src="require(`@/img/${item.imgName}`)" class="modal-img" />
     </div>
+    
   </b-modal>
     <img :src="require(`@/img/${item.imgName}`)"  class="backgroundImg"/>
   </div>
@@ -42,9 +44,6 @@ export default {
     return {
       // id: "",
       show: false,
-      variants: ["primary", "secondary", "success"],
-      bodyTextVariant: "dark",
-      tmp: "tmp"
     };
   },
   methods: {
@@ -55,9 +54,6 @@ export default {
       this.show = true;
       console.log(this.item.articleNo);
     },
-    close(){
-
-    }
   },
   created() {
     // this.id = this.item.articleNo;
@@ -83,44 +79,20 @@ export default {
   margin-top: -11%;
 }
 
-.hot-spot-user-tag {
-  position: relative;
-  margin-top: 0;
-  margin-left: 5%;
-  }
-
 .hot-spot-like-tag {
   position: relative;
   margin-left: 90%;
   margin-top: -11%;
 }
 
-.modal-content {
-  width: 100%;
-  height: 100%;
-  justify-content: center;
-}
-
 .modal-img{
   width: 400px;
   height: 500px;
+  
   min-width: 400px;
   min-height: 500px;
   border-radius: 20px;
   margin: 0 auto;
 }
 
-.modal-user{
-  position: absolute;
-  top: -40%;
-  left: -40%;
-}
-
-.close{
-  position: absolute;
-  top: -36%;
-  right: -45%;
-  width: 30px;
-  height: 30px;
-}
 </style>

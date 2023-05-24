@@ -34,42 +34,6 @@ export default {
       windowSize: 4,
       paginationFactor: 340,
       items: [
-        {
-          id: 1,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
-        {
-          id: 2,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
-        {
-          id: 3,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
-        {
-          id: 4,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
-        {
-          id: 5,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
-        {
-          id: 6,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
       ],
     };
   },
