@@ -17,7 +17,7 @@ public interface UserRepository {
     void logout(String userId) throws Exception;
 
 	void follow(String followerId, String followingId) throws Exception;
-	void unFollow(String followerId, String followingId) throws Exception;
+	void unfollow(String followerId, String followingId) throws Exception;
 
 	List<UserDto> followingList(String userId) throws Exception;
 
@@ -26,4 +26,8 @@ public interface UserRepository {
 	List<String> userList() throws Exception;
 	
 	String isPossible(String userId) throws Exception;
+
+	String doIFollow(String myId, String userId);
+
+
 }

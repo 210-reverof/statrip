@@ -71,4 +71,17 @@ public class UserServiceImpl implements UserService {
 		return false;
 	}
 
+	@Override
+	public boolean doIFollow(String myId, String userId) {
+		String data = sqlSession.getMapper(UserRepository.class).doIFollow(myId, userId);
+
+		if (data == null) return false;
+		return true;
+	}
+
+	@Override
+	public void unfollow(String followerId, String followingId) throws Exception {
+		sqlSession.getMapper(UserRepository.class).unfollow(followerId, followingId);
+	}
+
 }

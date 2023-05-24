@@ -69,6 +69,14 @@ public class UserController {
 		return ResponseEntity.ok("success");
 	}
 
+	@PostMapping("/unfollow/{id}")
+	public ResponseEntity<String> unfollow(HttpServletRequest request, @PathVariable("id") String followingId) throws Exception {
+		String userId = jwtService.getUserId();
+		userService.unfollow(userId, followingId);
+
+		return ResponseEntity.ok("success");
+	}
+
 	@GetMapping("/following/{userId}")
 	public ResponseEntity<List<UserDto>> following(HttpServletRequest request, @PathVariable("userId") String userId) throws Exception {
 		List<UserDto> followings = userService.followingList(userId);
@@ -100,5 +108,12 @@ public class UserController {
 		dto.setFollowingCnt(userService.followingList(userId).size());
 
 		return ResponseEntity.ok(dto);
+	}
+
+	@GetMapping("/my-follow/{userId}")
+	public ResponseEntity<Boolean> myFollow(@PathVariable("userId") String userId) throws Exception {
+		String myId = jwtService.getUserId();
+		if(userService.doIFollow(myId, userId)) return ResponseEntity.ok(true);
+		return ResponseEntity.ok(false);
 	}
 }
