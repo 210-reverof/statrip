@@ -51,16 +51,23 @@ public class ShareArticleController {
     
     @DeleteMapping("/{no}")
     private ResponseEntity<String> deleteArticle(@PathVariable("no") int no) throws Exception {
-        shareArticleService.deleteArticle(no);
+    	shareArticleService.deleteArticle(no);
 
         return ResponseEntity.ok("success");
     }
 
     @PostMapping("/like/{articleNo}")
     private ResponseEntity<String> likeArticle(@PathVariable("articleNo") int articleNo) throws Exception {
-        String userId = jwtService.getUserId();
+    	String userId = jwtService.getUserId();
         shareArticleService.likeArticle(userId, articleNo);
 
         return ResponseEntity.ok("success");
+    }
+    
+    @GetMapping("/mylike/{articleNo}")
+    private ResponseEntity<Boolean> doILike(@PathVariable("articleNo") int articleNo) throws Exception {
+    	String userId = jwtService.getUserId();
+
+        return ResponseEntity.ok(shareArticleService.doILike(userId, articleNo));
     }
 }

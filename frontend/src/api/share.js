@@ -15,4 +15,20 @@ async function getArticle(articleNo, success, fail) {
     await api.get('/share/' + articleNo).then(success).catch(fail);
 }
 
-export { addShareArticle, getList, getArticle };
+async function deleteArticle(articleNo, success, fail) {
+    api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
+    await api.delete('/share/' + articleNo).then(success).catch(fail);
+}
+
+async function likeArticle(articleNo, success, fail) {
+    api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
+    await api.post('/share/like/' + articleNo).then(success).catch(fail);
+
+}
+
+async function doILike(articleNo, success, fail) {
+    api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
+    await api.get(('/share/mylike/' + articleNo)).then(success).catch(fail);
+}
+
+export { addShareArticle, getList, getArticle, deleteArticle, likeArticle, doILike };

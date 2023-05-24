@@ -10,5 +10,6 @@ public interface ShareArticleService {
     List<ShareArticleDto> listArticle() throws Exception;
     ShareArticleDto getArticle(int articleNo) throws Exception;
     void likeArticle(String userId, int articleNo) throws Exception;
-	void deleteArticle(int no);
+	void deleteArticle(int no) throws Exception;
+	boolean doILike(String userId, int articleNo);
 }

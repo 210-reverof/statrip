@@ -2,11 +2,10 @@
   <div
     class="like-icon-tag"
     onclick="event.cancelBubble = true;"
-    @click="clickHeart()"
   >
     <b-row class="justify-content-center">
       <div class="heart-icon" :class="{ filled: isLiked }"></div>
-      <p class="like-num">{{ number }}</p>
+      <p class="like-num">{{ likeCnt }}</p>
     </b-row>
   </div>
 </template>
@@ -15,36 +14,19 @@
 export default {
   name: "LikeTag",
   props: {
-    // isLiked: {
-    //   type: Boolean,
-    //   required: true,
-    // },
-    // number: {
-    //   default: 0,
-    // },
-  },
-  data(){
-    return{
-      isLiked:"",
-      number:0
-    }
-  },
-  methods: {
-    clickHeart() {
-      if(this.isLiked == true){
-        this.isLiked = false;
-        this.number--;
-      }
-      else{
-        this.isLiked = true;
-        this.number++;
-      }
+    isLiked: {
+      type: Boolean,
+      required: true,
+    },
+    likeCnt: {
+      default: 0,
     },
   },
-  // created:{
-  //   isLiked 불러오기
-  //   number 불러오기
-  // }
+  created() {
+    console.log(this.isLiked+ "=================");
+  },
+  methods: {
+  },
 };
 </script>
 
