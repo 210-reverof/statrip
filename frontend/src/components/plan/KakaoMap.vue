@@ -21,6 +21,13 @@ export default {
   },
   data() {
     return {
+      colorList: [
+        "#FFA500", // 주황
+        "#FFFF00", // 노랑
+        "#00FF00", // 초록
+        "#0000FF", // 파랑
+        "#800080", // 보라
+      ],
       map: null,
       polylines: [],
       followPolylines: [],
@@ -282,6 +289,7 @@ export default {
           element.setMap(null);
         });
       }
+      let colIdx = 0;
       routes.forEach((route) => {
         const linePath = [];
         if (route.attractions) {
@@ -295,7 +303,7 @@ export default {
           const polyline = new window.kakao.maps.Polyline({
             path: linePath, // 선을 구성하는 좌표배열 입니다
             strokeWeight: 6, // 선의 두께 입니다
-            strokeColor: "#BA55D3", // 선의 색깔입니다
+            strokeColor: this.colorList[colIdx], // 선의 색깔입니다
             strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
             strokeStyle: "solid", // 선의 스타일입니다
           });
@@ -304,6 +312,8 @@ export default {
           // 지도에 선을 표시합니다
           polyline.setMap(this.map);
         }
+        colIdx++;
+        if(colIdx>=5) return false;
       });
     },
   },
