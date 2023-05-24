@@ -8,28 +8,40 @@
         <result column="user_id" property="userId"/>
         <result column="plan_id" property="planId"/>
         <result column="attraction_id" property="attractionId"/>
+        <result column="img_name" property="imgName"/>
         <result column="img_path" property="imgPath"/>
         <result column="created_at" property="createdAt"/>
         <result column="hit" property="hit"/>
     </resultMap>
 
     <insert id="writeArticle" parameterType="HotspotArticleDto">
-        insert into share_article (user_id, plan_id, attraction_id, img_path, hit, created_at)
-        values (#{userId}, #{planId}, #{attractionId}, #{imgPath}, 0, now())
+        insert into hotspot_article (user_id, plan_id, attraction_id, img_name, img_path, hit, created_at)
+        values (#{userId}, #{planId}, #{attractionId}, #{imgName}, #{imgPath}, 0, now())
     </insert>
 
     <select id="listArticle" resultType="HotspotArticleDto">
-    	select ha.article_no as articleNo, ha.user_id as userId, ha.plan_id as planId, ha.attraction_id as attractionId, ha.img_path as imgPath ha.created_at as createdAt
+    	select ha.article_no as articleNo, ha.user_id as userId, ha.plan_id as planId, ha.attraction_id as attractionId, 
+    	ha.img_name as imgName, ha.img_path as imgPath, ha.created_at as createdAt
     	from hotspot_article ha;
     </select>
 
-    <select id="getArticle" resultType="HotspotArticleDto">
+    <select id="getArticle" resultType="HotspotArticleDto" parameterType="int">
         SELECT *
         FROM
-        	(ha.article_no as articleNo, ha.user_id as userId, ha.plan_id as planId, ha.attraction_id as attractionId, ha.img_path as imgPath ha.created_at as createdAt
+        	(select ha.article_no as articleNo, ha.user_id as userId, ha.plan_id as planId, ha.attraction_id as attractionId, 
+    	ha.img_name as imgName, ha.img_path as imgPath, ha.created_at as createdAt
        		FROM hotspot_article) a
         WHERE a.articleNo = #{articleNo}
     </select>
+    
+    <delete id="deleteArticle" parameterType="int">
+        delete *
+        FROM
+        	(ha.article_no as articleNo, ha.user_id as userId, ha.plan_id as planId, ha.attraction_id as attractionId, 
+        	ha.img_name as imgName, ha.img_path as imgPath, ha.created_at as createdAt
+       		FROM hotspot_article) a
+        WHERE a.articleNo = #{articleNo}
+    </delete>
     
     <update id="updateHit">
     	UPDATE hotspot_article
