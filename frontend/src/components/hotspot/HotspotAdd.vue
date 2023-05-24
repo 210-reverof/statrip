@@ -187,7 +187,7 @@ export default {
           console.log(error);
         }
       );
-      
+      this.$router.push({ name: 'hotspotList' })
     },
     clickInputTag: function () {
       this.$refs["image"].click();

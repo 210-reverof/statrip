@@ -1,51 +1,51 @@
 <template>
-  <div
-    class="hot-spot-card"
-    @click="cardClick"
-  >
-    <user-tag :userId="tmp" class="hot-spot-user-tag"></user-tag>
-    <like-tag
-      class="hot-spot-like-tag"
-      :is-liked="true"
-      :number="this.item.likes"
-    ></like-tag>
+  <div class="hot-spot-card" @click="cardClick">
+    <user-tag :userId="item.userId" class="hot-spot-user-tag"></user-tag>
 
     <b-modal v-model="show" hide-backdrop centered hide-footer>
-    <template #modal-title>
-      <user-tag :userId="tmp" ></user-tag>
-    </template>
-    <div>
-    <img :src="require(`@/img/${item.imgName}`)" class="modal-content" />
-    </div>
-  </b-modal>
-    <img :src="require(`@/img/${item.imgName}`)"  class="backgroundImg"/>
+      <template #modal-title>
+        <div>
+          <user-tag :userId="item.userId"></user-tag>
+          <div v-if="userInfo.userId == item.userId">
+            <b-button @click="deleteHotspotArticle" variant="danger" size="sm">
+              삭제
+            </b-button>
+          </div>
+        </div>
+      </template>
+      <div>
+        <img :src="require(`@/img/${item.imgName}`)" class="modal-content" />
+      </div>
+    </b-modal>
+    <img :src="require(`@/img/${item.imgName}`)" class="backgroundImg" />
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
 import UserTag from "@/components/common/UserTag.vue";
-import LikeTag from "@/components/common/LikeTag.vue";
+import { deleteHotspotArticle } from "@/api/hotspot";
+const userStore = "userStore";
 
 export default {
   name: "HotSpotCard",
   components: {
     UserTag,
-    LikeTag,
   },
   props: {
     item: {
       type: Object,
       required: true,
-    }
+    },
   },
   data() {
     return {
       // id: "",
       show: false,
-      variants: ["primary", "secondary", "success"],
-      bodyTextVariant: "dark",
-      tmp: "tmp"
     };
+  },
+  computed: {
+    ...mapState(userStore, ["userInfo"]),
   },
   methods: {
     hoverEffect() {
@@ -55,13 +55,23 @@ export default {
       this.show = true;
       console.log(this.item.articleNo);
     },
-    close(){
-
-    }
+    deleteHotspotArticle() {
+      deleteHotspotArticle(
+        this.item.articleNo,
+        this.handleDeleteSuccess,
+        this.handleDeleteError
+      );
+    },
+    handleDeleteSuccess() {
+      window.location.reload();
+    },
+    handleDeleteError(error) {
+      console.log(error);
+    },
   },
   created() {
     // this.id = this.item.articleNo;
-    console.log(this.item)
+    console.log(this.item);
   },
 };
 </script>
@@ -76,18 +86,22 @@ export default {
   opacity: 0.8;
 }
 
-.backgroundImg{
+.backgroundImg {
   float: none;
   width: 100%;
   height: 100%;
   margin-top: -11%;
 }
 
+.modal-header{
+  height: 50%;
+}
+
 .hot-spot-user-tag {
   position: relative;
   margin-top: 0;
   margin-left: 5%;
-  }
+}
 
 .hot-spot-like-tag {
   position: relative;
@@ -101,7 +115,7 @@ export default {
   justify-content: center;
 }
 
-.modal-img{
+.modal-img {
   width: 400px;
   height: 500px;
   min-width: 400px;
@@ -110,13 +124,13 @@ export default {
   margin: 0 auto;
 }
 
-.modal-user{
+.modal-user {
   position: absolute;
   top: -40%;
   left: -40%;
 }
 
-.close{
+.close {
   position: absolute;
   top: -36%;
   right: -45%;
