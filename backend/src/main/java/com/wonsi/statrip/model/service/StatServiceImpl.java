@@ -80,9 +80,21 @@ public class StatServiceImpl implements StatService{
                 second = curr;
             }
         }
-
-        recommends.add(first);
-        recommends.add(second);
+        
+        if (first != null && second != null && (calcSimilarity(my, first) > calcSimilarity(my, second))) {
+        	recommends.add(first);
+            recommends.add(second);
+            return recommends;
+        }
+        
+        if (first != null && second != null) {
+        	recommends.add(second);
+            recommends.add(first);
+            return recommends;
+        }
+        
+        if (first != null) recommends.add(first);
+        if (second != null) recommends.add(second);
         return recommends;
     }
 

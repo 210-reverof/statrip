@@ -29,14 +29,8 @@ export default {
   },
   components: {},
   created() {
-    console.log(this.recommend);
-    console.log("cccaaarrdd+++++++++");
     if (this.recommend.userId) {
-      console.log(this.recommend.userId);
       this.id = this.recommend.userId;
-      // this.drawGraph("barGraph", this.recommend);
-    } else {
-      console.log("no ------ this.recommend.userId");
     }
   },
   mounted() {
@@ -46,8 +40,6 @@ export default {
   },
   methods: {
     drawGraph(chartId, recommend) {
-      console.log(chartId);
-      console.log(recommend);
       const ctx = document.getElementById(chartId).getContext("2d");
       this.myChart = new Chart(ctx, {
         type: "bar",
@@ -112,7 +104,9 @@ export default {
           borderWidth: 1,
           responsive: true,
           scales: {
-            x: { stacked: true },
+            x: { 
+              display: false,
+              stacked: true },
             y: { stacked: true },
           },
         },

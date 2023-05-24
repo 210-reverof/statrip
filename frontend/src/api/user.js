@@ -39,11 +39,11 @@ async function join(join, success, fail) {
 
 async function getMyRecommend(success, fail) {
     api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
-    await api.get(`/stat/my`).then(success).catch(fail);
+    await api.get(`/stat/recommend`).then(success).catch(fail);
 }
 
 async function getRecommend(success, fail) {
-  await api.get(`/stat/ssafy`).then(success).catch(fail);
+  await api.get(`/stat/recommend`).then(success).catch(fail);
 }
 
 

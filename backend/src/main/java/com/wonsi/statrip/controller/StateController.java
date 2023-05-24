@@ -32,15 +32,13 @@ public class StateController {
 
     @GetMapping("/{userId}")
     public ResponseEntity<StatDto> getStat(@PathVariable("userId") String userId) throws Exception {
-    	System.out.println("recommenduserId");
         StatDto dto = statService.getStat(userId);
-
+        
         return ResponseEntity.ok(dto);
     }
 
     @GetMapping("/recommend")
-    public ResponseEntity<List<StatDto>> getRecommend() throws Exception {
-    	System.out.println("recommend");
+    public ResponseEntity<List<StatDto>> getMyRecommend() throws Exception {
         String userId = jwtService.getUserId();
         List<StatDto> recommends = statService.getRecommend(userId);
 
