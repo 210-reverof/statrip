@@ -1,7 +1,7 @@
 <template>
   <header :class="{'custom-header-onboard': isOnBoard, 'custom-header': !isOnBoard}">
     <b-navbar type="dark">
-      <b-navbar-brand @click="updateOnBoard(true)" to="/tmp">
+      <b-navbar-brand @click="updateOnBoard(true)" to="/">
         <img src="@/assets/common/logo_white.png" style="max-width: 100px; max-height: 60px; padding-left: 20px;" class="mr-2" />
       </b-navbar-brand>
       <b-nav class="ml-auto">

@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
 
 import store from "@/store";
+import BlankView from "@/views/BlankView.vue";
 
 Vue.use(VueRouter);
 
@@ -23,6 +24,11 @@ const onlyAuthUser = async (to, from, next) => {
 };
 
 const routes = [
+  {
+    path: "/",
+    name: "blank",
+    component: BlankView,
+  },
   {
     path: "/home",
     name: "home",
@@ -206,7 +212,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  store.dispatch('routerStore/setOnBoard', false); // 링크 클릭 시 setOnBoard 액션을 호출하여 false 값을 전달한다.
+  store.dispatch('routerStore/setOnBoard', false);
   next();
 });
 

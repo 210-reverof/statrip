@@ -36,7 +36,12 @@ export default {
     ...mapActions(routerStore, ["setOnBoard"])
   },
   created() {
-    this.setOnBoard(localStorage.getItem('isOnBoard'));
+    const isOnBoard = localStorage.getItem('isOnBoard');
+    if (isOnBoard === null) {
+      this.setOnBoard(true);
+    } else {
+      this.setOnBoard(isOnBoard === 'true');
+    }
   }
 
 }
