@@ -1,30 +1,22 @@
 <template>
   <div id="app">
     <div v-if="isOnBoard" class="scroll-snap-wrapper">
-      <confirm-header :isOnBoard="true" class="header1"></confirm-header>
+      <confirm-header :onBoard="true" class="header1"></confirm-header>
       <vue-scroll-snap :fullscreen="true">
-        <div class="item" style="background-color: #42b983">xxxxxxxxxxxxxx</div>
-        <div class="item" style="background-color: coral">
-          <word-cloud class="word-cloud"></word-cloud>
-        </div>
-        <div class="item" style="background-color: #faebcd">
-          <div>
-            <b-carousel
+        <div class="item" style="background-color: #42b983">
+          <b-carousel
               id="carousel-fade"
               style="text-shadow: 0px 0px 2px #000"
               fade
               indicators
-              img-width="1024"
-              img-height="600"
+              img-width="100%"
+              img-height="100%"
             >
               <b-carousel-slide
                 caption="First Slide"
                 img-src="https://picsum.photos/1024/480/?image=10"
               >
-                <real-radar-chart-graph
-                  class="radar-chart"
-                ></real-radar-chart-graph
-              ></b-carousel-slide>
+                </b-carousel-slide>
               <b-carousel-slide
                 caption="Second Slide"
                 img-src="https://picsum.photos/1024/480/?image=12"
@@ -34,6 +26,15 @@
                 img-src="https://picsum.photos/1024/480/?image=22"
               ></b-carousel-slide>
             </b-carousel>
+        </div>
+        <div class="item" style="background-color: coral">
+          <word-cloud class="word-cloud"></word-cloud>
+        </div>
+        <div class="item" style="background-color: #faebcd">
+          <div>
+            <real-radar-chart-graph
+              class="radar-chart"
+            ></real-radar-chart-graph>
           </div>
         </div>
       </vue-scroll-snap>
@@ -64,7 +65,7 @@ export default {
     VueScrollSnap,
   },
   created() {
-    this.setOnBoard(true);
+    this.setOnBoard(localStorage.getItem("isOnBoard"));
     console.log("fullscreen");
   },
   computed: {
