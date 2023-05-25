@@ -1,8 +1,10 @@
 package com.wonsi.statrip.controller;
 
 import com.wonsi.statrip.model.dto.StatDto;
+import com.wonsi.statrip.model.dto.response.CloudDto;
 import com.wonsi.statrip.model.dto.response.CountDto;
 import com.wonsi.statrip.model.dto.response.FollowCntDto;
+import com.wonsi.statrip.model.dto.response.GraphDto;
 import com.wonsi.statrip.model.service.JwtService;
 import com.wonsi.statrip.model.service.StatService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,5 +72,17 @@ public class StateController {
         List<StatDto> recommends = statService.getRecommend(userId);
 
         return ResponseEntity.ok(recommends);
+    }
+    
+    @GetMapping("/graph")
+    public ResponseEntity<GraphDto> getGraph() throws Exception {
+
+    	 return ResponseEntity.ok(statService.getGraph());
+    }
+    
+    @GetMapping("/cloud")
+    public ResponseEntity<List<CloudDto>> getCloud() throws Exception {
+
+    	 return ResponseEntity.ok(statService.getCloud());
     }
 }

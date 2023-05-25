@@ -70,4 +70,24 @@
     	INNER JOIN share_article sa ON sl.article_no = sa.article_no
     	WHERE sa.user_id = #{userId}
     </select>
+	
+	<select id="getCountByContents" resultType="java.lang.Integer">
+		SELECT count(*) as cnt
+		FROM plan_relation pr
+		JOIN plan p ON pr.plan_id = p.plan_id
+		JOIN attraction_info a ON a.content_id = pr.attraction_id
+		JOIN user u ON p.user_id = u.user_id
+		WHERE u.gender = #{gender}
+		GROUP BY a.content_type_id
+		ORDER BY a.content_type_id
+	</select>
+	
+	<select id="getCloud" resultType="CloudDto">
+		SELECT a.title AS name, count(*) AS value
+		FROM plan_relation pr
+		JOIN attraction_info a ON a.content_id = pr.attraction_id
+		group by pr.attraction_id
+		limit 50
+	</select>
+	
 </mapper>

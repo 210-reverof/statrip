@@ -2,7 +2,9 @@ package com.wonsi.statrip.model.service;
 
 import com.wonsi.statrip.model.dto.StatDto;
 import com.wonsi.statrip.model.dto.TypeCountDto;
+import com.wonsi.statrip.model.dto.response.CloudDto;
 import com.wonsi.statrip.model.dto.response.CountDto;
+import com.wonsi.statrip.model.dto.response.GraphDto;
 import com.wonsi.statrip.model.repository.StatRepository;
 import com.wonsi.statrip.model.repository.UserRepository;
 import org.apache.ibatis.session.SqlSession;
@@ -176,5 +178,19 @@ public class StatServiceImpl implements StatService{
 		int a = sqlSession.getMapper(StatRepository.class).getPostCount(userId);
 		int b = sqlSession.getMapper(StatRepository.class).getLikeCount(userId);
 		return new CountDto(a, b);
+	}
+
+	@Override
+	public GraphDto getGraph() throws Exception {
+		GraphDto dto = new GraphDto();
+		dto.setBoy(sqlSession.getMapper(StatRepository.class).getCountByContents(0));
+		dto.setGirl(sqlSession.getMapper(StatRepository.class).getCountByContents(1));
+		return dto;
+	}
+
+	@Override
+	public List<CloudDto> getCloud() throws Exception {
+		
+		return sqlSession.getMapper(StatRepository.class).getCloud();
 	}
 }
