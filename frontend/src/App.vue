@@ -53,8 +53,6 @@ import CommonFooter from "./components/common/CommonFooter.vue";
 import ConfirmHeader from "./components/common/ConfirmHeader.vue";
 import WordCloud from "@/components/common/WordCloud.vue";
 import RealRadarChartGraph from "@/components/common/RealRadarChartGraph.vue";
-import { mapState, mapActions } from "vuex";
-const routerStore = "routerStore";
 
 export default {
   components: {
@@ -65,16 +63,16 @@ export default {
     VueScrollSnap,
   },
   created() {
-    this.setOnBoard(localStorage.getItem("isOnBoard"));
     console.log("fullscreen");
-  },
-  computed: {
-    ...mapState(routerStore, ["isOnBoard"]),
-  },
-  methods: {
-    ...mapActions(routerStore, ["setOnBoard"]),
-  },
-};
+    const isOnBoard = localStorage.getItem('isOnBoard');
+    if (isOnBoard === null) {
+      this.setOnBoard(true);
+    } else {
+      this.setOnBoard(isOnBoard === 'true');
+    }
+  }
+
+}
 </script>
 
 <style scoped>
