@@ -17,8 +17,8 @@ import java.util.List;
 @RequestMapping("/hotspot")
 public class HotspotArticleController {
 	
-	private String uploadDir = "C:\\Users\\SSAFY\\Desktop\\statrip\\frontend\\src\\img\\";
-	
+//	private String uploadDir = "C:\\Users\\SSAFY\Desktop\\statrip\\frontend\\src\\img\\"; 원영 
+	private String uploadDir = "C:\\SSAFY\\IDETools\\statrip\\frontend\\src\\img\\"; //시영
     @Autowired
     private HotspotArticleService hotspotArticleService;
 
