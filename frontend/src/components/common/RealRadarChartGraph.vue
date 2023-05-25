@@ -22,27 +22,19 @@ export default {
     this.getGraph();
   },
   mounted() {
-    this.fillData("chart2", this.dataset);
+   // this.fillData("chart2", this.dataset);
   },
   methods: {
     async getGraph() {
       getStatGraph(
         ({ data }) => {
-          console.log(data);
-          data.boy.forEach(element => {
-            this.dataset.boy.push(element)
-          });
-          data.girl.forEach(element => {
-            this.dataset.girl.push(element)
-          });
+          // console.log(data);
+          this.fillData("chart2", data);
         },
         (error) => console.log(error)
       );
-      console.log("this.dataset");
-      console.log(this.dataset);
     },
     fillData(chartId, dataset) {
-      console.log(dataset);
       const ctx = document.getElementById(chartId).getContext("2d");
       this.myChart = new Chart(ctx, {
         type: "radar",
