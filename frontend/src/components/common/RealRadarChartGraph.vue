@@ -7,25 +7,46 @@
 <script>
 import { Chart, registerables } from "chart.js";
 Chart.register(...registerables);
+import { getStatGraph } from "@/api/stat";
 
 export default {
   name: "RealRadarChartGraph",
   components: {},
+  data() {
+    return {
+      myChart: null,
+      dataset: { boy: [], girl: [] },
+    };
+  },
+  created() {
+    this.getGraph();
+  },
+  mounted() {
+    this.fillData("chart2", this.dataset);
+  },
   methods: {
-    fillData(chartId, labels, dataset) {
-      console.log(labels +" "+dataset)
+    async getGraph() {
+      getStatGraph(
+        ({ data }) => {
+          console.log(data);
+          data.boy.forEach(element => {
+            this.dataset.boy.push(element)
+          });
+          data.girl.forEach(element => {
+            this.dataset.girl.push(element)
+          });
+        },
+        (error) => console.log(error)
+      );
+      console.log("this.dataset");
+      console.log(this.dataset);
+    },
+    fillData(chartId, dataset) {
+      console.log(dataset);
       const ctx = document.getElementById(chartId).getContext("2d");
       this.myChart = new Chart(ctx, {
         type: "radar",
         data: {
-          // 12:관광지 "#FF0000", // 빨강
-// 14:문화시설 "#FFA500", // 주황
-// 15:축제공연행사 "#FFFF00", // 노랑
-// 25:여행코스, "#00FF00", // 초록
-// 28:레포츠, "#0000FF", // 파랑
-// 32:숙박, "#800080", // 보라
-// 38:쇼핑, "#FF00FF",  // 분홍
-// 39:음식점 "#888888"  // 회색
           labels: [
             "관광지",
             "문화시설",
@@ -34,23 +55,12 @@ export default {
             "레포츠",
             "숙박",
             "쇼핑",
-            "음식점"
+            "음식점",
           ],
           datasets: [
             {
-              label: "여성",
-              data: [65, 59, 90, 81, 56, 55, 40, 124],
-              fill: true,
-              backgroundColor: "rgba(255, 99, 132, 0.2)",
-              borderColor: "rgb(255, 99, 132)",
-              pointBackgroundColor: "rgb(255, 99, 132)",
-              pointBorderColor: "#fff",
-              pointHoverBackgroundColor: "#fff",
-              pointHoverBorderColor: "rgb(255, 99, 132)",
-            },
-            {
               label: "남성",
-              data: [28, 48, 40, 19, 96, 27, 100, 45],
+              data: dataset.boy,
               fill: true,
               backgroundColor: "rgba(54, 162, 235, 0.2)",
               borderColor: "rgb(54, 162, 235)",
@@ -59,15 +69,26 @@ export default {
               pointHoverBackgroundColor: "#fff",
               pointHoverBorderColor: "rgb(54, 162, 235)",
             },
+            {
+              label: "여성",
+              data: dataset.girl,
+              fill: true,
+              backgroundColor: "rgba(255, 99, 132, 0.2)",
+              borderColor: "rgb(255, 99, 132)",
+              pointBackgroundColor: "rgb(255, 99, 132)",
+              pointBorderColor: "#fff",
+              pointHoverBackgroundColor: "#fff",
+              pointHoverBorderColor: "rgb(255, 99, 132)",
+            },
           ],
         },
         options: {
-          scales:{
-            r:{
-              ticks:{
-                backdropColor:"#DCAD67"
-              }
-            }
+          scales: {
+            r: {
+              ticks: {
+                backdropColor: "#DCAD67",
+              },
+            },
           },
           plugins: {
             legend: {
@@ -109,14 +130,6 @@ export default {
         },
       });
     },
-  },
-  mounted() {
-    this.fillData("chart2", ["중립", "중립 아님", "모름"], [50, 20, 30]);
-  },
-  data() {
-    return {
-      myChart: null,
-    };
   },
 };
 </script>

@@ -25,4 +25,14 @@ async function getMyCount(success, fail) {
     await api.get('/stat/mycount').then(success).catch(fail);
 }
 
-export { getUserStat, getMyStat, getRealStat, getCount, getMyCount };
+async function getStatCloud(success, fail) {
+    await api.get('/stat/cloud').then(success).catch(fail);
+}
+
+async function getStatGraph(success, fail) {
+    await api.get('/stat/graph').then(success).catch(fail);
+}
+
+
+
+export { getUserStat, getMyStat, getRealStat, getCount, getMyCount, getStatCloud, getStatGraph };

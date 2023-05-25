@@ -14,6 +14,7 @@
 
 <script>
 import wordcloud from 'vue-wordcloud'
+import { getStatCloud } from "@/api/stat";
 
 export default {
   name: 'WordCloud',
@@ -23,47 +24,26 @@ export default {
   methods: {
     wordClickHandler(name, value, vm) {
       console.log('wordClickHandler', name, value, vm);
-    }
+    },
+    async getCloud() {
+      getStatCloud(
+        ({ data }) => {
+          data.forEach(element => {
+            this.defaultWords.push(element)
+          });
+        },
+        (error) => console.log(error)
+      );
+    },
   },
   data() {
     return {
       myColors: ['#1f77b4', '#629fc9', '#94bedb', '#c9e0ef'],
-      defaultWords: [
-        {
-          "name": "SightSeeing",
-          "value": 26
-        },
-        {
-          "name": "Cultural",
-          "value": 19
-        },
-        {
-          "name": "Festival",
-          "value": 18
-        },
-        {
-          "name": "TravelRoute",
-          "value": 16
-        },
-        {
-          "name": "Leports",
-          "value": 15
-        },
-        {
-          "name": "Sleeping",
-          "value": 9
-        },
-        {
-          "name": "Shopping",
-          "value": 9
-        },
-        {
-          "name": "Restaurant",
-          "value": 9
-        },
-        
-      ]
+      defaultWords: []
     }
+  },
+  created() {
+    this.getCloud();
   }
 }
 </script>
