@@ -36,6 +36,13 @@ public class StateController {
         
         return ResponseEntity.ok(dto);
     }
+    
+    @GetMapping("/exp/{userId}")
+    public ResponseEntity<StatDto> getExpStat(@PathVariable("userId") String userId) throws Exception {
+        StatDto dto = statService.getExpStat(userId);
+        
+        return ResponseEntity.ok(dto);
+    }
 
     @GetMapping("/recommend")
     public ResponseEntity<List<StatDto>> getMyRecommend() throws Exception {

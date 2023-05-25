@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface StatRepository {
     List<TypeCountDto> getTotalCountByType(String userId) throws Exception;
+    List<TypeCountDto> getRealCountByType(String userId) throws Exception;
 }

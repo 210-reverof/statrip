@@ -8,4 +8,5 @@ import java.util.List;
 public interface StatService {
     StatDto getStat(String userId) throws Exception;
     List<StatDto> getRecommend(String userId) throws Exception;
+	StatDto getExpStat(String userId);
 }

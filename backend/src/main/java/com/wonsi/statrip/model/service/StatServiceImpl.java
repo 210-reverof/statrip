@@ -133,4 +133,10 @@ public class StatServiceImpl implements StatService{
         if (val1 * val2 == 0) return 0;
         return mulVal / (val1 * val2);
     }
+
+	@Override
+	public StatDto getExpStat(String userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
