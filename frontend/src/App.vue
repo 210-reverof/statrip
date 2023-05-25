@@ -4,12 +4,22 @@
       <confirm-header :onBoard="true" class="header1"></confirm-header>
       <vue-scroll-snap :fullscreen="true">
         <div class="item" style="background-color: #42b983">
-          <full-carousel></full-carousel>
-          <!--  -->
-          <!-- <div class="carousel-full">
-            
-          </div> -->
-          <!--  -->
+          <div class="img-block">
+            <b-row>
+              <b-col cols=2
+              ></b-col>
+              <b-col cols=4
+                ><img :src="require(`@/assets/fullscreen/giphy.gif`)"
+              /></b-col>
+              <b-col cols=4
+                ><h1 style="margin: 30% auto">
+                  내 주위 통계로 보는 여행 기록  
+                </h1></b-col
+              >
+              <b-col cols=2
+              ></b-col>
+            </b-row>
+          </div>
         </div>
         <div class="item" style="background-color: coral">
           <word-cloud class="wordcloud"></word-cloud>
@@ -34,7 +44,6 @@ import ConfirmHeader from "./components/common/ConfirmHeader.vue";
 import WordCloud from "@/components/common/WordCloud.vue";
 import RealRadarChartGraph from "@/components/common/RealRadarChartGraph.vue";
 import { mapState, mapActions } from "vuex";
-import FullCarousel from './components/common/FullCarousel.vue';
 const routerStore = "routerStore";
 
 export default {
@@ -44,7 +53,6 @@ export default {
     WordCloud,
     RealRadarChartGraph,
     VueScrollSnap,
-    FullCarousel,
   },
   computed: {
     ...mapState(routerStore, ["isOnBoard"]),
@@ -105,15 +113,8 @@ nav a.router-link-exact-active {
   color: #42b983;
 }
 
-.carousel-full {
-  width: 100%;
-  height: 100%;
-  margin: auto;
-  z-index: 1;
-}
-.carousel-inner {
-  width: auto;
-  height: 550px; /* 이미지 높이 변경 */
+.img-block {
+  margin: 10% auto;
 }
 .wordcloud {
   width: 100%;
