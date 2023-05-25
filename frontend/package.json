@@ -17,6 +17,7 @@
     "vue-chartjs": "^5.2.0",
     "vue-router": "^3.5.1",
     "vue-scroll-snap": "^0.1.11",
+    "vue-wordcloud": "^1.1.1",
     "vuedraggable": "^2.24.3",
     "vuex": "^3.6.2",
     "vuex-persistedstate": "^4.1.0"

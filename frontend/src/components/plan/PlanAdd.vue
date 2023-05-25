@@ -9,7 +9,6 @@
     <div class="follower-chart">
       <div v-for="(plan, index) in followPlanUserList" :key="index">
         <div :style="colorStyle[index]">{{ plan.userId }}</div>
-        
       </div>
     </div>
     <div class="map-block">
@@ -62,6 +61,7 @@ export default {
   },
   methods: {
     getUserId() {
+      this.followPlanUserList = [];
       for (let i = 0; i < this.followPlanList.length; i++) {
         getPlan(
           this.followPlanList[i].planId,

@@ -4,6 +4,8 @@
         <hot-spot-block></hot-spot-block>
         <plan-block></plan-block>
         <recommend-block></recommend-block>
+        <word-cloud></word-cloud>
+        <real-radar-chart-graph></real-radar-chart-graph>
     </div>
 </template>
 
@@ -12,6 +14,8 @@ import TopBlock from '@/components/home/TopBlock.vue';
 import HotSpotBlock from '@/components/home/HotSpotBlock.vue';
 import PlanBlock from '@/components/home/PlanBlock.vue';
 import RecommendBlock from '@/components/home/RecommendBlock.vue';
+import WordCloud from '@/components/common/WordCloud.vue'
+import RealRadarChartGraph from "@/components/common/RealRadarChartGraph.vue";
 
 export default {
   name: "HomeView",
@@ -19,7 +23,9 @@ export default {
     TopBlock,
     HotSpotBlock,
     PlanBlock,
-    RecommendBlock
+    RecommendBlock,
+    WordCloud,
+    RealRadarChartGraph
   }
 };
 
