@@ -1,12 +1,13 @@
 <template>
   <div>
       <wordcloud
-      :data="defaultWords"
+      :data="dataSet"
       nameKey="name"
       valueKey="value"
       :color="myColors"
       :showTooltip="true"
-      :wordClick="wordClickHandler">
+      :wordClick="wordClickHandler"
+      class="wordcloud">
       </wordcloud>
   </div>
 </template>
@@ -19,15 +20,10 @@ export default {
   components: {
     wordcloud
   },
-  methods: {
-    wordClickHandler(name, value, vm) {
-      console.log('wordClickHandler', name, value, vm);
-    }
-  },
   data() {
     return {
       myColors: ['#1f77b4', '#629fc9', '#94bedb', '#c9e0ef'],
-      defaultWords: [{
+      dataSet: [{
           "name": "SightSeeing",
           "value": 26
         },
@@ -61,6 +57,22 @@ export default {
         },
       ]
     }
-  }
+  },
+  created:{
+
+  },
+  methods: {
+    wordClickHandler(name, value, vm) {
+      console.log('wordClickHandler', name, value, vm);
+    }
+  },
 }
 </script>
+
+<style scoped>
+.wordcloud{
+  margin: 3% auto;
+  width: 90%;
+  height: 90%;
+}
+</style>
