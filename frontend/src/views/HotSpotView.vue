@@ -9,3 +9,9 @@ export default {
   name: "HotSpotView",
 };
 </script>
+
+<style scoped>
+.hotspot{
+  min-height: 500px;
+}
+</style>

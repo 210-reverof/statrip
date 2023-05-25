@@ -1,6 +1,7 @@
 <template>
   <div class="hot-spot-list">
     <div class="contents-block">
+      <br>
       <h1>마이 페이지</h1>
       <h5>나의 핫스팟</h5>
       <hr>

@@ -6,7 +6,8 @@
       valueKey="value"
       :color="myColors"
       :showTooltip="true"
-      :wordClick="wordClickHandler">
+      :wordClick="wordClickHandler"
+      class="wordcloud">
       </wordcloud>
   </div>
 </template>
@@ -27,7 +28,8 @@ export default {
   data() {
     return {
       myColors: ['#1f77b4', '#629fc9', '#94bedb', '#c9e0ef'],
-      defaultWords: [{
+      defaultWords: [
+        {
           "name": "SightSeeing",
           "value": 26
         },
@@ -59,8 +61,17 @@ export default {
           "name": "Restaurant",
           "value": 9
         },
+        
       ]
     }
   }
 }
 </script>
+
+<style scoped>
+.wordcloud{
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+}
+</style>

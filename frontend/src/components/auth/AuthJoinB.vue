@@ -1,5 +1,6 @@
 <template>
   <div class="auth-login">
+    <br>
     <h2>JoinB</h2>
     <h5>회원가입</h5>
     <hr />

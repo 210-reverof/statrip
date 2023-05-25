@@ -9,3 +9,9 @@ export default {
     name: 'PlanView'
 }
 </script>
+
+<style scoped>
+.plan{
+  min-height: 500px;
+}
+</style>

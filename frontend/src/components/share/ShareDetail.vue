@@ -1,5 +1,6 @@
 <template>
   <div class="contents-block">
+      <br>
     <h2>Share</h2>
     <h5>자신이 자랑하고싶은 여행 경로를 공유해주세요</h5>
     <hr />
