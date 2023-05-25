@@ -18,4 +18,8 @@ public interface UserService {
 
 	List<UserDto> followerList(String userId) throws Exception;
 	Boolean isPossible(String userId) throws Exception;
+
+	boolean doIFollow(String myId, String userId);
+
+	void unfollow(String userId, String followingId) throws Exception;
 }

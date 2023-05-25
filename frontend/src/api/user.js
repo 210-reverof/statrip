@@ -46,6 +46,30 @@ async function getRecommend(success, fail) {
   await api.get(`/stat/recommend`).then(success).catch(fail);
 }
 
+async function getFollowing(userId, success, fail) {
+  api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
+  await api.get(`/user/following/` + userId).then(success).catch(fail);
+}
+
+async function getFollower(userId, success, fail) {
+  api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
+  await api.get(`/user/follower/` + userId).then(success).catch(fail);
+}
+
+async function doIFollow(userId, success, fail) {
+  api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
+  await api.get(`/user/my-follow/` + userId).then(success).catch(fail);
+}
+
+async function follow(userId, success, fail) {
+  api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
+  await api.post(`/user/follow/` + userId).then(success).catch(fail);
+}
+
+async function unfollow(userId, success, fail) {
+  api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
+  await api.post(`/user/unfollow/` + userId).then(success).catch(fail);
+}
 
 
-export { login, info, logout, followUserCnt, followCnt, isPossible, join, getMyRecommend, getRecommend };
+export { login, info, logout, followUserCnt, followCnt, isPossible, join, getMyRecommend, getRecommend, getFollowing, getFollower, doIFollow, follow, unfollow };

@@ -6,6 +6,12 @@
       @delete-click="deletePlan"
       @dragged="draggedItem"
     ></plan-display>
+    <div class="follower-chart">
+      <div v-for="(plan, index) in followPlanUserList" :key="index">
+        <div :style="colorStyle[index]">{{ plan.userId }}</div>
+        
+      </div>
+    </div>
     <div class="map-block">
       <kakao-map
         ref="kakaomap"
@@ -24,7 +30,7 @@
 </template>
 
 <script>
-import { getSelectedPlan } from "@/api/plan";
+import { getSelectedPlan, getPlan } from "@/api/plan";
 
 import KakaoMap from "@/components/plan/KakaoMap.vue";
 import PlanDisplay from "@/components/plan/side/PlanDisplay.vue";
@@ -42,24 +48,44 @@ export default {
   data() {
     return {
       planItemList: [],
-      followPlanList:[],
-      curLength:""
+      followPlanList: [],
+      followPlanUserList: [],
+      curLength: "",
+      colorStyle: [
+        {backgroundColor:"#FFA500"}, // 주황
+        {backgroundColor:"#FFFF00"}, // 노랑
+        {backgroundColor:"#00FF00"}, // 초록
+        {backgroundColor:"#0000FF"}, // 파랑
+        {backgroundColor:"#800080"}, // 보라
+      ],
     };
   },
   methods: {
+    getUserId() {
+      for (let i = 0; i < this.followPlanList.length; i++) {
+        getPlan(
+          this.followPlanList[i].planId,
+          ({ data }) => {
+            this.followPlanUserList.push(data);
+            console.log(this.followPlanUserList);
+          },
+          (error) => console.log(error)
+        );
+      }
+    },
     addPointToMap(plan) {
       let flag = true;
       console.log("addPointToMap--------start");
       console.log(plan.contentId);
       console.log(this.planItemList);
-      this.planItemList.forEach(element => {
-        console.log("num-------------")
-        console.log(element.contentId)
-        if(element.contentId == plan.contentId){
+      this.planItemList.forEach((element) => {
+        console.log("num-------------");
+        console.log(element.contentId);
+        if (element.contentId == plan.contentId) {
           flag = false;
-        } 
+        }
       });
-      if(flag == true) this.planItemList.push(plan);
+      if (flag == true) this.planItemList.push(plan);
       console.log("addPointToMap--------end");
       // this.$refs.kakaomap.addPoint(plan);
     },
@@ -68,19 +94,19 @@ export default {
       console.log("addPlanToMarker--------start");
       console.log(plan.contentId);
       console.log(this.planItemList);
-      this.planItemList.forEach(element => {
-        console.log("num-------------")
-        console.log(element.contentId)
-        if(element.contentId == plan.contentId){
+      this.planItemList.forEach((element) => {
+        console.log("num-------------");
+        console.log(element.contentId);
+        if (element.contentId == plan.contentId) {
           flag = false;
         }
       });
-      if(flag == true) this.planItemList.push(plan);
+      if (flag == true) this.planItemList.push(plan);
       console.log("addPlanToMarker--------end");
 
       // this.$refs.kakaomap.addPoint(plan);
     },
-    getCurLength(curLength){
+    getCurLength(curLength) {
       this.curLength = curLength;
     },
     deletePlan(index) {
@@ -100,20 +126,67 @@ export default {
       if (this.planItemList) {
         const params = new URLSearchParams();
         this.planItemList.forEach((element) => {
-          params.append('sel', element.contentId );
+          params.append("sel", element.contentId);
         });
-        console.log("paramsfdsfdsdsf")
         console.log(params);
         getSelectedPlan(
           params,
           ({ data }) => {
-            console.log(data);
-            this.followPlanList = data;            
+            this.followPlanList = [];
+            if (data) {
+              for (let i = 0; i < 5; i++) {
+                if (data[i]) {
+                  this.followPlanList.push(data[i]);
+                } else break;
+              }
+            }
+            // this.followPlanList = data;
+            // if (this.followPlanList.length > 5) {
+            //   this.followPlanList = this.followPlanList.slice(0, 5);
+            // }
+            console.log("azzzzzzzzzzzzzzzzzzzzzzzzzz");
+            this.getUserId()
+            console.log(this.followPlanList);
+            console.log(this.followPlanUserList);
+            console.log("azzzzzzzzzzzzzzzzzzzzzzzzzz");
           },
           (error) => {
             console.log(error);
           }
         );
+        // getSelectedPlan(
+        //   params,
+        //   ({ data }) => {
+        //     this.followPlanList = [];
+        //     this.followPlanUserList = [];
+        //     if (data) {
+        //       for (let i = 0; i < 5; i++) {
+        //         if (data[i]) {
+        //           this.followPlanList.push(data[i]);
+        //           console.log(this.followPlanList);
+        //           getPlan(
+        //             data[i].planId,
+        //             ({ response }) => {
+        //               this.followPlanUserList.push(response);
+        //               console.log(this.followPlanUserList);
+        //             },
+        //             (error) => console.log(error)
+        //           );
+        //         } else break;
+        //       }
+        //     }
+        //     // this.followPlanList = data;
+        //     // if (this.followPlanList.length > 5) {
+        //     //   this.followPlanList = this.followPlanList.slice(0, 5);
+        //     // }
+        //     console.log("azzzzzzzzzzzzzzzzzzzzzzzzzz");
+        //     console.log(this.followPlanList);
+        //     console.log("azzzzzzzzzzzzzzzzzzzzzzzzzz");
+        //   },
+        //   (error) => {
+        //     console.log(error);
+        //   }
+        // );
       }
     },
   },
@@ -148,5 +221,16 @@ export default {
   flex: 1; /* Make the sidebar content expand to fill the available space */
   display: flex;
   flex-direction: column;
+}
+
+.follower-chart {
+  position: absolute;
+  z-index: 2;
+  top: 105px;
+  left: 310px;
+  width: 150px;
+  height: 150px;
+  border-radius: 5%;
+  opacity: 0.8;
 }
 </style>

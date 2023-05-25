@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="share-comment-id">
     <b-row class="header-row">
       <b-col>
         <user-tag :userId="detail.userId"></user-tag>
@@ -46,6 +46,11 @@ export default {
 </script>
 
 <style scoped>
+
+.share-comment-id {
+  margin-bottom: 5%;
+}
+
 .header-row {
   display: flex;
   justify-content: space-between;

@@ -67,5 +67,16 @@
 		select user_id AS userId
 		from user
 	</select>
+
+	<select id="doIFollow" resultType="String">
+		select follower_id AS userId
+		from follow
+		where follower_id = #{myId} AND following_id = #{userId}
+		limit 1
+	</select>
+
+	<delete id="unfollow">
+		DELETE FROM follow where follower_id = #{followerId} AND following_id = #{followingId}
+	</delete>
 	
 </mapper>

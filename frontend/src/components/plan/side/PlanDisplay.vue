@@ -63,17 +63,21 @@ export default {
       const params = {
         title: this.planname,
         attractions: attractionsIdList,
+        attractionCnt : attractionsIdList.length,
+        attractionWeight: this.curLength
       };
       console.log(params);
       addPlan(
         params,
         ({ data }) => {
           console.log(data);
+          window.location.reload();
         },
         (error) => {
           console.log(error);
         }
       );
+      this.$router.push({ name: 'planList' })
     },
     planItmeDbClick(index){
       console.log("delete-click");
