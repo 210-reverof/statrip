@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="userpage">
     <router-view></router-view>
   </div>
 </template>
@@ -9,3 +9,10 @@ export default {
   name: "UserPageView",
 };
 </script>
+
+
+<style scoped>
+.mypage{
+  min-height: 500px;
+}
+</style>

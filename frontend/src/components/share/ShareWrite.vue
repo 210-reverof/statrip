@@ -1,5 +1,6 @@
 <template>
   <div class="contents-block">
+      <br>
     <h2>Share</h2>
     <h5>공유 게시글을 작성해주세요</h5>
     <hr />

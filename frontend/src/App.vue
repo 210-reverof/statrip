@@ -3,9 +3,20 @@
     <div v-if="isOnBoard" class="scroll-snap-wrapper">
       <confirm-header :onBoard="true" class="header1"></confirm-header>
       <vue-scroll-snap :fullscreen="true">
-        <div class="item" style="background-color: #42b983;"></div>
-        <div class="item" style="background-color:coral;"></div>
-        <div class="item" style="background-color: blue;"></div>
+        <div class="item" style="background-color: #42b983">
+          <full-carousel></full-carousel>
+          <!--  -->
+          <!-- <div class="carousel-full">
+            
+          </div> -->
+          <!--  -->
+        </div>
+        <div class="item" style="background-color: coral">
+          <word-cloud class="wordcloud"></word-cloud>
+        </div>
+        <div class="item" style="background-color: #dcad67">
+          <real-radar-chart-graph class="realradar"></real-radar-chart-graph>
+        </div>
       </vue-scroll-snap>
     </div>
     <div v-else>
@@ -18,33 +29,38 @@
 
 <script>
 import VueScrollSnap from "vue-scroll-snap";
-import CommonFooter from './components/common/CommonFooter.vue';
-import ConfirmHeader from './components/common/ConfirmHeader.vue';
+import CommonFooter from "./components/common/CommonFooter.vue";
+import ConfirmHeader from "./components/common/ConfirmHeader.vue";
+import WordCloud from "@/components/common/WordCloud.vue";
+import RealRadarChartGraph from "@/components/common/RealRadarChartGraph.vue";
 import { mapState, mapActions } from "vuex";
+import FullCarousel from './components/common/FullCarousel.vue';
 const routerStore = "routerStore";
 
 export default {
   components: {
     ConfirmHeader,
     CommonFooter,
-    VueScrollSnap
+    WordCloud,
+    RealRadarChartGraph,
+    VueScrollSnap,
+    FullCarousel,
   },
   computed: {
-    ...mapState(routerStore, ["isOnBoard"])
+    ...mapState(routerStore, ["isOnBoard"]),
   },
   methods: {
-    ...mapActions(routerStore, ["setOnBoard"])
+    ...mapActions(routerStore, ["setOnBoard"]),
   },
   created() {
-    const isOnBoard = localStorage.getItem('isOnBoard');
+    const isOnBoard = localStorage.getItem("isOnBoard");
     if (isOnBoard === null) {
       this.setOnBoard(true);
     } else {
-      this.setOnBoard(isOnBoard === 'true');
+      this.setOnBoard(isOnBoard === "true");
     }
-  }
-
-}
+  },
+};
 </script>
 
 <style>
@@ -61,14 +77,14 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1;
+  z-index: 2;
 }
 
 .footer-wrapper {
   bottom: 0;
   left: 0;
   width: 100%;
-  z-index: 1;
+  z-index: 2;
 }
 
 .scroll-snap-wrapper {
@@ -87,5 +103,27 @@ nav a {
 
 nav a.router-link-exact-active {
   color: #42b983;
+}
+
+.carousel-full {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  z-index: 1;
+}
+.carousel-inner {
+  width: auto;
+  height: 550px; /* 이미지 높이 변경 */
+}
+.wordcloud {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.realradar {
+  width: 80%;
+  height: 80%;
+  margin: 5% auto;
 }
 </style>

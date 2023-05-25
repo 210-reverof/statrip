@@ -1,5 +1,6 @@
 <template>
   <div class="auth-login">
+    <br>
     <h2>Login</h2>
     <h5>로그인</h5>
     <hr />
