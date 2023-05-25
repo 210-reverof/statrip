@@ -58,8 +58,8 @@ export default {
       ]
     }
   },
-  created:{
-
+  created(){
+    console.log("wordcloud")
   },
   methods: {
     wordClickHandler(name, value, vm) {

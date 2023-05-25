@@ -1,6 +1,6 @@
 <template>
-  <div class="analysis-chart-box">
-    <canvas id="chart2" width="500px" height="500px"></canvas>
+  <div class="realRadalChart">
+    <canvas id="realRadalChart" width="500px" height="500px"></canvas>
   </div>
 </template>
 
@@ -13,24 +13,33 @@ export default {
   components: {},
   methods: {
     fillData(chartId, labels, dataset) {
-      console.log(labels +" "+dataset)
+      console.log(labels + " " + dataset);
       const ctx = document.getElementById(chartId).getContext("2d");
       this.myChart = new Chart(ctx, {
         type: "radar",
         data: {
           labels: [
-            "Eating",
-            "Drinking",
-            "Sleeping",
-            "Designing",
-            "Coding",
-            "Cycling",
-            "Running",
+            "관광지",
+            "문화시설",
+            "축제공연행사",
+            "여행코스",
+            "레포츠",
+            "숙박",
+            "쇼핑",
+            "음식점",
+            // 12:관광지 "#FF0000", // 빨강
+// 14:문화시설 "#FFA500", // 주황
+// 15:축제공연행사 "#FFFF00", // 노랑
+// 25:여행코스, "#00FF00", // 초록
+// 28:레포츠, "#0000FF", // 파랑
+// 32:숙박, "#800080", // 보라
+// 38:쇼핑, "#FF00FF",  // 분홍
+// 39:음식점 "#888888"  // 회색
           ],
           datasets: [
             {
-              label: "My First Dataset",
-              data: [65, 59, 90, 81, 56, 55, 40],
+              label: "여성",
+              data: [165, 459, 190, 281, 656, 355, 540, 431],
               fill: true,
               backgroundColor: "rgba(255, 99, 132, 0.2)",
               borderColor: "rgb(255, 99, 132)",
@@ -40,8 +49,8 @@ export default {
               pointHoverBorderColor: "rgb(255, 99, 132)",
             },
             {
-              label: "My Second Dataset",
-              data: [28, 48, 40, 19, 96, 27, 100],
+              label: "남성",
+              data: [228, 248, 540, 219, 456, 247, 640, 221],
               fill: true,
               backgroundColor: "rgba(54, 162, 235, 0.2)",
               borderColor: "rgb(54, 162, 235)",
@@ -53,10 +62,20 @@ export default {
           ],
         },
         options: {
+          scales: {
+            r: {
+              // display: false,
+              color: "#55EBCD",
+              ticks: {
+                backdropColor: "#FAEBCD",
+              },
+            },
+          },
           plugins: {
             legend: {
               display: true,
               position: "bottom",
+              color: "#FAEBCD",
               labels: {
                 boxWidth: 7,
                 padding: 10,
@@ -72,6 +91,7 @@ export default {
             tooltip: {
               boxWidth: 10,
               bodyFont: { size: 10 },
+              backgroundColor: "#55EBCD",
             },
           },
           responsive: true,
@@ -95,7 +115,12 @@ export default {
     },
   },
   mounted() {
-    this.fillData("chart2", ["중립", "중립 아님", "모름"], [50, 20, 30]);
+    //chartname, labels, dataset
+    this.fillData(
+      "realRadalChart",
+      ["중립", "중립 아님", "모름"],
+      [50, 20, 30]
+    );
   },
   data() {
     return {
@@ -104,3 +129,11 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.realRadalChart{
+  margin: 3% auto;
+  width: 90%;
+  height: 90%;
+}
+</style>
