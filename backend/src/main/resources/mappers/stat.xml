@@ -56,7 +56,18 @@
         JOIN attraction_info a ON r.attraction_id = a.content_id
         WHERE h.user_id = #{userId}
         GROUP BY a.content_type_id
-        GROUP BY typeId
         ORDER BY cnt DESC;
+    </select>
+    
+    <select id="getPostCount" resultType="java.lang.Integer" >
+    	SELECT COUNT(*) AS cnt
+    	FROM plan
+    	WHERE user_id = #{useId}
+    </select>
+    
+    <select id="getLikeCount" resultType="java.lang.Integer">
+    	SELECT COUNT(*) FROM share_like sl
+    	INNER JOIN share_article sa ON sl.article_no = sa.article_no
+    	WHERE sa.user_id = #{userId}
     </select>
 </mapper>

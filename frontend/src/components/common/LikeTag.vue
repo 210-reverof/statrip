@@ -23,7 +23,6 @@ export default {
     },
   },
   created() {
-    console.log(this.isLiked+ "=================");
   },
   methods: {
   },

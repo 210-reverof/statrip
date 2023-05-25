@@ -5,23 +5,23 @@
       <hr />
       <div>
         <div>
-          <div>
+          <div class="graph-box">
             <b-tabs content-class="mt-3" align="center" class="chart-block">
               <b-tab title="취향">
-                <h3>사용자의 취향 분석 - 초기 설문 & 팔로우 목록 & 계획에 포함된 태그 합</h3>
+                <h3>사용자의 취향 분석</h3>
                 <doughnut-chart-graph :userId="user.userId" class="chart-size"></doughnut-chart-graph>
               </b-tab>
               <b-tab title="경험">
-                <h3>사용자의 경험 분석 - 인증한 경로에 한해서 태그 합</h3>
+                <h3>사용자의 경험 분석</h3>
                 <radar-chart-graph class="chart-size"></radar-chart-graph>
               </b-tab>
             </b-tabs>
           </div>
           <div class="data-block">
-            <h3>팔로잉 수 {{ followCnt.followingCnt }}</h3>
-            <h3>팔로워 수 {{ followCnt.followerCnt }}</h3>
-            <h3>전체 게시글 수</h3>
-            <h3>전체 받은 하트</h3>
+            <h5>팔로잉 수 {{ followCnt.followingCnt }}</h5>
+            <h5>팔로워 수 {{ followCnt.followerCnt }}</h5>
+            <h5>전체 게시글 수 {{ count.postCnt }}</h5>
+            <h5>전체 받은 하트 {{ count.likeCnt }}</h5>
           </div>
         </div>
       </div>
@@ -88,6 +88,7 @@ import ShareCard from "@/components/home/ShareCard.vue";
 
 import { followCnt } from "@/api/user";
 import { getPlanMyList } from "@/api/plan";
+import { getMyCount } from "@/api/stat";
 const userStore = "userStore";
 
 export default {
@@ -107,6 +108,10 @@ export default {
       followCnt: {
         followingCnt: 0,
         followerCnt: 0,
+      },
+      count: {
+        postCnt: 0,
+        likeCnt: 0,
       },
       hotspotitems: [],
       planitems: [],
@@ -130,6 +135,7 @@ export default {
     this.user.userId = this.userInfo.userId;
     this.getFollowCnt();
     this.getPlanList();
+    this.getMyCount();
   },
   computed: {
     ...mapState(userStore, ["userInfo"]),
@@ -161,12 +167,16 @@ export default {
       (error) => console.log(error)
       );
     },
+    async getMyCount() {
+      getMyCount(
+        ({ data }) => (this.count = data),
+        (error) => console.log(error)
+      );
+    },
     moveViewPlan() {
-      console.log("click");
       this.$router.push({ name: "viewPlan" });
     },
     moveDetail(id) {
-      console.log(id);
       this.$router.push({ name: "shareDetail", params: { id: id } });
     },
     
@@ -214,5 +224,9 @@ export default {
 .card-size {
   width: 85%;
   margin: 60px auto;
+}
+
+.graph-box {
+  margin-bottom: 20px;
 }
 </style>

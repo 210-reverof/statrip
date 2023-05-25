@@ -11,7 +11,7 @@
         <router-link @click="updateOnBoard(false)" to="/share" class="nav-link">SHARE</router-link>
         <router-link @click="updateOnBoard(false)" to="/mypage" class="nav-link">MY PAGE</router-link>
         <button v-if="userInfo" class="nav-link logout-button" @click="doLogout">LOGOUT</button>
-        <router-link v-else to="/auth" class="nav-link">LOGIN</router-link>
+        <router-link @click="updateOnBoard(false)" v-else to="/auth" class="nav-link">LOGIN</router-link>
       </b-nav>
     </b-navbar>
   </header>
@@ -40,6 +40,7 @@ export default {
 
     doLogout() {
       this.userLogout(this.userInfo.userId);
+      this.updateOnBoard(false);
       alert("로그아웃 되었습니다");
     },
     updateOnBoard(isOnBoard) {

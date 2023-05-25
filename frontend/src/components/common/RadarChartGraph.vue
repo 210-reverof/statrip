@@ -6,26 +6,32 @@
 
 <script>
 import {Chart, registerables} from 'chart.js';
+import { getRealStat } from "@/api/stat";
 Chart.register(...registerables);
 
 export default {
   name: 'RadarChartGraph',
+  props: ['userId'],
   components: { 
   },
+  created() {
+    getRealStat(({data})=>{
+      this.stat=data;
+      this.fillData('chart2', this.stat);
+    }, (error)=>console.log(error));
+  },
   methods: {
-    fillData(chartId, labels, dataset){
+    fillData(chartId, stat){
       const ctx = document.getElementById(chartId).getContext('2d');
       this.myChart = new Chart(ctx, {
         type:'doughnut',
         data:{
-          labels:labels,
-          datasets:[
+          labels: ["관광지", "문화시설", "축제공연행사", "여행코스", "레포츠", "숙박", "쇼핑", "음식점"],
+          datasets: [
             {
-              backgroundColor:[
-                "#DD7445", "#DE9D11" , "#E0B8FF"
-              ],
-              data: dataset              
-            }             
+              backgroundColor: ["#FF0000", "#FFA500", "#FFFF00", "#00FF00", "#0000FF", "#800080", "#FF00FF", "#888888"],
+              data: [stat.sightSeeing, stat.cultural, stat.festival, stat.travelRoute, stat.leports, stat.sleeping, stat.shopping, stat.restaurant]
+            }
           ]
           
         },
@@ -72,11 +78,12 @@ export default {
     }
   },
   mounted() {  
-    this.fillData('chart2',['중립','중립 아님','모름'], [50, 20, 30]);
+    // this.fillData('chart2',['중립','중립 아님','모름'], [50, 20, 30]);
 
   },
   data(){
     return{
+      stat: [0],
       myChart: null
     };
   }

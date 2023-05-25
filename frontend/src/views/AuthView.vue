@@ -5,7 +5,19 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
+const routerStore = "routerStore";
+
 export default {
-  name: "AuthView"
+  name: "AuthView",
+  computed: {
+    ...mapState(routerStore, ["isOnBoard"]),
+  },
+  methods: {
+    ...mapActions(routerStore, ["setOnBoard"]),
+  },
+  created() {
+    this.setOnBoard(false);
+  }
 };
 </script>
