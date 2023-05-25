@@ -12,8 +12,9 @@
                 ><img :src="require(`@/assets/fullscreen/giphy.gif`)"
               /></b-col>
               <b-col cols=4
-                ><h1 style="margin: 30% auto">
-                  내 주위 통계로 보는 여행 기록  
+                ><h1 style="margin: 30% auto; font-size: 55px; color:gold">
+                  내 주위 <b>통계</b>로 보는 <br>
+                  다채로운 <b>여행</b> 기록  
                 </h1></b-col
               >
               <b-col cols=2
@@ -73,7 +74,7 @@ export default {
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Gowun Dodum', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

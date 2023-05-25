@@ -50,6 +50,7 @@ export default {
 
 <style scoped>
 .wordcloud{
+  font-family: 'Gowun Dodum', sans-serif;
   width: 100%;
   height: 100%;
   margin: 0 auto;

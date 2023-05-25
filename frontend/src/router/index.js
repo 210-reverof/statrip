@@ -12,12 +12,19 @@ const onlyAuthUser = async (to, from, next) => {
   const checkToken = store.getters["userStore/checkToken"];
   let token = sessionStorage.getItem("access-token");
 
+  // if (router.currentRoute.path != from.path) {
+    
+  // }
+
   if (checkUserInfo != null && token) {
     await store.dispatch("userStore/getUserInfo", token);
   }
   if (!checkToken || checkUserInfo === null) {
     alert("로그인이 필요합니다");
-    router.push({ name: "login" });
+    console.log(to.path + " ------> " + from.path);
+    console.log("=======" + router.currentRoute.path + "=====");
+    router.push({ name: "login" }).catch(()=>{});
+    // @click="$router.push({ path: `/userpage/main/${userId}` }).catch(()=>{});
   } else {
     next();
   }

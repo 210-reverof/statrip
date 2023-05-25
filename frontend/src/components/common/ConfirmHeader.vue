@@ -1,17 +1,17 @@
 <template>
   <header :class="{'custom-header-onboard': isOnBoard, 'custom-header': !isOnBoard}">
     <b-navbar type="dark">
-      <b-navbar-brand @click="updateOnBoard(true)" to="/">
+      <b-navbar-brand @click="updateOnBoard(true)" :to="{ path: '/' }">
         <img src="@/assets/common/logo_white.png" style="max-width: 100px; max-height: 60px; padding-left: 20px;" class="mr-2" />
       </b-navbar-brand>
       <b-nav class="ml-auto">
-        <router-link @click="updateOnBoard(false)" to="/home" class="nav-link">FEED</router-link>
-        <router-link @click="updateOnBoard(false)" to="/plan" class="nav-link">PLAN</router-link>
-        <router-link @click="updateOnBoard(false)" to="/hotspot" class="nav-link">HOT SPOT</router-link>
-        <router-link @click="updateOnBoard(false)" to="/share" class="nav-link">SHARE</router-link>
-        <router-link @click="updateOnBoard(false)" to="/mypage" class="nav-link">MY PAGE</router-link>
+        <a @click="navigate('/home')" class="nav-link">FEED</a>
+        <a @click="navigate('/plan')" class="nav-link">PLAN</a>
+        <a @click="navigate('/hotspot')" class="nav-link">HOT SPOT</a>
+        <a @click="navigate('/share')" class="nav-link">SHARE</a>
+        <a @click="navigate('/mypage')" class="nav-link">MY PAGE</a>
         <button v-if="userInfo" class="nav-link logout-button" @click="doLogout">LOGOUT</button>
-        <router-link @click="updateOnBoard(false)" v-else to="/auth" class="nav-link">LOGIN</router-link>
+        <a @click="navigate('/auth')" v-else class="nav-link">LOGIN</a>
       </b-nav>
     </b-navbar>
   </header>
@@ -38,6 +38,11 @@ export default {
     ...mapActions(userStore, ["userLogout"]),
     ...mapActions(routerStore, ["setOnBoard"]),
 
+    navigate(path) {
+      if (this.$route.path !== path) {
+        this.$router.push(path).catch(()=>{});
+      }
+    },
     doLogout() {
       this.userLogout(this.userInfo.userId);
       this.updateOnBoard(false);
