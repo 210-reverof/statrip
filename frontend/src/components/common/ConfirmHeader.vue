@@ -25,7 +25,10 @@ const routerStore = "routerStore";
 export default {
   name: "ConfirmHeader",
   props: {
-    onBoard:{type: Object}
+    onBoard: {
+      type: Boolean,
+      required: true
+    }
   },
   computed: {
     ...mapState(userStore, ["userInfo"]),
