@@ -94,7 +94,7 @@
 		FROM plan_relation pr
 		JOIN attraction_info a ON a.content_id = pr.attraction_id
 		group by pr.attraction_id
-		limit 50
+		limit 200
 	</select>
 	
 </mapper>
