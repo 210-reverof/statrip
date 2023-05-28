@@ -19,7 +19,7 @@ export default {
     TopBlock,
     HotSpotBlock,
     PlanBlock,
-    RecommendBlock
+    RecommendBlock,
   }
 };
 

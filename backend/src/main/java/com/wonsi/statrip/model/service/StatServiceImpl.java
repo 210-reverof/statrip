@@ -2,6 +2,9 @@ package com.wonsi.statrip.model.service;
 
 import com.wonsi.statrip.model.dto.StatDto;
 import com.wonsi.statrip.model.dto.TypeCountDto;
+import com.wonsi.statrip.model.dto.response.CloudDto;
+import com.wonsi.statrip.model.dto.response.CountDto;
+import com.wonsi.statrip.model.dto.response.GraphDto;
 import com.wonsi.statrip.model.repository.StatRepository;
 import com.wonsi.statrip.model.repository.UserRepository;
 import org.apache.ibatis.session.SqlSession;
@@ -133,4 +136,61 @@ public class StatServiceImpl implements StatService{
         if (val1 * val2 == 0) return 0;
         return mulVal / (val1 * val2);
     }
+
+	@Override
+	public StatDto getExpStat(String userId) throws Exception {
+		List<TypeCountDto> map = sqlSession.getMapper(StatRepository.class).getRealCountByType(userId);
+        StatDto dto = new StatDto();
+        dto.setUserId(userId);
+
+        // 관광타입(12:관광지, 14:문화시설, 15:축제공연행사, 25:여행코스, 28:레포츠, 32:숙박, 38:쇼핑, 39:음식점)
+        int sum = 0;
+        for (TypeCountDto t : map) {
+            if (dto.getFirstType() == 0) dto.setFirstType(t.getTypeId());
+            else if (dto.getSecondType() == 0) dto.setSecondType(t.getTypeId());
+            sum += t.getCnt();
+            if (t.getTypeId() == 12) dto.setSightSeeing(t.getCnt());
+            else if (t.getTypeId() == 14) dto.setCultural(t.getCnt());
+            else if (t.getTypeId() == 15) dto.setFestival(t.getCnt());
+            else if (t.getTypeId() == 25) dto.setTravelRoute(t.getCnt());
+            else if (t.getTypeId() == 28) dto.setLeports(t.getCnt());
+            else if (t.getTypeId() == 32) dto.setSleeping(t.getCnt());
+            else if (t.getTypeId() == 38) dto.setShopping(t.getCnt());
+            else if (t.getTypeId() == 39) dto.setRestaurant(t.getCnt());
+        }
+        if (sum == 0) return dto;
+
+        for (TypeCountDto t : map) {
+            if (t.getTypeId() == 12) dto.setSightSeeingPercent((double)t.getCnt() / sum);
+            else if (t.getTypeId() == 14) dto.setCulturalPercent((double)t.getCnt() / sum);
+            else if (t.getTypeId() == 15) dto.setFestivalPercent((double)t.getCnt() / sum);
+            else if (t.getTypeId() == 25) dto.setTravelRoutePercent((double)t.getCnt() / sum);
+            else if (t.getTypeId() == 28) dto.setLeportsPercent((double)t.getCnt() / sum);
+            else if (t.getTypeId() == 32) dto.setSleepingPercent((double)t.getCnt() / sum);
+            else if (t.getTypeId() == 38) dto.setShoppingPercent((double)t.getCnt() / sum);
+            else if (t.getTypeId() == 39) dto.setRestaurantPercent((double)t.getCnt() / sum);
+        }
+        return dto;
+	}
+
+	@Override
+	public CountDto getCount(String userId) throws Exception {
+		int a = sqlSession.getMapper(StatRepository.class).getPostCount(userId);
+		int b = sqlSession.getMapper(StatRepository.class).getLikeCount(userId);
+		return new CountDto(a, b);
+	}
+
+	@Override
+	public GraphDto getGraph() throws Exception {
+		GraphDto dto = new GraphDto();
+		dto.setBoy(sqlSession.getMapper(StatRepository.class).getCountByContents(0));
+		dto.setGirl(sqlSession.getMapper(StatRepository.class).getCountByContents(1));
+		return dto;
+	}
+
+	@Override
+	public List<CloudDto> getCloud() throws Exception {
+		
+		return sqlSession.getMapper(StatRepository.class).getCloud();
+	}
 }

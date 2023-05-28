@@ -1,6 +1,7 @@
 <template>
   <div class="myplan-list">
     <div class="contents-block">
+      <br>
       <h1>Plan</h1>
       <h5>최신 경로 목록</h5>
       <hr />

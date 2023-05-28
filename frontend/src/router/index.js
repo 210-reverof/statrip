@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
 
 import store from "@/store";
+import BlankView from "@/views/BlankView.vue";
 
 Vue.use(VueRouter);
 
@@ -11,11 +12,19 @@ const onlyAuthUser = async (to, from, next) => {
   const checkToken = store.getters["userStore/checkToken"];
   let token = sessionStorage.getItem("access-token");
 
+  // if (router.currentRoute.path != from.path) {
+    
+  // }
+
   if (checkUserInfo != null && token) {
     await store.dispatch("userStore/getUserInfo", token);
   }
   if (!checkToken || checkUserInfo === null) {
-    router.push({ name: "login" });
+    alert("로그인이 필요합니다");
+    console.log(to.path + " ------> " + from.path);
+    console.log("=======" + router.currentRoute.path + "=====");
+    router.push({ name: "login" }).catch(()=>{});
+    // @click="$router.push({ path: `/userpage/main/${userId}` }).catch(()=>{});
   } else {
     next();
   }
@@ -24,6 +33,11 @@ const onlyAuthUser = async (to, from, next) => {
 const routes = [
   {
     path: "/",
+    name: "blank",
+    component: BlankView,
+  },
+  {
+    path: "/home",
     name: "home",
     component: HomeView,
   },
@@ -42,6 +56,7 @@ const routes = [
       {
         path: "add",
         name: "planAdd",
+        beforeEnter: onlyAuthUser,
         component: () => import(/* webpackChunkName: "plan" */ "@/components/plan/PlanAdd.vue"),
       },
       {
@@ -49,11 +64,6 @@ const routes = [
         name: "viewPlan",
         component: () =>
           import(/* webpackChunkName: "plan" */ "@/components/plan/view/PlanView.vue"),
-      },
-      {
-        path: 'add',
-        name: 'hotspotAdd',
-        component: () => import(/* webpackChunkName: "hotspotAdd" */ '@/components/hotspot/HotspotAdd.vue'),
       }
     ]
   },
@@ -76,37 +86,10 @@ const routes = [
       {
         path: 'write',
         name: 'shareWrite',
+        beforeEnter: onlyAuthUser,
         component: () => import(/* webpackChunkName: "share" */ '@/components/share/ShareWrite.vue'),
       }
     ]
-  },
-  {
-    path: '/mypage',
-    name: 'mypage',
-    component: () => import(/* webpackChunkName: "mypage" */ '@/views/MyPageView.vue'),
-    redirect: '/mypage/main',
-    children:[
-      {
-        path: 'main',
-        name: 'myPageMain',
-        component: () => import(/* webpackChunkName: "auth" */ '@/components/mypage/MyPageMain.vue'),
-      },
-      {
-        path: 'myhot',
-        name: 'myHotspotList',
-        component: () => import(/* webpackChunkName: "auth" */ '@/components/mypage/MyHotspotList.vue'),
-      },
-      {
-        path: 'myplan',
-        name: 'myPlanList',
-        component: () => import(/* webpackChunkName: "auth" */ '@/components/mypage/MyPlanList.vue'),
-      },
-      {
-        path: 'myshare',
-        name: 'myShareList',
-        component: () => import(/* webpackChunkName: "auth" */ '@/components/mypage/MyShareList.vue'),
-      }
-    ],
   },
   {
     path: "/hotspot",
@@ -123,34 +106,16 @@ const routes = [
       {
         path: "add",
         name: "hotspotAdd",
+        beforeEnter: onlyAuthUser,
         component: () =>
           import(/* webpackChunkName: "hotspotAdd" */ "@/components/hotspot/HotspotAdd.vue"),
       },
     ],
   },
   {
-    path: "/share",
-    name: "share",
-    component: () => import(/* webpackChunkName: "share" */ "@/views/ShareView.vue"),
-    redirect: "/share/list",
-    children: [
-      {
-        path: "list",
-        name: "shareList",
-        component: () =>
-          import(/* webpackChunkName: "question" */ "@/components/share/ShareList.vue"),
-      },
-      {
-        path: "detail",
-        name: "shareDetail",
-        component: () =>
-          import(/* webpackChunkName: "question" */ "@/components/share/ShareDetail.vue"),
-      },
-    ],
-  },
-  {
     path: "/mypage",
     name: "mypage",
+    beforeEnter: onlyAuthUser,
     component: () => import(/* webpackChunkName: "mypage" */ "@/views/MyPageView.vue"),
     redirect: "/mypage/main",
     children: [
@@ -210,6 +175,13 @@ const routes = [
         component: () =>
           import(/* webpackChunkName: "auth" */ "@/components/userpage/UserShareList.vue"),
       },
+      {
+        path: "userlist/:follow/:userId",
+        name: "userList",
+        component: () =>
+          import(/* webpackChunkName: "auth" */ "@/components/userpage/UserList.vue"),
+
+      }
     ],
   },
   {
@@ -247,10 +219,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (router.pending && to.name !== from.name) {
-    console.log('Navigation cancelled:', from.fullPath, 'to', to.fullPath);
-    return;
-  }
+  store.dispatch('routerStore/setOnBoard', false);
   next();
 });
 

@@ -1,18 +1,19 @@
 <template>
   <div class="userpage">
     <div class="contents-block">
-      <hr />
       <div>
         <div>
-<div>
+          <div>
             <h1>{{ user.userId }}</h1>
+            <follow-button :userId="user.userId"></follow-button>
+            <hr />
             <doughnut-chart-graph :userId="user.userId" class="chart-size"></doughnut-chart-graph>
-          </div>          
+          </div>
           <div class="data-block">
-            <h3>팔로잉 수 : {{followCnt.followingCnt}}</h3>
-            <h3>팔로워 수 : {{followCnt.followerCnt}}</h3>
-            <h3>전체 게시글 수</h3>
-            <h3>전체 받은 하트</h3>
+            <h5 @click="navigateToFollowing">팔로잉 수 : {{ followCnt.followingCnt }}</h5>
+            <h5 @click="navigateToFollower">팔로워 수 : {{ followCnt.followerCnt }}</h5>
+            <h5>전체 게시글 수 {{ count.postCnt }}</h5>
+            <h5>전체 받은 하트 {{ count.likeCnt }}</h5>
           </div>
         </div>
       </div>
@@ -59,7 +60,6 @@
         </b-row>
         <hr />
         <b-row class="center">
-          <!-- 카드 하나씩을 출력하며 각 카드에 클릭 이벤트를 달아줌. id값만 넘어가기 때문에 moveDetail로 넘어간 shareDetail에서는 별도의 get을 통해 게시글에 들어갈 plan을 받아줘야 함 -->
           <b-col cols="6" v-for="item in shareitems" :key="item.name" @click="moveDetail(item.id)">
             <share-card class="card-size" :detail="item"></share-card>
           </b-col>
@@ -89,6 +89,8 @@ import PlanCard from "@/components/home/PlanCard.vue";
 import ShareCard from "@/components/home/ShareCard.vue";
 import { followUserCnt } from "@/api/user";
 import { getPlanUserList } from "@/api/plan";
+import FollowButton from "@/components/common/FollowButton.vue";
+import { getCount } from "@/api/stat";
 
 export default {
   name: "UserPageMain",
@@ -97,6 +99,7 @@ export default {
     HotSpotCard,
     PlanCard,
     ShareCard,
+    FollowButton,
   },
   data() {
     return {
@@ -106,6 +109,10 @@ export default {
       followCnt: {
         followingCnt: 0,
         followerCnt: 0,
+      },
+      count: {
+        postCnt: 0,
+        likeCnt: 0,
       },
       hotspotitems: [],
       planitems: [],
@@ -121,35 +128,48 @@ export default {
         leports: 0,
         sleeping: 0,
         shopping: 0,
-        restaurant: 0
-      }
+        restaurant: 0,
+      },
     };
   },
   created() {
     this.user.userId = this.$route.params.userId;
     this.getFollowCnt();
     this.getPlanList();
-
+    this.getCount(this.user.userId);
   },
   methods: {
+    async getCount(id) {
+      getCount(
+        ({ data }) => (id, this.count = data),
+        (error) => console.log(error)
+      );
+    },
     moveViewPlan() {
       this.$router.push({ name: "viewPlan" });
     },
     moveDetail(id) {
-      console.log(id);
       this.$router.push({ name: "shareDetail", params: { id: id } });
     },
     async getFollowCnt() {
-      followUserCnt( this.user.userId,
-        ({ data }) => this.followCnt = data,
+      followUserCnt(
+        this.user.userId,
+        ({ data }) => (this.followCnt = data),
         (error) => console.log(error)
       );
     },
     async getPlanList() {
-      getPlanUserList(this.user.userId,
-      ({data}) => this.planitems = data.slice(0,3),
-      (error) => console.log(error)
+      getPlanUserList(
+        this.user.userId,
+        ({ data }) => (this.planitems = data.slice(0, 3)),
+        (error) => console.log(error)
       );
+    },
+    navigateToFollowing() {
+      this.$router.push({ path: "/userpage/userlist/true/" + this.user.userId });
+    },
+    navigateToFollower() {
+      this.$router.push({ path: "/userpage/userlist/false/" + this.user.userId });
     },
   },
 };

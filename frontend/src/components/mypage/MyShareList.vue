@@ -1,6 +1,7 @@
 <template>
   <div class="share-list">
     <div class="contents-block">
+      <br>
       <b-row>
         <b-col>
           <h2>마이 페이지</h2>

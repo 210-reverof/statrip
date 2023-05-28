@@ -1,25 +1,10 @@
 <template>
   <div class="share-list">
     <div class="contents-block">
-      
-      <h3>{{usernickn}}의 공유 계획</h3>
+      <h3>{{ usernickn }}의 공유 계획</h3>
 
-      <b-row
-        id="my-row"
-        :items="items"
-        :per-page="perPage"
-        :current-page="currentPage"
-      >
-      <!-- 카드 하나씩을 출력하며 각 카드에 클릭 이벤트를 달아줌.
-       id값만 넘어가기 때문에 moveDetail로 넘어간 shareDetail에서는 별도의 get을 통해 게시글에 들어갈 plan을 받아줘야 함 -->
-        <b-col
-        class="col-margin"
-          cols="6"
-          v-for="item in lists"
-          :key="item.name"
-          @click="moveDetail(item.id)"
-        >
-        <!-- sharelist에 띄울 card의 모양에 들어가는 데이터의 리스트를 받아 출력 -->
+      <b-row id="my-row" :items="items" :per-page="perPage" :current-page="currentPage">
+        <b-col class="col-margin" cols="6" v-for="item in lists" :key="item.name" @click="moveDetail(item.id)">
           <share-card class="card-size" :detail="item"></share-card>
         </b-col>
       </b-row>
@@ -27,13 +12,7 @@
 
     <b-button class="btn-pos" squared variant="outline-info">글쓰기</b-button>
 
-    <b-pagination
-      class="center"
-      v-model="currentPage"
-      :total-rows="totalRows"
-      :per-page="perPage"
-      aria-controls="my-row"
-    ></b-pagination>
+    <b-pagination class="center" v-model="currentPage" :total-rows="totalRows" :per-page="perPage" aria-controls="my-row"></b-pagination>
   </div>
 </template>
 
@@ -48,22 +27,18 @@ export default {
     return {
       perPage: 6,
       currentPage: 1,
-      items: [
-      ],
+      items: [],
     };
   },
   created() {
     this.items = this.$route.params.items;
-    this.usernickn = this.$route.params.usernickn
+    this.usernickn = this.$route.params.usernickn;
   },
   computed: {
     lists() {
       const items = this.items;
       // Return just page of items needed
-      return items.slice(
-        (this.currentPage - 1) * this.perPage,
-        this.currentPage * this.perPage
-      );
+      return items.slice((this.currentPage - 1) * this.perPage, this.currentPage * this.perPage);
     },
     totalRows() {
       return this.items.length;
@@ -93,7 +68,7 @@ export default {
   justify-content: center;
 }
 
-.card-size{
+.card-size {
   width: 85%;
   margin: 60px auto;
 }

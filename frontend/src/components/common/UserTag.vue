@@ -21,7 +21,7 @@ export default {
     userId: {
       type: String,
       required: true
-    }
+    },
   },
   data() {
     return {

@@ -181,13 +181,13 @@ export default {
         formdata,
         ({ data }) => {
           console.log(data);
+          window.location.reload();
         },
         (error) => {
-
           console.log(error);
         }
       );
-      
+      this.$router.push({ name: 'hotspotList' })
     },
     clickInputTag: function () {
       this.$refs["image"].click();

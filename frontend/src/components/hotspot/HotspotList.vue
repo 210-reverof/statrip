@@ -1,6 +1,7 @@
 <template>
   <div class="hot-spot-list">
     <div class="contents-block">
+      <br>
       <h2>Hot Spots</h2>
       <h5>나만의 핫스팟을 인증샷과 함께 자랑해주세요</h5>
       <hr />

@@ -25,7 +25,6 @@ export default {
   created() {
     getUserStat(this.userId, ({data})=>{
       this.stat=data;
-      console.log(this.stat);
       this.fillData('chart',this.stat);
     }, (error)=>console.log(error));
   },

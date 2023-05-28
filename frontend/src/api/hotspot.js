@@ -18,6 +18,7 @@ async function getHotspotArticle(articleNo, success, fail) {
 }
 
 async function deleteHotspotArticle(articleNo, success, fail) {
+    api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
     await api.delete('/hotspot/' + articleNo).then(success).catch(fail);
 }
 

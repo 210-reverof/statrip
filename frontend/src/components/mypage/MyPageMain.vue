@@ -5,30 +5,23 @@
       <hr />
       <div>
         <div>
-          <div>
+          <div class="graph-box">
             <b-tabs content-class="mt-3" align="center" class="chart-block">
               <b-tab title="취향">
-                <h3>사용자의 취향 분석 - 초기 설문 & 팔로우 목록 & 계획에 포함된 태그 합</h3>
-                <doughnut-chart-graph class="chart-size"></doughnut-chart-graph>
+                <h3>사용자의 취향 분석</h3>
+                <doughnut-chart-graph :userId="user.userId" class="chart-size"></doughnut-chart-graph>
               </b-tab>
               <b-tab title="경험">
-                <h3>사용자의 경험 분석 - 인증한 경로에 한해서 태그 합</h3>
+                <h3>사용자의 경험 분석</h3>
                 <radar-chart-graph class="chart-size"></radar-chart-graph>
-              </b-tab>
-              <b-tab title="달력" active>
-                <h2>
-                  달력 - 달력에 여행 인증 기록 표시, 다른 색으로 계획 달성 체크 표시<br />
-                  계획 달성률, 자주 방문하는 지역, 태그 표시
-                </h2>
-                <calender-graph></calender-graph>
               </b-tab>
             </b-tabs>
           </div>
           <div class="data-block">
-            <h3>팔로잉 수 {{ followCnt.followingCnt }}</h3>
-            <h3>팔로워 수 {{ followCnt.followerCnt }}</h3>
-            <h3>전체 게시글 수</h3>
-            <h3>전체 받은 하트</h3>
+            <h5>팔로잉 수 {{ followCnt.followingCnt }}</h5>
+            <h5>팔로워 수 {{ followCnt.followerCnt }}</h5>
+            <h5>전체 게시글 수 {{ count.postCnt }}</h5>
+            <h5>전체 받은 하트 {{ count.likeCnt }}</h5>
           </div>
         </div>
       </div>
@@ -86,166 +79,66 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import DoughnutChartGraph from "@/components/common/DoughnutChartGraph.vue";
 import RadarChartGraph from "@/components/common/RadarChartGraph.vue";
-import CalenderGraph from "@/components/common/CalenderGraph.vue";
 import HotSpotCard from "@/components/home/HotSpotCard.vue";
 import PlanCard from "@/components/home/PlanCard.vue";
 import ShareCard from "@/components/home/ShareCard.vue";
 
 import { followCnt } from "@/api/user";
+import { getPlanMyList } from "@/api/plan";
+import { getMyCount } from "@/api/stat";
+const userStore = "userStore";
 
 export default {
   name: "MyPageMain",
   components: {
     DoughnutChartGraph,
     RadarChartGraph,
-    CalenderGraph,
     HotSpotCard,
     PlanCard,
     ShareCard,
   },
   data() {
     return {
+      user: {
+        userId: "",
+      },
       followCnt: {
         followingCnt: 0,
         followerCnt: 0,
       },
+      count: {
+        postCnt: 0,
+        likeCnt: 0,
+      },
+      hotspotitems: [],
+      planitems: [],
+      shareitems: [],
+      stat: {
+        sightSeeing: 0,
+        cultural: 0,
+        festival: 0,
+        travelRoute: 0,
+        leports: 0,
+        sleeping: 0,
+        shopping: 0,
+        restaurant: 0
+      },
       perPage: 4,
       twoPage: 2,
       currentPage: 1,
-      hotspotitems: [
-        {
-          id: 1,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
-        {
-          id: 2,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
-        {
-          id: 3,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
-        {
-          id: 4,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
-        {
-          id: 5,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
-        {
-          id: 6,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
-        {
-          id: 7,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
-        {
-          id: 8,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
-        {
-          id: 9,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
-        {
-          id: 10,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x400?text=No-image",
-          likes: "12",
-        },
-      ],
-      planitems: [
-        {
-          id: 1,
-          route: [
-            { id: 3, img: "http://placehold.it/300x200?text=No-image" },
-            { id: 1, img: "http://placehold.it/300x200?text=No-image" },
-            { id: 2, img: "http://placehold.it/300x200?text=No-image" },
-          ],
-          writer: "Jessica_jj",
-          likes: "12",
-          content: "이 경로 진짜 짱짱 추천입니다",
-          regitdate: "2023.03.03",
-        },
-        {
-          id: 2,
-          route: [
-            { id: 3, img: "http://placehold.it/300x200?text=No-image" },
-            { id: 1, img: "http://placehold.it/300x200?text=No-image" },
-            { id: 2, img: "http://placehold.it/300x200?text=No-image" },
-          ],
-          writer: "Jessica_jj",
-          likes: "12",
-          content: "이 경로 진짜 짱짱 추천입니다",
-          regitdate: "2023.03.03",
-        },
-        {
-          id: 3,
-          route: [
-            { id: 3, img: "http://placehold.it/300x200?text=No-image" },
-            { id: 1, img: "http://placehold.it/300x200?text=No-image" },
-            { id: 2, img: "http://placehold.it/300x200?text=No-image" },
-          ],
-          writer: "Jessica_jj",
-          likes: "12",
-          content: "이 경로 진짜 짱짱 추천입니다",
-          regitdate: "2023.03.03",
-        },
-      ],
-      shareitems: [
-        {
-          id: 1,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x200?text=No-image",
-          likes: "12",
-          content: "이 경로 진짜 짱짱 추천입니다",
-          regitdate: "2023.03.03",
-        },
-        {
-          id: 2,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x200?text=No-image",
-          likes: "12",
-          content: "이 경로 진짜 짱짱 추천입니다",
-          regitdate: "2023.03.03",
-        },
-        {
-          id: 3,
-          writer: "Jessica_jj",
-          img: "http://placehold.it/300x200?text=No-image",
-          likes: "12",
-          content: "이 경로 진짜 짱짱 추천입니다",
-          regitdate: "2023.03.03",
-        },
-      ],
     };
   },
   created() {
+    this.user.userId = this.userInfo.userId;
     this.getFollowCnt();
+    this.getPlanList();
+    this.getMyCount();
   },
   computed: {
+    ...mapState(userStore, ["userInfo"]),
     hotspotlists() {
       const items = this.hotspotitems;
       return items.slice((this.currentPage - 1) * this.perPage, this.currentPage * this.perPage);
@@ -269,14 +162,24 @@ export default {
         (error) => console.log(error)
       );
     },
+    async getPlanList() {
+      getPlanMyList(({data}) => this.planitems = data.slice(0,3),
+      (error) => console.log(error)
+      );
+    },
+    async getMyCount() {
+      getMyCount(
+        ({ data }) => (this.count = data),
+        (error) => console.log(error)
+      );
+    },
     moveViewPlan() {
-      console.log("click");
       this.$router.push({ name: "viewPlan" });
     },
     moveDetail(id) {
-      console.log(id);
       this.$router.push({ name: "shareDetail", params: { id: id } });
     },
+    
   },
 };
 </script>
@@ -321,5 +224,9 @@ export default {
 .card-size {
   width: 85%;
   margin: 60px auto;
+}
+
+.graph-box {
+  margin-bottom: 20px;
 }
 </style>
