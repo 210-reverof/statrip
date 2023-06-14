@@ -67,46 +67,63 @@
   
 </div>
 
-### 🧷 서비스 기획
-## 데이터와 커뮤니티
+## 서비스 기획
+### 🧷 데이터와 커뮤니티
 기존 여행 프로젝트를 통해 데이터가 누적
 이를 활용한 다양한 서비스 기획
 커뮤니티 기능을 활용하여 더 다채로운 통계와 서비스 기획
 
-### 🧷 화면구
-## 1.회원 시스템
+## 화면구
+### 🧷 1.회원 시스템
 JWT를 활용한 로그인 구현
 초기 설문을 통한 회원 데이터 관리
-<p align="middle">
-<img src="/img/로그인.png"/>
-</p>
+<img src="/img/로그인.png" align="middle"/>
 
-<p align="middle"><img src="/img/관광지 검색.png" width="30%" /></p>
-<h1 align="middle">ㅇㅇ</h1>
+### 2. 관광지 정보 검색
+지역 및 카테고리 기반 검색
+지도에 위치 정보 확인 가능
+<img src="/img/관광지 검색.png" align="middle"/>
 
-<p align="middle"><img src="/img/경로 표시.png" width="30%" /></p>
-<h1 align="middle">ㅇㅇ</h1>
+### 3. Kakao Map 경로 표시
+항목 선택을 통한 간편한 경로 추가
+지도 상에 경로와 함께 표시
+<img src="/img/경로 표시.png" align="middle"/>
 
-<p align="middle"><img src="/img/핫스팟모달.png" width="30%" /></p>
-<h1 align="middle">ㅇㅇ</h1>
+### 4. 인증샷과 함께 공유
+사용자가 방문한 관광지 인증 시스템
+인스타그램의 스토리 형식으로 열람
+<img src="/img/핫스팟모달.png" align="middle"/>
 
-<p align="middle"><img src="/img/마이페이지.png" width="30%" /></p>
-<h1 align="middle">ㅇㅇ</h1>
+## 추가 기능
+### 1. 자동 통계 시스템
+경로 추가, 공유, 댓글, 팔로우 등의 사용자 활동을 기반으로 자동 통계 시스템
+관심 카테고리를 실시간으로 시각화
+<img src="/img/마이페이지.png" align="middle"/>
 
-<p align="middle"><img src="/img/팔로워리스트.png" width="30%" /></p>
-<h1 align="middle">ㅇㅇ</h1>
+### 2. 팔로잉 & 맞춤 피드
+사용자들끼리의 팔로우 기능 지원
+메인 피드에서 팔로잉 사용자 게시물 쉽게 확인 가능
+<img src="/img/팔로워리스트.png" align="middle"/>
 
-<p align="middle"><img src="/img/지도 위 경로.png" width="30%" /></p>
-<h1 align="middle">ㅇㅇ</h1>
+### 3. 경로 설정 도움
+사용자들끼리의 팔로우 기능 지원
+메인 피드에서 팔로잉 사용자 게시물 쉽게 확인 가능
+<img src="/img/지도 위 경로.png" align="middle"/>
 
-<p align="middle"><img src="/img/친구추천.png" width="30%" /></p>
-<h1 align="middle">ㅇㅇ</h1>
+### 4. 친구 추천 시스템
+사용자의 통계를 바탕으로 유사한 성격을 가지고 있는 사용자 실시간 추천
+코사인 유사도로 연산
+MSA : 친구 추천 서비스 독립
+ 독립적 기능
+ 성능 및 응답 시간 요구사항
+ 개발 및 유지보수의 용이성 등
+<img src="/img/친구추천.png" align="middle"/>
 
-<p align="middle"><img src="/img/워드클라우드.png" width="30%" /></p>
-<h1 align="middle">ㅇㅇ</h1>
-
-<p align="middle"><img src="/img/그래프.png" width="30%" /></p>
-<h1 align="middle">ㅇㅇ</h1>
+### 5. 다양한 시각화
+카테고리 이외에도 다양한 나이 대, 성별 등 다양한 정보
+위 데이터 활용한 다양한 시각화
+<img src="/img/워드클라우드.png" align="middle"/>
+<img src="/img/그래프.png" align="middle"/>
 
 
 
