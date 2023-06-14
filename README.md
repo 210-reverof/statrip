@@ -5,9 +5,11 @@
  statrip은 관광지 OpenAPI를 활용한 여행자 추천 커뮤니티입니다. 본인의 팔로인 기반으로 경로를 추천하고, 본인의 여행경로 및 인증을 바탕으로 여행 통계를 제공합니다.
 
 ## 멤버
+<div align="middle">
 | Developer | Developer |
 | --- | --- |
 | [이시영](https://github.com/swy0123) | [이원영](https://github.com/210-reverof) |
+</div>
 
 ## 기술 스택
 
