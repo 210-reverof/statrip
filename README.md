@@ -67,8 +67,19 @@
   
 </div>
 
-<p align="middle"><img src="/img/로그인.png" width="30%" /></p>
-<h1 align="middle">ㅇㅇ</h1>
+### 🧷 서비스 기획
+## 데이터와 커뮤니티
+기존 여행 프로젝트를 통해 데이터가 누적
+이를 활용한 다양한 서비스 기획
+커뮤니티 기능을 활용하여 더 다채로운 통계와 서비스 기획
+
+### 🧷 화면구
+## 1.회원 시스템
+JWT를 활용한 로그인 구현
+초기 설문을 통한 회원 데이터 관리
+<p align="middle">
+<img src="/img/로그인.png"/>
+</p>
 
 <p align="middle"><img src="/img/관광지 검색.png" width="30%" /></p>
 <h1 align="middle">ㅇㅇ</h1>
