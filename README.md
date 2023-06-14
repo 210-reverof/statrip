@@ -66,3 +66,37 @@
 **Server |** Git, SSH
   
 </div>
+
+<p align="middle"><img src="/img/로그인.png" width="30%" /></p>
+<h1 align="middle">ㅇㅇ</h1>
+
+<p align="middle"><img src="/img/관광지 검색.png" width="30%" /></p>
+<h1 align="middle">ㅇㅇ</h1>
+
+<p align="middle"><img src="/img/경로 표시.png" width="30%" /></p>
+<h1 align="middle">ㅇㅇ</h1>
+
+<p align="middle"><img src="/img/핫스팟모달.png" width="30%" /></p>
+<h1 align="middle">ㅇㅇ</h1>
+
+<p align="middle"><img src="/img/마이페이지.png" width="30%" /></p>
+<h1 align="middle">ㅇㅇ</h1>
+
+<p align="middle"><img src="/img/팔로워리스트.png" width="30%" /></p>
+<h1 align="middle">ㅇㅇ</h1>
+
+<p align="middle"><img src="/img/지도 위 경로.png" width="30%" /></p>
+<h1 align="middle">ㅇㅇ</h1>
+
+<p align="middle"><img src="/img/친구추천.png" width="30%" /></p>
+<h1 align="middle">ㅇㅇ</h1>
+
+<p align="middle"><img src="/img/워드클라우드.png" width="30%" /></p>
+<h1 align="middle">ㅇㅇ</h1>
+
+<p align="middle"><img src="/img/그래프.png" width="30%" /></p>
+<h1 align="middle">ㅇㅇ</h1>
+
+
+
+
