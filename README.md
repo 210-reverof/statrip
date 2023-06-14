@@ -23,7 +23,7 @@
 
 **Framework |** Vue.js
 
-**Library |** axios, bootstrap-vue, chart.js, vue-chartjs, vue-router, vue-scroll-snap, vue-wordcloud, vuedraggable, vuex
+**Library |** axios, vue-chartjs, vue-router, vuex etc
 
   
 </div>
