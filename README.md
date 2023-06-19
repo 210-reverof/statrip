@@ -1,6 +1,6 @@
 <p align="middle"><img src="/img/logo.png" width="30%" /></p>
 <h1 align="middle">statrip</h1>
-<h3 align="middle">🏅SSAFY 1학기 최종 프로젝트 최우수상 수상작</h3>h3>
+<h3 align="middle">🏅SSAFY 1학기 최종 프로젝트 최우수상 수상작</h3>
 
 ## 프로젝트 소개
  statrip은 관광지 OpenAPI를 활용한 여행자 추천 커뮤니티입니다. 본인의 팔로인 기반으로 경로를 추천하고, 본인의 여행경로 및 인증을 바탕으로 여행 통계를 제공합니다.
